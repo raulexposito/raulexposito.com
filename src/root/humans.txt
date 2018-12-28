@@ -1,0 +1,13 @@
+/* TEAM */
+	Owner:Raúl Expósito
+	Contact: https://raulexposito.com/contacto
+	From:Getafe, Madrid, Spain
+
+/* TEMPLATE */
+	https://github.com/BlackrockDigital/startbootstrap-clean-blog
+
+/* SITE */
+	Last update:2018/31/12
+	Language: Castillian (Spanish)
+	Doctype:HTML5
+	IDE: Sublime Text 3

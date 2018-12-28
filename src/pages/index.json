@@ -1,0 +1,12 @@
+{
+	"meta": {
+	    "author": "Raúl Expósito",
+	    "description": "Página Principal"
+	},
+	"title": "Raúl Expósito",
+	"header": {
+		"background": "bg-home.jpg",
+		"title": "Raúl Expósito",
+		"subtitle": "Los datos son las nuevas líneas de código"
+	}
+}

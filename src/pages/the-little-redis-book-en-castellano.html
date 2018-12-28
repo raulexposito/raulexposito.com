@@ -1,0 +1,906 @@
+<!--{{post-header}}-->
+
+<div class="alert alert-success" role="alert">
+    <i class="far fa-comment"></i>&nbsp;&nbsp;<span>Estás leyendo online la traducción al castellano que he hecho del libro <a href="http://openmymind.net/2012/1/23/The-Little-Redis-Book/" target="_blank" class="alert-link"><i>'The Little Redis Book'</i></a> de <a href="http://openmymind.net/" target="_blank" class="alert-link">Karl Seguin</a>.</span>
+</div>
+
+<div class="alert alert-warning" role="alert">
+    <em><i class="far fa-file-pdf"></i>&nbsp;&nbsp;<span>Puedes descargar el libro en PDF pulsando en <a href="/assets/pdf/redis.pdf" target="_blank" class="alert-link">este enlace</a>.</span></em>
+</div>
+
+<div class="alert alert-warning" role="alert">
+    <em><i class="far fa-file-alt"></i>&nbsp;&nbsp;<span>Puedes descargar el libro en formato epub pulsando en <a href="/assets/epub/redis.epub" target="_blank" class="alert-link">este enlace</a>.</span></em>
+</div>
+
+<hr class="m-5" />
+
+<h1>Sobre este libro</h1>
+
+<h2>Licencia</h2>
+
+<p>El Pequeño Libro de Redis (The Little Redis Book) posee una licencia Attribution-NonCommercial 3.0 Unported. No deberías haber pagado por este libro.</p>
+
+<p>Eres libre de copiar, distribuir, modificar o mostrar el libro. Sin embargo, te pido que siempre me atribuyas la autoría del libro a mí, Karl Seguin, y al traductor, Raúl Expósito, y que no lo utilices con fines comerciales.
+</p>
+
+<p>Puedes leer el <em>texto completo</em> de <strong>la licencia en</strong>:</p>
+
+<p><a target="_blank" href="http://creativecommons.org/licenses/by-nc/3.0/legalcode"><code>http://creativecommons.org/licenses/by-nc/3.0/legalcode</code></a>
+</p>
+
+<h2>Sobre El Autor</h2>
+
+<p>Karl Seguin es un desarrollador con experiencia en varias áreas y tecnologias. Es un contribuidor activo en proyectos Open Source, un escritor técnico y un orador ocasional. Ha escrito varios artículos, al igual que varias herramientas, sobre Redis. Redis posibilita tanto el ranking como las estadísticas de su servicio para desarrolladores ocasionales de videojuegos: <a target="_blank" href="http://mogade.com/">mogade.com</a>.
+</p>
+
+<p>Karl escribió <a target="_blank" href="http://openmymind.net/2011/3/28/The-Little-MongoDB-Book/">El Pequeño
+Libro de MongoDB</a>, el popular y gratuito libro sobre MongoDB.</p>
+
+<p>Puede encontrase su blog en <a target="_blank" href="http://openmymind.net"><code>http://openmymind.net</code></a> y twittea vía <a target="_blank" href="http://twitter.com/karlseguin">@karlseguin</a></p>
+
+<h2>Sobre El Traductor</h2>
+
+<p>Este libro ha sido traducido por Raúl Expósito. Puedes visitar su página web en <a target="_blank" href="https://raulexposito.com/">https://raulexposito.com/</a>
+</p>
+
+<h2>Agradecimientos</h2>
+
+<p>Quiero agradecerle especialmente a <a target="_blank" href="https://twitter.com/perryneal">Perry Neal</a> el haberme prestado su visión, su mentalidad y su pasión. Me brindaste una ayuda que no tiene precio. Gracias.
+</p>
+
+<h2>Última versión</h2>
+
+<p>La última versión del código fuente de este libro puede encontrarse en: <a target="_blank" href="http://github.com/raulexposito/the-little-redis-book"><code>http://github.com/raulexposito/the-little-redis-book</code></a>
+</p>
+
+<h1>Introducción</h1>
+
+<p>En el último par de años, las técnicas y herramientas utilizadas para el almacenamiento y consulta de datos han crecido a un ritmo increíble. Es seguro afirmar que las bases de datos relacionales ya no van a ir a ninguna parte, del mismo modo que es posible decir que el ecosistema generado en torno a los datos nunca volverá a ser el mismo.</p>
+
+<p>De todas las nuevas herramientas y soluciones, para mí, Redis ha sido la más emocionante. ¿Por qué?. El primer lugar porque es increíblemente fácil de aprender. La unidad correcta a emplear es horas cuando se habla de la cantidad de tiempo que se necesita hasta sentirse cómodo con Redis. En segundo lugar, porque soluciona un conjunto específico de problemas a la vez que se mantiene bastante genérico. ¿Qué significa esto exactamente? Redis no intenta hacer de todo con todo tipo de datos. A medida que vayas aprendiendo Redis, verás de un modo cada vez más evidente qué funciona y qué no funciona con él. Y lo que funciona, como desarrollador, genera una grata experiencia.</p>
+
+<p>Mientras que es posible construir un sistema completo utilizando únicamente Redis, creo que mucha gente lo considerará como un complemento a aquello que esté utilizando para almacenar datos de forma genérica - que puede ser una base de datos relacional tradicional, un sistema orientado a documentos, o cualquier otra cosa. Es el tipo de solución que se emplea para implementar características específicas. De este modo, es similar a un motor de indexado. No tratarías de construir tu aplicación completa con Lucene, pero cuando necesitas realizar buenas búsquedas, da una experiencia mucho más satisfactoria - tanto para tí como para tus usuarios. Por supuesto, las similitudes entre Redis y los motores de indexado terminan aquí.</p>
+
+<p>El objetivo de este libro es permitirte asentar las bases que necesitarás para ser un maestro de Redis. Nos centraremos en cinco estructuras de datos de Redis y veremos varias aproximaciones a modelos de datos. También veremos algunos asuntos administrativos y técnicas de depuración.</p>
+
+<h1>Comienzo</h1>
+
+<p>Todos tenemos un modo distinto de aprender: unos prefieren ensuciarse las manos, otros ver vídeos y a otros les gusta leer. Nada te ayudará mejor a entender Redis que experimentar con él. Redis es realmente sencillo de instalar y viene con una shell sencilla que nos dará todo lo que necesitemos. Vamos a emplear un par de minutos en tenerlo instalado y funcionando en nuestro equipo.</p>
+
+<h2>En Windows</h2>
+
+<p>Redis no da soporte oficial en Windows, pero existen opciones disponibles. Probablemente no quieras ejecutarlo en un entorno de producción, pero no he sufrido ninguna limitación mientras lo utilizaba para desarrollar.
+</p>
+
+<p>Puedes obtener una versión de Microsoft Open Technologies, Inc. en <a target="_blank" href="https://github.com/MSOpenTech/redis"><code>https://github.com/MSOpenTech/redis</code></a>. En el momento de escribir estas líneas esta opción no está preparada para un uso real en sistemas de producción.
+</p>
+
+<p>Otra solución, que ha estado disponible durante algún tiempo, puede obtenerse en <a target="_blank" href="https://github.com/dmajkic/redis/downloads"><code>https://github.com/dmajkic/redis/downloads</code></a>. Puedes descargar la versión más acutalizada (que debería estar en la parte superior de la lista). Descomprime el zip y, dependiendo de tu arquitectura, abre el directorio de <code>64bit</code> o
+    <code>32bit</code>.</p>
+
+<h2>En *nix y MacOSX</h2>
+
+<p>Para los usuario de *nix y Mac, la construcción desde el código fuente es la mejor opción. Las instrucciones, junto con la última versión, están disponibles en <a target="_blank" href="http://redis.io/download"><code>http://redis.io/download</code></a>. En el momento de escribir esto la última versión es la 2.6.2; para instalar esta versión debemos ejecutar:
+</p>
+
+<div class="highlight"><pre><span></span>wget http://redis.googlecode.com/files/redis-2.6.2.tar.gz
+tar xzf redis-2.6.2.tar.gz
+<span class="nb">cd</span> redis-2.6.2
+make
+</pre></div>
+
+<p>(De forma alternativa, Redis está disponible a través de varios gestores de paquetes. Por ejemplo, los usuarios de MacOSX que tengan Homebrew instalado pueden simplemente ejecutar el comando <code>brew install
+redis</code>.)</p>
+
+<p>Si lo construyes desde el código fuente, los ejecutables binarios se encontrarán en el directorio
+    <code>src</code>. Navega hacia el directorio <code>src</code> ejecutando <code>cd src</code>.</p>
+
+<h2>Ejecutando y Conectando con Redis</h2>
+
+<p>Si todo ha funcionado los binarios de Redis deberían estar a tu alcance. Redis tiene un puñado de ejecutables. Nos vamos a centrar en el servidor Redis y en la interfaz por línea de comandos de Redis (un cliente similar a MSDOS). Vamos a comenzar por el servidor. En Windows hay que hacer doble click en <code>redis-server</code>. En *nix/MacOSX ejecuta <code>./redis-server</code>.</p>
+
+<p>Si lees el mensaje de arranque verás una advertencia que indica que el fichero <code>redis.conf</code> no existe. Redis en su lugar empleará valores prefedinidos, lo cual irá bien para lo que vamos a hacer.</p>
+
+<p>El siguiente paso es ejecutar la consola de Redis, haciendo doble click sobre <code>redis-cli</code> (Windows) o ejecutando <code>./redis-cli</code> (*nix/MacOSX). Conectará con el servidor que se ejecuta en la misma máquina en el puerto por defecto (6379).</p>
+
+<p>Puedes probar que todo funciona correctamente escribiendo <code>info</code> en la interfaz por línea de comandos. Veremos un montón de pares clave-valor que indicarán cuál es el estado del servidor.</p>
+
+<p>Si tienes problemas con la configuración indicada anteriormente te sugiero que busques ayuda en el <a target="_blank" href="https://groups.google.com/forum/#!forum/redis-db">grupo oficial de soporte de
+Redis</a>.</p>
+
+<h1>Controladores para Redis</h1>
+
+<p>Como pronto aprenderás, la mejor manera de describir el API de Redis es como un conjunto explícito de funciones. Esto significa que cuando estás utilizando la línea de comandos, o un controlador para tu lenguaje favorito, las cosas se hacen de una manera muy similar. Por lo tanto, no deberías tener problemas si prefieres trabajar con Redis desde un lenguaje de programación. Si quieres, echa un vistazo a la <a target="_blank" href="http://redis.io/clients">página de clientes</a> y descarga el controlador adecuado.
+</p>
+
+<h1>Capítulo 1 - Los Fundamentos</h1>
+
+<p>¿Qué hace a Redis especial?, ¿Qué tipos de problemas soluciona?, ¿Qué deberían esperar los desarrolladores cuando lo utilizan?. Antes de poder responder a estas preguntas, necesitamos entender qué es Redis.</p>
+
+<p>Redis suele ser descrito como un almacén en memoria de conjuntos clave-valor. Yo no creo que ésta sea una descripción adecuada. Redis mantiene todos los datos en memoria (más sobre esto en breve), y los escribe en disco para persistirlos, pero es mucho más que un simple almacén de conjuntos clave-valor. Es importante ir un paso más allá de este concepto erróneo, porque sino tu perspectiva sobre Redis y los problemas que soluciona estarán demasiado acotados.</p>
+
+<p>La realidad es que Redis ofrece cinco estructuras diferentes de datos, una de las cuales es la típica estructura clave-valor. Entender estas cinco estructuras de datos, cómo trabajan, qué métodos exponen y qué puedes modelar con ellos es la clave para entender Redis. Sin embargo, primero vamos a ver qué son éstas estructuras de datos.</p>
+
+<p>Si estuviéramos aplicando este concepto de estructura de datos en el mundo de las bases de datos relacionales, podríamos decir que estas bases de datos ofrecen una única estructura de datos - tablas. Las tablas son tan complejas como flexibles. Sin embargo, esta naturaleza genérica no está libre de inconvenientes. En concreto, no todo es tan simple, o tan rápido, como debería ser. ¿Qué ocurriría si, en vez de tener una estructura que trate de encajar con todo, utilizamos estructuras más especializadas?. Puede que siga habiendo cosas que no podamos hacer (o, al menos, no podamos hacer bien) pero, seguramente ¿no podremos haber ganado en simplicidad y velocidad?</p>
+
+<p>¿Usar estructuras de datos específicas para resolver problemas específicos?, ¿no es así como programamos?. No utilizas una tabla hash para cada dato, al igual que tampoco usas una variable escalar. Para mí, esto es lo que define la aproximación de Redis. Si estás trabajando con escalares, listas, tablas hash o conjuntos, ¿por qué no almacenarlos en escalares, listas, tablas hash o conjuntos?, ¿por qué comprobar la existencia de un elemento tiene que ser más complicado que invocar <code>exists(key)</code> o más lento que O(1)? (búsqueda que no se ralentiza sin importar el número de elementos que haya).</p>
+
+<h1>Los Ladrillos</h1>
+
+<h2>Bases de datos</h2>
+
+<p>Redis tiene el mismo concepto de base de datos que aquel con el que estés familiarizado. Una base de datos contiene un conjunto de datos. El caso de uso típico de una base de datos es conservar todos los datos de una aplicación juntos y mantenerlos separados de los de otras aplicaciones.</p>
+
+<p>En Redis, las bases de datos están identificadas simplemente con un número, siendo la base de datos por defecto el número <code>0</code>. Si quieres cambiar a otra base de datos puedes hacerlo a través del comando <code>select</code>. En la interfaz por línea de comandos, escribe <code>select 1</code>. Redis debería responderte con un mensaje de <code>OK</code> y tu prompt debería cambiar por algo como <code>redis
+127.0.0.1:6379[1]&gt;</code>. Si quieres volver a la base de datos por defecto, sólo introduce <code>select
+0</code> en la interfaz por línea de comandos.</p>
+
+<h2>Comandos, Claves y Valores</h2>
+
+<p>Aunque Redis es más que simplemente un almacén de conjuntos clave-valor, en su núcleo, cada una de las cinco estructuras de datos de Redis tiene al menos una clave y un valor. Es indispensable que entendamos los conceptos de clave y valor antes de continuar con el resto de elementos de información.</p>
+
+<p>Las claves son lo que vamos a utilizar para identificar conjuntos de datos. Vamos a tratar mucho con claves, pero por ahora, es suficiente con saber que una clave tiene un aspecto similar a <code>users:leto</code>. Uno podría esperar razonablemente que una clave como esta contuviese información sobre un usuario llamado
+    <code>leto</code>. La coma no tiene ningún significado en especial, pero en lo relativo a Redis, es utilizado como un separador común para organizar las claves.</p>
+
+<p>Los valores representan los datos que se encuentran relacionados con la clave. Pueden ser cualquier cosa. A veces almacenarás cadenas de texto, a veces números enteros, a veces almacenarás objetos serializados (como JSON, XML, o cualquier otro formato). La mayor parte de las veces Redis tratará los valores como arrays de bytes y no se preocupará de su tipo. Hay que tener en cuenta que los distintos controladores gestionan la serialización de modos distintos (algunos te la dejarán a tí) de tal modo que en este libro sólo hablaremos de cadenas de texto, números enteros y objetos JSON.</p>
+
+<p>Vamos a mancharnos un poco las manos. Escribe el siguiente comando:</p>
+
+<div class="highlight"><pre><span></span><span class="n">set</span> <span class="n">users</span><span class="p">:</span><span class="n">leto</span> <span class="s2">&quot;</span><span class="s">{name: leto, planet: dune, likes: [spice]}&quot;</span>
+</pre></div>
+
+<p>Esta es la anatomía básica de un comando de Redis. En primer lugar tenemos el comando a utilizar, en este caso <code>set</code>. Después tenemos sus parámetros. El comando <code>set</code> recibe dos parámetros: la clave sobre la cual establecemos el valor y el valor que estamos estableciendo. Muchos comandos, aunque no todos, reciben una clave (y cuando lo hacen, es a menudo el primer parámetro). ¿Puedes adivinar cómo recuperar este valor?. Espero que hayas dicho (¡aunque no te preocupes si no estabas seguro!):</p>
+
+<div class="highlight"><pre><span></span><span class="n">get</span> <span class="n">users</span><span class="p">:</span><span class="n">leto</span>
+</pre></div>
+
+<p>Ve más allá y juega con otras combinaciones. Las claves y los valores son conceptos fundamentales, y los comandos <code>get</code> y <code>set</code> son el camino más sencillo para jugar con ellos. Crea más usuarios, prueba distintos tipos de claves y prueba distintos valores.</p>
+
+<h2>Consultas</h2>
+
+<p>A medida que vayamos avanzando, dos cosas tienen que ir quedando claras. En lo relativo a Redis, las claves lo son todo y los valores no son nada. O, dicho de otro modo, Redis no te permitirá consultar valores de un objeto. De este modo, no podremos buscar a los usuarios que viven en el planeta <code>dune</code>.</p>
+
+<p>Para muchos ésto puede ser motivo de preocupación. Vivimos en un mundo donde la consulta de datos es tan flexible y poderosa que la aproximación de Redis parece primitiva y poco práctica. No permitas que esto te transtorne demasiado. Recuerda que Redis no es una solución para todo. Habrá cosas que simplemente no encajen (debido a las limitaciones a la hora de realiazr consultas). Sin embargo, considera que en algunos casos encontrarás nuevas maneras de modelar tus datos.</p>
+
+<p>Veremos ejemplos más concretos a medida que avancemos, pero es importante que entendamos la realidad más básica de Redis. Esto nos ayudará a entender por qué los valores pueden no ser nada - Redis nunca necesita leerlos o entenderlos. Además, nos ayuda a preparar nuestras mentes a pensar cómo modelar en este nuevo mundo.
+</p>
+
+<h2>Memoria y Persistencia</h2>
+
+<p>Anteriormente mencionamos que Redis es un almacén de persistencia en memoria. Con respecto a la persistencia, Redis va creando fotos de la base de datos que almacena en disco en base a cuántas claves han cambiado. Es posible configurar este comportamiento de tal modo que si X claves han cambiado, entonces se almacene la base de datos cada Y segundos. Por defecto, Redis guarda la base de datos cada 60 segundos si han cambiado 1000 o más claves.</p>
+
+<p>De forma alternativa (o en conjunto con la captura de fotografías), Redis puede funcionar en modo diferencial. Cada vez que una clave cambia, se actualiza un fichero con únicamente el diferencial en disco. En algunos casos es aceptable perder 60 segundos de datos con el objetivo de obtener más rendimiento. En algunos casos esta pérdida no es aceptable. Redis te da la opción. En el capítulo 6 veremos una tercera opción, que consiste en descargar persistencia en un nodo esclavo.</p>
+
+<p>Con respecto a la memoria, Redis mantiene todos los datos en memoria, con lo que esto tiene una implicación obvia: la memoria RAM es a día de hoy la parte más cara del hardware del servidor.</p>
+
+<p>Siento que muchos desarrolladores han perdido la percepción de qué poco espacio ocupan los datos. La obra completa de William Shakespeare ocupa aproximadamente unos 5,5 MB. En términos de escalabilidad, otras soluciones tienen a marcar límites en lo relativo a la CPU o IO. La limitación que necesites (en RAM o IO) dependerá de qué estés almacenando y consultando. A menos que estés almacenando archivos multimedia en Redis, la memoria probablemente no será un problema. Para aplicaciones donde esto sea un problema seguramente necesites otras soluciones,</p>
+
+<p>Redis incluyó soporte para memoria virtual. Sin embargo, esta característica se ha considerado como un error (por los propios desarrolladores de Redis) y su uso ha sido descatalogado.</p>
+
+<p>(Como nota aparte, comentar que los 5,5 MB de la obra completa de Shakespeare puede ser comprimida a unos 2 MB. Redis no hará ninguna autocompresión pero, puesto que trata los valores como bytes, no hay motivo por el cual no puedas comprimir y descomprimir los datos tú mismo.)</p>
+
+<h2>Juntándolo Todo</h2>
+
+<p>Hemos visto unos cuantos elementos de alto nivel. Lo último que me gustaría hacer antes de bucear en Redis es ver estos elementos juntos. En concreto, las limitaciones en las consultas, las estructuras de datos y la manera que tiene Redis de almacenar la información en memoria.</p>
+
+<p>Cuando pones esas tres cosas juntas ver algo maravilloso: velocidad. Mucha gente piensa &quot;Claro que Redis es rápido, todo está en memoria&quot;. Pero eso es sólo una parte. El motivo principal que hace que Redis brille ante otras soluciones son sus estructuras de datos especializadas.</p>
+
+<p>¿Cómo de rápido? Depende de muchas cosas - de qué comandos estés utilizando, de los tipos de los datos, etc. Pero el rendimiento de Redis tiende a ser medido en decenas de miles, o cientos de miles de operaciones
+    <strong>por segundo</strong>. Puedes ejecutar <code>redis-benchmark</code> (el cual está en el mismo directorio que <code>redis-server</code> y <code>redis-cli</code>) para probarlo por tí mismo.</p>
+
+<p>Una vez migré un código que utilizaba un modelo tradicional a Redis. Una prueba de carga que escribí tardó 5 minutos en terminar utilizando el modelo relacional. Tardó unos 150ms en terminar en Redis. Nunca obtendrás este tipo de ganancia tan abultada pero espero que te dé una idea acerca de qué estamos hablando.</p>
+
+<p>Es importante entender este aspecto de Redis ya que tiene impacto en cómo interactuar con él. Los desarrolladores acostumbrados a SQL a menudo trabajan minimizando el número de operaciones que deben realizar con la base de datos. Este es un buen consejo para cualquier sistema, incluido Redis. Sin embargo, debido a que estamos trabajando con unas estructuras de datos muy sencillas, a menudo necesitaremos operar con el servidor de Redis varias veces para cumplir nuestro objetivo. Estos patrones de acceso a datos pueden parecer poco naturales al principio, pero tienen un coste insignificante comparado con el rendimiento que podemos ganar.</p>
+
+<h2>En Este Capítulo</h2>
+
+<p>A pesar de que apenas hemos llegado a jugar con Redis hemos cubierto un amplio abanico de temas. No te preocupes si algo no está del todo claro - como las consultas. En el siguiente capítulo vamos a ponernos en práctica y posiblemente las dudas se respondan solas.</p>
+
+<p>Lo más importante que nos llevamos de este capítulo es que:</p>
+<ul>
+    <li>
+        <p>Las claves son cadenas de texto que identifican bloques de datos (valores).</p>
+    </li>
+    <li>
+        <p>Los valores son bloques de bytes que Redis trata indiferentemente.</p>
+    </li>
+    <li>
+        <p>Redis expone (y, de hecho, está implementado como) cinco estructuras de datos especializadas.</p>
+    </li>
+    <li>
+        <p>Estas características combinadas hacen que Redis sea rápido y fácil de usar, aunque no es válido para todos los escenarios posibles.</p>
+    </li>
+</ul>
+<h1>Capítulo 2 - Las Estructuras de Datos</h1>
+
+<p>Es el momento de echar un vistazo a las cinco estructuras de datos de Redis. Vamos a explicar qué es cada estructura de datos, qué métodos están disponibles y para qué tipo de funcionalidad/datos lo puedes utilizar.
+</p>
+
+<p>Los únicos elementos que hemos visto hasta ahora son comandos, claves y valores. Hasta ahora, no hemos concretado nada acerca de las estructuras de datos. Cuando empleábamos el comando <code>set</code>, ¿Cómo sabía Redis qué tipo de datos debía utilizar? Cada comando es específico para cada estructura de datos. Por ejemplo, cuando utilizas el comando <code>set</code> estás almacenando el valor en una estructura de cadenas de texto. Cuando utilizas <code>hset</code> lo estás almacenando en una tabla hash. Dado el pequeño tamaño del vocabulario de Redis, es muy manejable.</p>
+
+<p><strong><a target="_blank" href="http://redis.io/commands">La web de Redis</a> tiene una magnífica
+documentación de referencia. No hay motivo por el cual repetir el trabajo que ellos ya han realizado.
+Nosotros sólo cubriremos los comandos más importantes para poder entender el propósito de la estructura de
+datos.</strong></p>
+
+<p>No hay nada más importante que divertirse y probar cosas. Siempre podrás dejar la base de datos en su estado original con el comando <code>flushdb</code>, ¡así que no seas tímido y haz locuras!</p>
+
+<h2>Cadenas de Texto</h2>
+
+<p>Las cadenas de texto son las estructuras de datos más básicas disponibles en Redis. Cuando piensas en un par clave-valor, estás pensando en cadenas de texto. Independientemente al nombre de la clave, el valor puede ser cualquier cosa. Yo prefiero llamarlos &quot;escalares&quot;, pero es simplemente una preferencia personal.
+</p>
+
+<p>Ya hemos visto un caso de uso común de empleo de cadenas de texto, almacenando instancias de objetos por clave. Esto es algo de lo que harás mucho uso:</p>
+
+<div class="highlight"><pre><span></span><span class="n">set</span> <span class="n">users</span><span class="p">:</span><span class="n">leto</span> <span class="s2">&quot;</span><span class="s">{name: leto, planet: dune, likes: [spice]}&quot;</span>
+</pre></div>
+
+<p>Adicionalmente, Redis te permite realizar algunas operaciones comunes. Por ejemplo, se puede utilizar <code>strlen
+&lt;key&gt;</code> para calcular la longitud del valor de la clave; <code>getrange &lt;key&gt; &lt;start&gt;
+&lt;end&gt;</code> devuelve la subcadena de texto en el rango indicado; <code>append &lt;key&gt; &lt;value&gt;</code> añade el valor al final del valor existente (o crea uno si no existe ninguno todavía). Vamos un paso más allá a probar esto. Esto es lo que obtendremos:</p>
+
+<div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="n">strlen</span> <span class="n">users</span><span class="p">:</span><span class="n">leto</span>
+<span class="p">(</span><span class="n">integer</span><span class="p">)</span> <span class="mi">42</span>
+
+<span class="o">&gt;</span> <span class="n">getrange</span> <span class="n">users</span><span class="p">:</span><span class="n">leto</span> <span class="mi">27</span> <span class="mi">40</span>
+<span class="s2">&quot;</span><span class="s">likes: [spice]&quot;</span>
+
+<span class="o">&gt;</span> <span class="n">append</span> <span class="n">users</span><span class="p">:</span><span class="n">leto</span> <span class="s2">&quot;</span><span class="s"> OVER 9000!!&quot;</span>
+<span class="p">(</span><span class="n">integer</span><span class="p">)</span> <span class="mi">54</span>
+</pre></div>
+
+<p>Ahora puede que estés pensando, esto es estupendo, pero no tiene sentido. No tiene sentido mirar en un rango específico de un objeto JSON o añadir un valor. Tienes razón, la lección trata de enseñar que algunos comandos, especialmente al tratar con cadenas de texto, sólo tienen sentido en tipos de datos específicos.
+</p>
+
+<p>Anteriormente aprendimos que Redis no tiene en cuenta los valores. La mayor parte del tiempo esto es cierto. Sin embargo, unos pocos comandos con cadenas de texto son específicos para algunos tipos o estructuras de valores. Por ejemplo, existen los comandos <code>incr</code>, <code>incrby</code>, <code>decr</code> y
+    <code>decrby</code>, los cuales incrementan o decrementan el valor de una cadena de texto:</p>
+
+<div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="n">incr</span> <span class="n">stats</span><span class="p">:</span><span class="n">page</span><span class="p">:</span><span class="n">about</span>
+<span class="p">(</span><span class="n">integer</span><span class="p">)</span> <span class="mi">1</span>
+<span class="o">&gt;</span> <span class="n">incr</span> <span class="n">stats</span><span class="p">:</span><span class="n">page</span><span class="p">:</span><span class="n">about</span>
+<span class="p">(</span><span class="n">integer</span><span class="p">)</span> <span class="mi">2</span>
+
+<span class="o">&gt;</span> <span class="n">incrby</span> <span class="n">ratings</span><span class="p">:</span><span class="n">video</span><span class="p">:</span><span class="mi">12333</span> <span class="mi">5</span>
+<span class="p">(</span><span class="n">integer</span><span class="p">)</span> <span class="mi">5</span>
+<span class="o">&gt;</span> <span class="n">incrby</span> <span class="n">ratings</span><span class="p">:</span><span class="n">video</span><span class="p">:</span><span class="mi">12333</span> <span class="mi">3</span>
+<span class="p">(</span><span class="n">integer</span><span class="p">)</span> <span class="mi">8</span>
+</pre></div>
+
+<p>Como puedes imaginar, las cadenas de texto de Redis son muy buenas para análisis. Prueba a incrementar <code>users:leto</code> (un valor no entero) y verás qué ocurre (deberías ver un error).</p>
+
+<p>Hay un ejemplo más avanzado con los comandos <code>setbit</code> y <code>getbit</code>. Hay una <a target="_blank" href="http://blog.getspool.com/2011/11/29/fast-easy-realtime-metrics-using-redis-bitmaps/">entrada
+maravillosa</a> de cómo Spool utiliza estos dos comandos para, de una forma efectiva, responder a la pregunta &quot;¿cuántos usuarios únicos tuvimos hoy?&quot;. Para 128 millones de usuarios, un portátil convencional devuelve la respuesta en menos de 50ms utilizando sólo 16MB de memoria.</p>
+
+<p>No es importante entender cómo funcionan los mapas de bits, o cómo Spool los utiliza, sino entender que las cadenas de texto de Redis son más potentes de lo que pueden parecer a simple vista. Una vez más, los casos de uso más comunes son los que comentamos anteriormente: el almacenamiento de objetos (sean complejos o no) y los contadores. Además, puesto que recuperar un valor a través de su clave es tan rápido, las cadenas de texto se emplean a menudo para cachear datos.</p>
+
+<h2>Hashes</h2>
+
+<p>Los hashes son un buen ejemplo de por qué no es acertado decir que Redis es un almacén clave-valor. Como posiblemente sepas, en cierta manera, los hashes son como las cadenas de texto. La diferencia más importante es que los hashes incluyen un nivel extra de indirección: un campo.</p>
+
+<p>En este caso, los equivalentes en hash de <code>set</code> y <code>get</code> son:</p>
+
+<div class="highlight"><pre><span></span><span class="n">hset</span> <span class="n">users</span><span class="p">:</span><span class="n">goku</span> <span class="n">powerlevel</span> <span class="mi">9000</span>
+<span class="n">hget</span> <span class="n">users</span><span class="p">:</span><span class="n">goku</span> <span class="n">powerlevel</span>
+</pre></div>
+
+<p>Podemos dar valor a varios campos a la vez, obtener varios campos a la vez, recuperar todos los campos y sus valores, mostrar todos los campos o borrar un campo específico.</p>
+
+<div class="highlight"><pre><span></span><span class="n">hmset</span> <span class="n">users</span><span class="p">:</span><span class="n">goku</span> <span class="n">race</span> <span class="n">saiyan</span> <span class="n">age</span> <span class="mi">737</span>
+<span class="n">hmget</span> <span class="n">users</span><span class="p">:</span><span class="n">goku</span> <span class="n">race</span> <span class="n">powerlevel</span>
+<span class="n">hgetall</span> <span class="n">users</span><span class="p">:</span><span class="n">goku</span>
+<span class="n">hkeys</span> <span class="n">users</span><span class="p">:</span><span class="n">goku</span>
+<span class="n">hdel</span> <span class="n">users</span><span class="p">:</span><span class="n">goku</span> <span class="n">age</span>
+</pre></div>
+
+<p>Como puedes ver, los hashes nos dan algo más de control de lo que nos daban las cadenas de texto. En lugar de almacenar un usuario como un valor serializado podemos almacenar un hash con una representación más acertada. El beneficio que se obtiene de ellos es el poder acceder y actualizar/borrar trozos concretos de datos sin tener que recuperar o escribir el valor entero.</p>
+
+<p>Mirando los hashes desde la perspectiva de objetos bien definidos, como usuario, es primordial entender cómo funcionan. Y es cierto que, por motivos de rendimiento, puede ser útil tener un control con un grano más fino. Sin embargo, en el próximo capítulo veremos cómo los datos pueden utilizarse para organizar los datos y lanzar consultas de un modo más práctico. En mi opinión, este es el escenario en el que los hashes realmente brillan.</p>
+
+<h2>Listas</h2>
+
+<p>Las listas permiten almacenar y manipular un conjunto de valores dada una clave concreta. Puedes añadir valores a la lista, recuperar el primer o el último valor y manipular valores de una posición concreta. Las listas mantienen un orden y son eficientes al realizar operaciones basadas en su índice. Podemos tener una lista llamada <code>newusers</code> en la que guardar los usuarios registrados más recientemente en nuestra web:
+</p>
+
+<div class="highlight"><pre><span></span><span class="n">lpush</span> <span class="n">newusers</span> <span class="n">goku</span>
+<span class="n">ltrim</span> <span class="n">newusers</span> <span class="mi">0</span> <span class="mi">49</span>
+</pre></div>
+
+<p>En primer lugar colocamos un nuevo usuario en el comienzo de la lista, y después la truncamos para que sólo contenga los últimos 50 usuarios. Este es un patrón común. <code>ltrim</code> es una operación con una complejidad O(N), donde N es el número de valores que estamos eliminando. En este caso, en el que estamos truncando tras insertar un único elemento, se obtiene un rendimiento constante de O(1) (porque N es siempre igual a 1).</p>
+
+<p>Esta es además la primera vez que vamos a ver el valor de una clave referenciando el valor de otra. Si queremos recuperar los detalles de los últimos 10 usuarios, podemos hacer la siguiente combinación:</p>
+
+<div class="highlight"><pre><span></span><span class="n">keys</span> <span class="o">=</span> <span class="n">redis</span><span class="p">.</span><span class="n">lrange</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">newusers&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="n">redis</span><span class="p">.</span><span class="n">mget</span><span class="p">(</span><span class="o">*</span><span class="n">keys</span><span class="p">.</span><span class="n">map</span> <span class="p">{</span><span class="err">|</span><span class="n">u</span><span class="err">|</span> <span class="s2">&quot;</span><span class="s">users:#{u}&quot;</span><span class="p">})</span>
+</pre></div>
+
+<p>Por supuesto, las listas no son buenas únicamente para almacenar referencias a otras claves. Los valores pueden ser cualquier cosa. Puedes usar listas para almacenar trazas de log o registrar el camino que está siguiendo un usuario a través de una aplicación. Si estás construyendo un juego puedes usarlo para registrar las acciones que realiza un usuario.</p>
+
+<h2>Conjuntos</h2>
+
+<p>Los conjuntos se emplean para almacenar valores únicos y facilitan un número de operaciones útiles para tratar con ellos, como las uniones. Los conjuntos no mantienen orden pero brindan operaciones eficientes basándose en los valores. Una lista de amigos es el ejemplo clásico de uso de un conjunto.</p>
+
+<div class="highlight"><pre><span></span><span class="n">sadd</span> <span class="n">friends</span><span class="p">:</span><span class="n">leto</span> <span class="n">ghanima</span> <span class="n">paul</span> <span class="n">chani</span> <span class="n">jessica</span>
+<span class="n">sadd</span> <span class="n">friends</span><span class="p">:</span><span class="n">duncan</span> <span class="n">paul</span> <span class="n">jessica</span> <span class="n">alia</span>
+</pre></div>
+
+<p>Independientemente de cuántos amigos tenga un usuario, podemos decir eficientemente (O(1)) cuándo un el usuarioX es amigo del usuarioY o no.</p>
+
+<div class="highlight"><pre><span></span><span class="n">sismember</span> <span class="n">friends</span><span class="p">:</span><span class="n">leto</span> <span class="n">jessica</span>
+<span class="n">sismember</span> <span class="n">friends</span><span class="p">:</span><span class="n">leto</span> <span class="n">vladimir</span>
+</pre></div>
+
+<p>Es más, podemos saber cuándo dos o más personas tienen los mismos amigos:</p>
+
+<div class="highlight"><pre><span></span><span class="n">sinter</span> <span class="n">friends</span><span class="p">:</span><span class="n">leto</span> <span class="n">friends</span><span class="p">:</span><span class="n">duncan</span>
+</pre></div>
+
+<p>E incluso almacenar el resultado en una nueva clave:</p>
+
+<div class="highlight"><pre><span></span><span class="n">sinterstore</span> <span class="n">friends</span><span class="p">:</span><span class="n">leto_duncan</span> <span class="n">friends</span><span class="p">:</span><span class="n">leto</span> <span class="n">friends</span><span class="p">:</span><span class="n">duncan</span>
+</pre></div>
+
+<p>Los conjuntos son muy buenos para etiquetar o registrar propiedades de un valor para los cuales los duplicados no tengan sentido (o para aquellos escenarios en los que queramos realizar operaciones como intersecciones o uniones).</p>
+
+<h2>Conjuntos Ordenados</h2>
+
+<p>La última y más poderosa estructura de datos son los conjuntos ordenados. Si los hashes son como las cadenas de texto pero con campos, entonces los conjuntos ordenados son como los conjuntos pero con una puntuación. La puntuación facilita la ordenación y la capacidad de establecer un ranking. Si queremos tener una lista de amigos con ranking, podemos hacer:</p>
+
+<div class="highlight"><pre><span></span><span class="n">zadd</span> <span class="n">friends</span><span class="p">:</span><span class="n">duncan</span> <span class="mi">70</span> <span class="n">ghanima</span> <span class="mi">95</span> <span class="n">paul</span> <span class="mi">95</span> <span class="n">chani</span> <span class="mi">75</span> <span class="n">jessica</span> <span class="mi">1</span> <span class="n">vladimir</span>
+</pre></div>
+
+<p>¿Cómo encontramos cuántos amigos tiene <code>duncan</code> con una puntuación de 90 o más?</p>
+
+<div class="highlight"><pre><span></span><span class="n">zcount</span> <span class="n">friends</span><span class="p">:</span><span class="n">duncan</span> <span class="mi">90</span> <span class="mi">100</span>
+</pre></div>
+
+<p>¿Cómo podemos saber cuál es el ranking de <code>chani</code>?</p>
+
+<div class="highlight"><pre><span></span><span class="n">zrevrank</span> <span class="n">friends</span><span class="p">:</span><span class="n">duncan</span> <span class="n">chani</span>
+</pre></div>
+
+<p>Utilizamos <code>zrevrank</code> en lugar de <code>zrank</code> porque la ordenación por defecto de Redis ordena de menor a mayor valor (pero, en este caso, queremos ordenar de mayor a menor valor). El caso de uso más obvio para los conjuntos ordenados son los sistemas de clasificación. En realidad, cualquier cosa que quieras ordenar en base a un valor entero, y que sea capaz de ser manipulable eficientemente en base a su puntuación, puede encajar bien en un conjunto ordenado.</p>
+
+<h2>En Este Capítulo</h2>
+
+<p>Hemos echado un vistazo general a las cinco estructuras de datos de Redis. Una de las mejores cosas de Redis es que puedes hacer más cosas de las que en un primer momento pensaste. Seguramente haya maneras de usar las cadenas de texto y los conjuntos que todavía no haya pensado nadie. A medida que vayas entendiendo los casos de uso habituales encontrarás a Redis perfecto para todo tipo de problemas. Además, aunque Redis exponga cinco estructuras de datos y varios métodos, no creas que vas a necesitar utilizar todos ellos. No es raro construir una nueva funcionalidad que utilice únicamente unos pocos comandos.</p>
+
+<h1>Capítulo 3 - Aprovechando las Estructuras de Datos</h1>
+
+<p>En el capítulo anterior hablamos acerca de las cinco estructuras de datos y dimos algunos ejemplos de los problemas que podian resolver. Es el momento de ver algo un poco más avanzado, aunque común, como son algunos tópicos y los patrones de diseño.</p>
+
+<h2>Cota Superior Asintótica</h2>
+
+<p>A lo largo de este libro hemos hecho referencias a la cota superior asintótica usando la sintaxis O(n) u O(1). La cota superior asintótica se utiliza para explicar cómo se comporta algo dado un cierto número de elementos. En Redis, se utiliza para decirnos cómo de rápido es un comando o el número de elementos con los que vamos a tratar.</p>
+
+<p>La documentación de Redis indica la cota superior asintótica para cada uno de sus comandos. Esto nos indica qué factores influyen en el rendimiento. Vamos a ver algunos ejemplos.</p>
+
+<p>Lo más rápido que se puede ser es O(1), que es una constante. Independientemente de estemos tratando con 5 elementos o con 5 millones, obtendrás el mismo rendimiento. El comando <code>sismember</code>, que nos indica si un valor pertenece a un conjunto, es O(1). <code>sismember</code> es un comando potente, y sus características en lo relativo al rendimiento son un buen motivo de ello. Varios comandos de Redis son O(1).
+</p>
+
+<p>La función logarítmica, u O(log(N)), es el siguiente caso más rápido porque necesita buscar a través de particiones cada vez más pequeñas. Usando este tipo y una aproximación del tipo divide y vencerás, un número muy grande de items se descomponen en unas pocas iteraciones. <code>zadd</code> es un comando O(log(N)) donde N es el número de elementos que ya existen en el conjunto.</p>
+
+<p>Aparte existen comandos lineares, u O(n). Buscar dentro una columna sin indexación en una tabla es una operación O(N). Esto es lo que ocurre con el comando <code>ltrim</code>. Sin embargo, en el caso de <code>ltrim</code>, N no es el número de elementos en la lista, sino el número de elementos que van a ser eliminados. Emplear
+    <code>ltrim</code> para eliminar un item de una lista de millones será más rápido que usar
+    <code>ltrim</code> para eliminar 10 items de una lista de cientos. (O eso creo, ya que probablemente ambas operaciones serán tan rápidas que no seremos capaces de cronometrarlas).</p>
+
+<p><code>zremrangebyscore</code>, que elimina elementos de un conjunto ordenado con una puntuación que se encuentre dentro de unos valores máximo y mínimo, tiene una complejidad de O(log(N)+M). Es una especie de mezcla. Leyendo la documentación se puede observar que N es el número total de elementos en el conjunto y M es el número de elementos que van a ser eliminados. En otras palabras, el número de elementos que no van a ser eliminados es más relevante, en términos de rendimiento, que el número total de elementos del conjunto.
+</p>
+
+<p>El comando <code>sort</code>, del cual hablaremos en más detalle en el próximo capítulo, tiene una complejidad de O(N+M*log(M)). Probablemente sea uno de los comandos más complejos de Redis debido a sus características de rendimiento.</p>
+
+<p>Hay, además otras complejidades. Dos más comunes que podríamos mencionar son O(N^2) y O(C^N). Cuando más largo sea N, peor será su rendimiento con respecto a una N más pequeña. Ninguno de los comandos de Redis tiene este tipo de complejidad.</p>
+
+<p>Merece la pena señalar que la cota superior asintótica se refiere siempre al peor caso. Cuando decimos que algo tiene O(N), en realidad decimos que podría encontrar el dato de inmediato o encontrarlo en el último elemento posible.</p>
+
+<h2>Pseudo Consultas Multi Clave</h2>
+
+<p>Una situación con la que tropezarás a menudo será la de tratar de recuperar el mismo valor usando claves diferentes. Por ejemplo, puede que quieras recuperar un usuario en base a su email (para el caso del login) y también por id (una vez se haya logado). Una solución terrible es duplicar el usuario usando dos valores de cadena de texto:</p>
+
+<div class="highlight"><pre><span></span><span class="n">set</span> <span class="n">users</span><span class="p">:</span><span class="n">leto</span><span class="err">@</span><span class="n">dune</span><span class="p">.</span><span class="n">gov</span> <span class="s2">&quot;</span><span class="s">{id: 9001, email: &#39;leto@dune.gov&#39;, ...}&quot;</span>
+<span class="n">set</span> <span class="n">users</span><span class="p">:</span><span class="mi">9001</span> <span class="s2">&quot;</span><span class="s">{id: 9001, email: &#39;leto@dune.gov&#39;, ...}&quot;</span>
+</pre></div>
+
+<p>Esto es malo porque es una pesadilla de gestionar y utiliza el doble de memoria.</p>
+
+<p>Sería bastante interesante que Redis dejara enlazar una clave con otra, pero no lo hace (y, seguramente, nunca lo hará). Una de las reglas más importantes en el desarrollo de Redis es mantener tanto el código como el API limpios y simples. La implementación interna que supone enlazar claves (hay un montón de cosas que se pueden hacer con claves de las cuales no hemos hablado todavía) no vale la pena cuando Redis ya incluye una solución: los hashes.</p>
+
+<p>Gracias a los hashes podemos suprimir la necesidad de tener duplicados</p>
+
+<div class="highlight"><pre><span></span><span class="n">set</span> <span class="n">users</span><span class="p">:</span><span class="mi">9001</span> <span class="s2">&quot;</span><span class="s">{id: 9001, email: leto@dune.gov, ...}&quot;</span>
+<span class="n">hset</span> <span class="n">users</span><span class="p">:</span><span class="n">lookup</span><span class="p">:</span><span class="n">email</span> <span class="n">leto</span><span class="err">@</span><span class="n">dune</span><span class="p">.</span><span class="n">gov</span> <span class="mi">9001</span>
+</pre></div>
+
+<p>Lo que estamos haciendo es utilizar el campo como un pseudo índice secundario y referenciar al objeto usuario. Para recuperar un usuario por id podemos emplear un <code>get</code> normal:</p>
+
+<div class="highlight"><pre><span></span><span class="n">get</span> <span class="n">users</span><span class="p">:</span><span class="mi">9001</span>
+</pre></div>
+
+<p>Para recuperar a un usuario por email, podemos utilizar un <code>hget</code> seguido por un <code>get</code> (en Ruby):</p>
+
+<div class="highlight"><pre><span></span><span class="n">id</span> <span class="o">=</span> <span class="n">redis</span><span class="p">.</span><span class="n">hget</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">users:lookup:email&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="s">leto@dune.gov&#39;</span><span class="p">)</span>
+<span class="n">user</span> <span class="o">=</span> <span class="n">redis</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;</span><span class="s">users:#{id}&quot;</span><span class="p">)</span>
+</pre></div>
+
+<p>Esto es algo que seguramente acabes haciendo a menudo. Para mí, este es el escenario en el cual los hashes son realmente brillantes, pero no se convierte en un caso de uso obvio hasta que no lo utilizas.</p>
+
+<h2>Referencias e Índices</h2>
+
+<p>Hemos visto un par de ejemplos donde un valor referencia a otro. Lo vimos cuando hicimos nuestro ejemplo de la lista, y lo vimos también en la sección en la que empleabamos hashes para hacer las consultas un poco más sencillas. Lo que viene ahora es cómo gestionar de forma manual tus índices y referencias entre valores. Siendo sincero, creo que podemos decir que es un poco decepcionante, especialmente cuando tienes que tener en cuelta que debes gestionar, actualizar y borrar estas referencias de forma manual. No hay una solución mágica que resuelva este problema en Redis.</p>
+
+<p>Ya hemos visto cómo los conjuntos son utilizados a menudo para implementar este tipo de índice manual:</p>
+
+<div class="highlight"><pre><span></span><span class="n">sadd</span> <span class="n">friends</span><span class="p">:</span><span class="n">leto</span> <span class="n">ghanima</span> <span class="n">paul</span> <span class="n">chani</span> <span class="n">jessica</span>
+</pre></div>
+
+<p>Cada miembro de este conjunto es una referencia a una cadena de texto de Redis que contiene los detalles del usuario actual. ¿Qué ocurre si <code>chani</code> cambia de nombre, o borra su cuenta?. Quizá tendría sentido tener en cuenta también las relaciones inversas:</p>
+
+<div class="highlight"><pre><span></span><span class="n">sadd</span> <span class="n">friends_of</span><span class="p">:</span><span class="n">chani</span> <span class="n">leto</span> <span class="n">paul</span>
+</pre></div>
+
+<p>Costes de mantenimiento aparte, si eres como yo, puede que te estremezcas pensando en el coste extra de procesamiento y memoria que supone tener estos índices extra. En la siguiente sección hablaremos de formas de reducir los costes de rendimiento dando unos rodeos extra (hablamos brevemente acerca de esto en el primer capítulo).</p>
+
+<p>Si piensas en ello, las bases de datos relacionales tienen la misma sobrecarga. Los índices consumen memoria, tienen que ser recorridos constantemente para que los registros estén en su lugar. Esta sobrecarga está pulcramente localizada (y, de hecho, se hacen muchas optimizaciones para conseguir que su procesamiento se haga de un modo lo más eficiente posible).</p>
+
+<p>De nuevo, tener que tratar manualmente con la referencias en Redis es funesto. Pero con los conceptos que ya posees sobre el rendimiento o el uso de la memoria creo que lo percibirás como algo importante.</p>
+
+<h2>Rodeos Extra y Tuberías</h2>
+
+<p>Ya hemos comentado que hacer peticiones frecuentemente al servidor es un patrón común de Redis. Dado que es algo que vas a hacer a menudo, es importante echarle un vistazo a qué funcionalidades pueden ayudarte a conseguir el mejor resultado.</p>
+
+<p>Para empezar, muchos comandos aceptan uno o más conjuntos de parámetros o, incluso, aceptan varios parámetros. Anteriormente vimos el comando <code>mget</code>, que recibe varias claves y devuelve los valores:
+</p>
+
+<div class="highlight"><pre><span></span><span class="n">keys</span> <span class="o">=</span> <span class="n">redis</span><span class="p">.</span><span class="n">lrange</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">newusers&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="n">redis</span><span class="p">.</span><span class="n">mget</span><span class="p">(</span><span class="o">*</span><span class="n">keys</span><span class="p">.</span><span class="n">map</span> <span class="p">{</span><span class="err">|</span><span class="n">u</span><span class="err">|</span> <span class="s2">&quot;</span><span class="s">users:#{u}&quot;</span><span class="p">})</span>
+</pre></div>
+
+<p>O el comando <code>sadd</code>, el cual añade uno o más miembros a un conjunto:</p>
+
+<div class="highlight"><pre><span></span><span class="n">sadd</span> <span class="n">friends</span><span class="p">:</span><span class="n">vladimir</span> <span class="n">piter</span>
+<span class="n">sadd</span> <span class="n">friends</span><span class="p">:</span><span class="n">paul</span> <span class="n">jessica</span> <span class="n">leto</span> <span class="s2">&quot;</span><span class="s">leto II&quot;</span> <span class="n">chani</span>
+</pre></div>
+
+<p>Redis, además, permite el uso de tuberías. Por lo general, cuando un cliente envía una petición a Redis espera la respuesta antes de enviar la siguiente petición. Al usar tuberías puedes enviar varias peticiones sin esperar por sus respuestas. Esto reduce la carga de la red y puede dar, como resultado, una ganancia en rendimiento importante.</p>
+
+<p>Es importante tener en cuenta que Redis utilizará la memoria para encolar comandos, así que es buena idea hacer lotes con ellos. El cómo de grande será el lote dependerá de qué comandos estés usando y, más específicamente, de cómo de largos sean los parámetros. Si estás ejecutando comandos de unos 50 caracteres seguramente podrás hacer lotes de miles o decenas de miles de ellos.</p>
+
+<p>En concreto, el cómo ejecutes comandos a través de una tubería variará entre drivers. En Ruby debes pasarle un bloque al método <code>pipelined</code>:</p>
+
+<div class="highlight"><pre><span></span><span class="n">redis</span><span class="p">.</span><span class="n">pipelined</span> <span class="k">do</span>
+&nbsp;&nbsp;<span class="mf">9001.</span><span class="n">times</span> <span class="k">do</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="n">redis</span><span class="p">.</span><span class="n">incr</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">powerlevel&#39;</span><span class="p">)</span>
+&nbsp;&nbsp;<span class="k">end</span>
+<span class="k">end</span>
+</pre></div>
+
+<p>¡Como puedes imaginar, las tuberías pueden acelerar la carga de un lote!</p>
+
+<h2>Transacciones</h2>
+
+<p>Cada comando de Redis es atómico, incluyendo los que hacen varias cosas. Además, Redis tiene soporte para transacciones aún cuando utilices varios comandos.</p>
+
+<p>Puede que no lo sepas, pero Redis en la actualidad se ejecuta en un único hilo de ejecución, lo que garantiza que cada comando sea atómico. Cuando se está ejecutando un comando, ningún otro puede ejecutarse a la vez (hablaremos brevemente sobre escalabilidad en un capítulo posterior). Esto es particualmente útil cuando consideres que algunos comandos hacen varias cosas. Por ejemplo:</p>
+
+<p><code>incr</code> es básicamente un <code>get</code> seguido de un <code>set</code>.</p>
+
+<p><code>getset</code> establece un nuevo valor y devuelve el original.</p>
+
+<p><code>setnx</code> primero comprueba que la clave exista, y sólo le pone un valor si no existe.</p>
+
+<p>Aunque estos comandos son útiles, inevitablemente necesitarás ejecutar varios comandos en un grupo que se ejecute de forma atómica. Puedes conseguirlo incluyendo antes el comando <code>multi</code>, seguido de todos los comandos que quieras ejecutar dentro de la misma transacción. Finalmente usarás el comando <code>exec</code> para ejecutar los comandos o <code>discard</code> para ignorarlos. ¿Qué garantiza Redis con respecto a la transaccionalidad?
+</p>
+<ul>
+    <li>
+        <p>Los comandos se ejecutarán en orden.</p>
+    </li>
+    <li>
+        <p>Los comandos se ejecutarán como una operación atómica única (sin que los comandos de otro cliente se puedan ejecutar entremedias).</p>
+    </li>
+    <li>
+        <p>Que los comandos de la transacción se ejecutarán o todos o ninguno.</p>
+    </li>
+</ul>
+<p>Puedes, y deberías, probar esto en la interfaz por línea de comandos. Observa que no hay razón por la cual no puedas combinar el uso de tuberías y transacciones.</p>
+
+<div class="highlight"><pre><span></span><span class="n">multi</span>
+<span class="n">hincrby</span> <span class="n">groups</span><span class="p">:</span><span class="mi">1</span><span class="n">percent</span> <span class="n">balance</span> <span class="o">-</span><span class="mi">9000000000</span>
+<span class="n">hincrby</span> <span class="n">groups</span><span class="p">:</span><span class="mi">99</span><span class="n">percent</span> <span class="n">balance</span> <span class="mi">9000000000</span>
+<span class="n">exec</span>
+</pre></div>
+
+<p>Finalmente, Redis te permite especificar una clave (o claves) que vigilar y lanzar una transaccion si la clave ha cambiado. Esto se utiliza cuando necesitas recuperar valores y ejecutar código basado en esos valores, todo dentro de una misma transacción. Con el código anterior, no seríamos capaces de implementar nuestro propio comando <code>incr</code> ya que todos los comandos son ejecutados juntos cuando se invoca a
+    <code>exec</code>. Programáticamente, no podemos hacer:</p>
+
+<div class="highlight"><pre><span></span><span class="n">redis</span><span class="p">.</span><span class="n">multi</span><span class="p">()</span>
+<span class="n">current</span> <span class="o">=</span> <span class="n">redis</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">powerlevel&#39;</span><span class="p">)</span>
+<span class="n">redis</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">powerlevel&#39;</span><span class="p">,</span> <span class="n">current</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">redis</span><span class="p">.</span><span class="n">exec</span><span class="p">()</span>
+</pre></div>
+
+<p>Esta no es la manera de trabajar de las transacciones de Redis. Pero, si añadimos <code>watch</code> a <code>powerlevel</code>, podemos hacer:</p>
+
+<div class="highlight"><pre><span></span><span class="n">redis</span><span class="p">.</span><span class="n">watch</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">powerlevel&#39;</span><span class="p">)</span>
+<span class="n">current</span> <span class="o">=</span> <span class="n">redis</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">powerlevel&#39;</span><span class="p">)</span>
+<span class="n">redis</span><span class="p">.</span><span class="n">multi</span><span class="p">()</span>
+<span class="n">redis</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">powerlevel&#39;</span><span class="p">,</span> <span class="n">current</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">redis</span><span class="p">.</span><span class="n">exec</span><span class="p">()</span>
+</pre></div>
+
+<p>Si otro cliente cambiase el valor de <code>powerlevel</code> tras haber invocado nosotros a
+    <code>watch</code> sobre ella, nuestra transacción fallaría. Si ningún cliente cambia el valor, el conjunto funcionará. Podemos ejecutar este código en un bucle hasta que funcione.</p>
+
+<h2>Claves y Antipatrones</h2>
+
+<p>En el siguiente capítulo vamos a hablar de comandos que no están específicamente relacionados con las estructuras de datos. Algunos de ellos son herramientas de depuración o de administración. Pero hay una en particular de la que quiero hablar: el comando <code>keys</code>. Este comando recibe un patrón y busca todas las claves coincidentes con él. El uso de este comando encaja en algunas tareas, pero nunca debe ser utilizado en entornos de producción. ¿Por qué? Porque hace un escaneo lineal a través de todas las claves para ver si coinciden. O, simplemente, porque es lento.</p>
+
+<p>¿Cómo lo utiliza la gente?. Imagina que estás construyendo un servicio de seguimiento de incidencias. Cada cuenta tiene un <code>id</code> y decides almacenar cada incidencia en una cadena de texto con una clave como la siguiente: <code>indicencia:id-cuenta:id-incidencia</code>. Si alguna vez necesitas buscar todas las incidencias de una cuenta (para mostrarlas, o para borrarlas si quieren borrar su cuenta), puedes estar tentado (¡y yo lo estuve!) de usar el comando <code>keys</code>:</p>
+
+<div class="highlight"><pre><span></span><span class="n">keys</span> <span class="n">indicencia</span><span class="p">:</span><span class="mi">1233</span><span class="p">:</span><span class="o">*</span>
+</pre></div>
+
+<p>La mejor solución es utilizar un hash. Desde que podemos usar hashes para poder disponer de indices secundarios podemos usarlos también para organizar nuestros datos:</p>
+
+<div class="highlight"><pre><span></span><span class="n">hset</span> <span class="n">indicencia</span><span class="p">:</span><span class="mi">1233</span> <span class="mi">1</span> <span class="s2">&quot;</span><span class="s">{id:1, cuenta: 1233, asunto: &#39;...&#39;}&quot;</span>
+<span class="n">hset</span> <span class="n">indicencia</span><span class="p">:</span><span class="mi">1233</span> <span class="mi">2</span> <span class="s2">&quot;</span><span class="s">{id:2, cuenta: 1233, asunto: &#39;...&#39;}&quot;</span>
+</pre></div>
+
+<p>Para recuperar todos los identificadores de las incidencias de una cuenta simplemente podemos invocar <code>hkeys
+indicencia:1233</code>. Para borrar una incidencia específica podemos hacer <code>hdel indicencia:1233
+2</code> y para borrar una cuenta podemos utilizar <code>del indicencia:1233</code>.</p>
+
+<h2>En Este Capítulo</h2>
+
+<p>Este capítulo, combinado con el anterior, nos ha permitido ver cómo podemos utilizar las poderosas características de Redis. Hay una cantidad de patrones que puedes utilizar para construir todo tipo de cosas, pero la clave real es entender las estructuras de datos fundamenteles y tener la percepción de cómo pueden usarse para alcanzar hitos que se encontraban tras nuestra perspectiva inicial.</p>
+
+<h1>Capítulo 4 - Más allá de las Estructuras de Datos</h1>
+
+<p>Mientras que las cinco estructuras de datos están en lo más profundo de Redis, hay otros comandos que no son específicos de ninguna estructura de datos. Ya hemos visto un conjunto útil de ellas: <code>info</code>,
+    <code>select</code>, <code>flushdb</code>, <code>multi</code>, <code>exec</code>, <code>discard</code>,
+    <code>watch</code> y <code>keys</code>. En este capítulo veremos otras igualmente importantes.</p>
+
+<h2>Caducidad</h2>
+
+<p>Redis permite incluir caducidad a una clave. Puedes darle una fecha absoluta indicando el tiempo absoluto (segundos desde el 1 de enero de 1970) o especificar un tiempo de vida en segundos. Este comando se basa únicamente en la clave, con lo que no importa el tipo de datos que represente.</p>
+
+<div class="highlight"><pre><span></span><span class="n">expire</span> <span class="n">pages</span><span class="p">:</span><span class="n">about</span> <span class="mi">30</span>
+<span class="n">expireat</span> <span class="n">pages</span><span class="p">:</span><span class="n">about</span> <span class="mi">1356933600</span>
+</pre></div>
+
+<p>El primer comando borrará la clave (y el valor asociado) tras 30 segundos. El segundo hará lo mismo el 31 de diciembre de 2012 a las 12:00 a.m.</p>
+
+<p>Esto permite a Redis ser un motor de caché ideal. Puedes saber cuánto tiempo va a vivir un dato a través del comando <code>ttl</code> y puedes eliminar su caducidad a través del comando <code>persist</code>:</p>
+
+<div class="highlight"><pre><span></span><span class="n">ttl</span> <span class="n">pages</span><span class="p">:</span><span class="n">about</span>
+<span class="n">persist</span> <span class="n">pages</span><span class="p">:</span><span class="n">about</span>
+</pre></div>
+
+<p>Finalmente hay un comando especial para cadenas de texto, <code>setex</code>, que permite definir una cadena de texto e indicar el tiempo que va a vivir en un comando atómico (esto es más por conveniencia que por otra cosa):
+</p>
+
+<div class="highlight"><pre><span></span><span class="n">setex</span> <span class="n">pages</span><span class="p">:</span><span class="n">about</span> <span class="mi">30</span> <span class="s1">&#39;</span><span class="s">&lt;h2&gt;about us&lt;/h2&gt;....&#39;</span>
+</pre></div>
+
+<h2>Publicación y Subscripciones</h2>
+
+<p>Las listas de Redis tienen un comando <code>blpop</code> y <code>brpop</code> que devuelve y elimina el primer (o último) elemento de la lista o se bloquea hasta que haya uno disponible. Es posible usarlo para mejorar una consulta simple.</p>
+
+<p>Tras esto, Redis tiene soporte de primer nivel para publicar mensajes y subscribirse a canales. Puedes intentar esto abriendo una segunda ventana de <code>redis-cli</code>. En la primera ventana nos subscribimos a un canal (al que llamaremos <code>warnings</code>):</p>
+
+<div class="highlight"><pre><span></span><span class="n">subscribe</span> <span class="n">warnings</span>
+</pre></div>
+
+<p>La respuesta es la información de tu subscripción. Ahora, en la otra ventana, publica un mensaje en el canal
+    <code>warnings</code>:</p>
+
+<div class="highlight"><pre><span></span><span class="n">publish</span> <span class="n">warnings</span> <span class="s2">&quot;</span><span class="s">it&#39;s over 9000!&quot;</span>
+</pre></div>
+
+<p>Si vuelves a mirar en la primera ventana deberías haber recibido el mensaje en el canal <code>warnings</code>.
+</p>
+
+<p>Puedes subscribirte a varios canales (<code>subscribe channel1 channel2 ...</code>), subscribirte a un patrón de canales (<code>psubscribe warnings:*</code>) y usar los comandos <code>unsubscribe</code> y <code>punsubscribe</code> para dejar de escuchar uno o más canales, o un patrón de canales.</p>
+
+<p>Para terminar, observa que el comando <code>publish</code> devuelve el valor 1. Esto indica el número de mensajes que reciben el mensaje.</p>
+
+<h2>Monitororización y Logs</h2>
+
+<p>El comando <code>monitor</code> te permite conocer el estado de Redis. Es una herramienta de depuración que te permite ver al detalle cómo está interactuando tu aplicación con Redis. En una de tus dos ventanas con redis-cli (si una de ellas todavía está subscrita, puedes o usar el comando <code>unsubscribe</code> o cerrar la ventana y abrir una nueva) invoca al comando <code>monitor</code>. En la otra, ejecuta cualquier tipo de comando (como un <code>get</code> o un <code>set</code>). Deberías ver estos comandos, junto con sus parámetros, en la primera ventana.</p>
+
+<p>Deberias ser cuidadoso antes de ejecutar el monitor en producción, ya que realmente es una herramienta pensada para depuración y desarrollo. Aparte de esto, no hay mucho más que decir. Simplemente es una herramienta realmente útil.</p>
+
+<p>Además de <code>monitor</code>, Redis tiene <code>showlog</code> que actúa como una gran herramienta de profiling. Registra cualquier comando que tarde más de un número indicado de <strong>micro</strong>segundos. En la siguiente sección cubriremos brevemente cómo configurar Redis, de momento puedes configurar que Redis registre todos los comandos introduciendo:</p>
+
+<div class="highlight"><pre><span></span><span class="n">config</span> <span class="n">set</span> <span class="n">slowlog</span><span class="o">-</span><span class="n">log</span><span class="o">-</span><span class="n">slower</span><span class="o">-</span><span class="n">than</span> <span class="mi">0</span>
+</pre></div>
+
+<p>Después introduce unos pocos comandos. Podrás recuperar todos los registros, o los más recientes, usando:</p>
+
+<div class="highlight"><pre><span></span><span class="n">slowlog</span> <span class="n">get</span>
+<span class="n">slowlog</span> <span class="n">get</span> <span class="mi">10</span>
+</pre></div>
+
+<p>Puedes además recuperar el número de elementos que tienes en el log con el comando <code>slowlog len</code>
+</p>
+
+<p>Por cada comando que introduzcas verás cuatro parámetros:</p>
+<ul>
+    <li>
+        <p>Un identificador autoincremental.</p>
+    </li>
+    <li>
+        <p>Una marca de tiempo de Unix que indica cuándo se lanzó el comando.</p>
+    </li>
+    <li>
+        <p>El tiempo, en microsegundos, que llevó ejecutar el comando.</p>
+    </li>
+    <li>
+        <p>El comando en sí mismo y sus parámetros.</p>
+    </li>
+</ul>
+<p>Este log se mantiene en memoria, así que ejecutarlo en producción, aún con una carga baja, no debería ser un problema. Por defecto almacena los últimos 1024 registros.</p>
+
+<h2>Ordenación</h2>
+
+<p>Uno de los comandos más potentes de Redis es <code>sort</code>. Permite ordenar los valores en una lista, un conjunto o un conjunto ordenado (los conjuntos ordenados están ordenados por puntuación, no los miembros que están dentro del conjunto). De esta forma tan sencilla, nos permiten hacer:</p>
+
+<div class="highlight"><pre><span></span><span class="n">rpush</span> <span class="n">users</span><span class="p">:</span><span class="n">leto</span><span class="p">:</span><span class="n">guesses</span> <span class="mi">5</span> <span class="mi">9</span> <span class="mi">10</span> <span class="mi">2</span> <span class="mi">4</span> <span class="mi">10</span> <span class="mi">19</span> <span class="mi">2</span>
+<span class="n">sort</span> <span class="n">users</span><span class="p">:</span><span class="n">leto</span><span class="p">:</span><span class="n">guesses</span>
+</pre></div>
+
+<p>Lo cual devolverá los valores ordenados del más bajo al más alto. Aquí hay un ejemplo más avanzado:</p>
+
+<div class="highlight"><pre><span></span><span class="n">sadd</span> <span class="n">friends</span><span class="p">:</span><span class="n">ghanima</span> <span class="n">leto</span> <span class="n">paul</span> <span class="n">chani</span> <span class="n">jessica</span> <span class="n">alia</span> <span class="n">duncan</span>
+<span class="n">sort</span> <span class="n">friends</span><span class="p">:</span><span class="n">ghanima</span> <span class="n">limit</span> <span class="mi">0</span> <span class="mi">3</span> <span class="n">desc</span> <span class="n">alpha</span>
+</pre></div>
+
+<p>El comando anterior nos muestra cómo paginar los registros ordenados (a través de <code>limit</code>), cómo devolver los resultados en orden descendente (a través de <code>desc</code>) y cómo ordenarlos lexicográficamente en vez de numéricamente (a través de <code>alpha</code>).</p>
+
+<p>El poder real de <code>sort</code> reside en su habilidad de ordenar basándose en un objeto tomado como referencia. Anteriormente mostramos cómo listas, conjuntos y conjuntos ordenados son utilizados a menudo para referenciar otros objetos de Redis. El comando <code>sort</code> puede dereferenciar esas relaciones y ordenar en base a un valor subyacente. Por ejemplo, imagina que tenemos un gestor de incidencias que permite a los usuarios consultar incidencias. Podemos usar un conjunto para almacenar qué incidencias están siendo vistas:
+</p>
+
+<div class="highlight"><pre><span></span><span class="n">sadd</span> <span class="n">watch</span><span class="p">:</span><span class="n">leto</span> <span class="mi">12339</span> <span class="mi">1382</span> <span class="mi">338</span> <span class="mi">9338</span>
+</pre></div>
+
+<p>Perfectamente puede tener sentido ordenarlos por id (que es la ordenación que funcionará por defecto), pero nosotros queremos además ordenarlos por gravedad. Para lograr esto, le diremos a Redis de qué manera queremos ordenar. Antes de nada, vamos a añadir algunos datos de tal modo que podamos obtener un resultado con sentido:</p>
+
+<div class="highlight"><pre><span></span><span class="n">set</span> <span class="n">severity</span><span class="p">:</span><span class="mi">12339</span> <span class="mi">3</span>
+<span class="n">set</span> <span class="n">severity</span><span class="p">:</span><span class="mi">1382</span> <span class="mi">2</span>
+<span class="n">set</span> <span class="n">severity</span><span class="p">:</span><span class="mi">338</span> <span class="mi">5</span>
+<span class="n">set</span> <span class="n">severity</span><span class="p">:</span><span class="mi">9338</span> <span class="mi">4</span>
+</pre></div>
+
+<p>Para ordenar estas incidencias por gravedad, de mayor a menor, haremos:</p>
+
+<div class="highlight"><pre><span></span><span class="n">sort</span> <span class="n">watch</span><span class="p">:</span><span class="n">leto</span> <span class="n">by</span> <span class="n">severity</span><span class="p">:</span><span class="o">*</span> <span class="n">desc</span>
+</pre></div>
+
+<p>Redis sustituirá el <code>*</code> de nuestra forma de ordenar (identificado por el <code>by</code>) por los valores de nuestra lista/conjunto/conjunto ordenado. Esto creará los nombres de las claves que Redis utilizará para ordenar.</p>
+
+<p>Aunque tengas millones de claves en Redis, creo que lo anterior puede quedar un poco desordenado. Por suerte
+    <code>sort</code> puede trabajar con hashes y sus campos. En lugar de tener un grupo de claves de alto nivel puedes utilizar hashes:</p>
+
+<div class="highlight"><pre><span></span><span class="n">hset</span> <span class="n">bug</span><span class="p">:</span><span class="mi">12339</span> <span class="n">severity</span> <span class="mi">3</span>
+<span class="n">hset</span> <span class="n">bug</span><span class="p">:</span><span class="mi">12339</span> <span class="n">priority</span> <span class="mi">1</span>
+<span class="n">hset</span> <span class="n">bug</span><span class="p">:</span><span class="mi">12339</span> <span class="n">details</span> <span class="s2">&quot;</span><span class="s">{id: 12339, ....}&quot;</span>
+
+<span class="n">hset</span> <span class="n">bug</span><span class="p">:</span><span class="mi">1382</span> <span class="n">severity</span> <span class="mi">2</span>
+<span class="n">hset</span> <span class="n">bug</span><span class="p">:</span><span class="mi">1382</span> <span class="n">priority</span> <span class="mi">2</span>
+<span class="n">hset</span> <span class="n">bug</span><span class="p">:</span><span class="mi">1382</span> <span class="n">details</span> <span class="s2">&quot;</span><span class="s">{id: 1382, ....}&quot;</span>
+
+<span class="n">hset</span> <span class="n">bug</span><span class="p">:</span><span class="mi">338</span> <span class="n">severity</span> <span class="mi">5</span>
+<span class="n">hset</span> <span class="n">bug</span><span class="p">:</span><span class="mi">338</span> <span class="n">priority</span> <span class="mi">3</span>
+<span class="n">hset</span> <span class="n">bug</span><span class="p">:</span><span class="mi">338</span> <span class="n">details</span> <span class="s2">&quot;</span><span class="s">{id: 338, ....}&quot;</span>
+
+<span class="n">hset</span> <span class="n">bug</span><span class="p">:</span><span class="mi">9338</span> <span class="n">severity</span> <span class="mi">4</span>
+<span class="n">hset</span> <span class="n">bug</span><span class="p">:</span><span class="mi">9338</span> <span class="n">priority</span> <span class="mi">2</span>
+<span class="n">hset</span> <span class="n">bug</span><span class="p">:</span><span class="mi">9338</span> <span class="n">details</span> <span class="s2">&quot;</span><span class="s">{id: 9338, ....}&quot;</span>
+</pre></div>
+
+<p>No sólo está todo mejor organizado, sino que podemos ordenar por <code>severity</code> o
+    <code>priority</code> y además podemos indicarle a <code>sort</code> qué campo queremos recuperar:</p>
+
+<div class="highlight"><pre><span></span><span class="n">sort</span> <span class="n">watch</span><span class="p">:</span><span class="n">leto</span> <span class="n">by</span> <span class="n">bug</span><span class="p">:</span><span class="o">*-&gt;</span><span class="n">priority</span> <span class="n">get</span> <span class="n">bug</span><span class="p">:</span><span class="o">*-&gt;</span><span class="n">details</span>
+</pre></div>
+
+<p>Se produce la misma sustitución de valores. Redis reconoce la secuencia <code>-&gt;</code> y la utiliza para buscar el campo indicado en nuestro hash. Hemos añadido además el parámetro <code>get</code> para recuperar los detalles de la incidencia.</p>
+
+<p>En conjuntos grandes, <code>sort</code> puede ser lento. La buena noticia es que se puede almacenar la salida de <code>sort</code>:</p>
+
+<div class="highlight"><pre><span></span><span class="n">sort</span> <span class="n">watch</span><span class="p">:</span><span class="n">leto</span> <span class="n">by</span> <span class="n">bug</span><span class="p">:</span><span class="o">*-&gt;</span><span class="n">priority</span> <span class="n">get</span> <span class="n">bug</span><span class="p">:</span><span class="o">*-&gt;</span><span class="n">details</span> <span class="n">store</span> <span class="n">watch_by_priority</span><span class="p">:</span><span class="n">leto</span>
+</pre></div>
+
+<p>Combinar las capacidades de <code>store</code> y <code>sort</code> con la expiración de los comandos que vimos puede hacer una buena combinación.</p>
+
+<h2>En Este Capítulo</h2>
+
+<p>En este capítulo nos hemos centrado en comandos que no son específicos para ninguna estructura de datos. Como todo lo demás, su uso depende de las circuntancias. No es infrecuente construir una aplicación o funcionalidad que no necesite hacer uso de la caducidad, publicación/subscripción y/o ordenación. Pero es bueno saber que están ahí. Además, hemos visto algunos otros comandos. Hay más, y una vez que hayas digerido el material de este libro merecerá la pena que te des una vuelta por la <a target="_blank" href="http://redis.io/commands">lista
+completa</a>.</p>
+
+<h1>Capítulo 5 - Scripts con Lua</h1>
+
+<p>Redis 2.6 incluye un intérprete de Lua que los desarrolladores pueden utilizar para escribir consultas más avanzadas que sean ejecutadas en Redis. No sería erróneo que pensases que esta funcionalidad es similar a la de los procedimientos almacenados de la mayoría de bases de datos relacionales.</p>
+
+<p>El aspecto más dificil de dominar de esta funcionalidad es aprender Lua. Por suerte, Lua es similar a la mayoría de los lenaguajes de propósito general, está bien documentado, tiene una comunidad activa y es útil conocerlo más allá de su uso en Redis. Este capítulo no cubre Lua en detalle; pero veremos unos pocos ejemplos que espero sirvan de introducción sencilla.</p>
+
+<h2>¿Por qué?</h2>
+
+<p>Antes de ver cómo usar Lua, debes estar preguntándote por qué ibas a querer usarlo. A muchos desarrolladores no les gustan los procedimientos almacenados tradicionales, ¿es este caso diferente?. La respuesta corta es no. Usado indebidamente, el uso de Lua en Redis puede dar como resultado el que sea difícil probar código, que haya lógica de negocio acoplada con el acceso a datos o incluso que haya lógica duplicada.</p>
+
+<p>Usado correctamente, en cambio, es una funcionalidad que puede simplificar el código e incrementar el rendimiento. Ambos beneficios pueden conseguirse agrupando varios comandos, con una lógica sencilla, en una función autocontenida. El código se hace más sencillo porque cada invocación a Lua se realiza sin interrupciones y esto consigue una forma limpia de crear comandos que se ejecuten de forma atómica (sobretodo al eliminar la necesidad de usar el incómodo comando <code>watch</code>). Puede incrementar el rendimiento eliminando la necesidad de tener resultados intermedios - la salida final puede ser devuelta con el script.</p>
+
+<p>Los ejemplos de las próximas secciones ilustrarán mejor estos conceptos.</p>
+
+<h2>Eval</h2>
+
+<p>El comando <code>eval</code> recive un script de Lua (como cadena de texto), las claves con las que tiene que trabajar, y un conjunto opcional de argumentos arbitrarios. Vamos a echar un vistazo a un ejemplo sencillo (ejecutado desde Ruby, ya que ejecutar comandos multi-línea desde la línea de comandos de Redis no es divertido):
+</p>
+
+<div class="highlight"><pre><span></span><span class="n">script</span> <span class="o">=</span> <span class="o">&lt;&lt;-</span><span class="n">eos</span>
+&nbsp;&nbsp;<span class="kd">local</span> <span class="n">friend_names</span> <span class="o">=</span> <span class="n">redis</span><span class="p">.</span><span class="n">call</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">smembers&#39;</span><span class="p">,</span> <span class="n">KEYS</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+&nbsp;&nbsp;<span class="kd">local</span> <span class="n">friends</span> <span class="o">=</span> <span class="p">{}</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">for</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="o">#</span><span class="n">friend_names</span> <span class="k">do</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="kd">local</span> <span class="n">friend_key</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="s">user:&#39;</span> <span class="o">..</span> <span class="n">friend_names</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="kd">local</span> <span class="n">gender</span> <span class="o">=</span> <span class="n">redis</span><span class="p">.</span><span class="n">call</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">hget&#39;</span><span class="p">,</span> <span class="n">friend_key</span><span class="p">,</span> <span class="s1">&#39;</span><span class="s">gender&#39;</span><span class="p">)</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">if</span> <span class="n">gender</span> <span class="o">==</span> <span class="n">ARGV</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">then</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="nb">table.insert</span><span class="p">(</span><span class="n">friends</span><span class="p">,</span> <span class="n">redis</span><span class="p">.</span><span class="n">call</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">hget&#39;</span><span class="p">,</span> <span class="n">friend_key</span><span class="p">,</span> <span class="s1">&#39;</span><span class="s">details&#39;</span><span class="p">))</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">end</span>
+&nbsp;&nbsp;<span class="k">end</span>
+&nbsp;&nbsp;<span class="k">return</span> <span class="n">friends</span>
+<span class="n">eos</span>
+<span class="n">Redis</span><span class="p">.</span><span class="n">new</span><span class="p">.</span><span class="n">eval</span><span class="p">(</span><span class="n">script</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;</span><span class="s">friends:leto&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;</span><span class="s">m&#39;</span><span class="p">])</span>
+</pre></div>
+
+<p>El código anterior recupera los detalles de todos los amigos masculinos de Leto. Observad que para invocar los comandos de Redis desde nuestro script hemos usado el método <code>redis.call(&quot;command&quot;, ARG1,
+ARG2, ...)</code>.</p>
+
+<p>Si eres nuevo en Lua deberías revisar cada línea con cuidado. Puede que te resulte útil saber que
+    <code>{}</code> crea una <code>table</code> vacía (que puede actuar como array o como diccionario), <code>#TABLE</code> recupera el número de elementos que hay en TABLE, y <code>..</code> se utiliza para concatenar cadenas de texto.
+</p>
+
+<p><code>eval</code> recibe cuatro parámetros. El segundo parámetro debería ser el número de claves; sin embargo el driver de Ruby automáticamete lo crea por nosotros. ¿Por qué es necesario? Observa cómo se ve lo anterior cuando se ejecuta desde la línea de comandos:</p>
+
+<div class="highlight"><pre><span></span><span class="n">eval</span> <span class="s2">&quot;</span><span class="s">.....&quot;</span> <span class="s2">&quot;</span><span class="s">friends:leto&quot;</span> <span class="s2">&quot;</span><span class="s">m&quot;</span>
+<span class="n">vs</span>
+<span class="n">eval</span> <span class="s2">&quot;</span><span class="s">.....&quot;</span> <span class="mi">1</span> <span class="s2">&quot;</span><span class="s">friends:leto&quot;</span> <span class="s2">&quot;</span><span class="s">m&quot;</span>
+</pre></div>
+
+<p>En el primer e incorrecto caso, ¿cómo sabe Redis cuáles de los parámetros son claves y cuáles simplemente son argumentos?. En el segundo caso no hay ambigüedad.</p>
+
+<p>Esto nos genera una segunda pregunta: ¿por qué hay que indicar explícitamente las claves? Cada comando de Redis conoce, en tiempo de ejecución, qué claves va a necesitar. Esto permitirá a futuras herramientas, como Redis Cluster, distribuir peticiones entre varios servidores de Redes. Es posible que vayas visto que nuestro ejemplo anterior recupere las claves dinámicamente (sin tener que pasárselas a <code>eval</code>). Un <code>hget</code> es ejecutado sobre todos los amigos masculinos de Leto. Esto es así porque la necesidad de listar las claves antes de tiempo es más una sugerencia que una regla a seguir. El código anterior funcionará en una única instancia, incluso aunque esta tenga replicación, pero no funcionará en el no-todavía-liberado Redis Cluster.</p>
+
+<h2>Gestión de Scripts</h2>
+
+<p>Aunque los scripts son cacheados por Redis cuando se ejecutan a través de <code>eval</code>, no es buena idea enviar el cuerpo del script cada vez que lo quieres ejecutar. En su lugar, puedes registrar el script en Redis y ejecutarlo por su clave. Para lograr esto puedes usar el comando <code>script load</code>, el cual devuelve el SHA1 del script:</p>
+
+<div class="highlight"><pre><span></span><span class="n">redis</span> <span class="o">=</span> <span class="n">Redis</span><span class="p">.</span><span class="n">new</span>
+<span class="n">script_key</span> <span class="o">=</span> <span class="n">redis</span><span class="p">.</span><span class="n">script</span><span class="p">(:</span><span class="nb">load</span><span class="p">,</span> <span class="s2">&quot;</span><span class="s">THE_SCRIPT&quot;</span><span class="p">)</span>
+</pre></div>
+
+<p>Una vez que hemos cargado el script podemos utilizar <code>evalsha</code> para ejecutarlo.</p>
+
+<div class="highlight"><pre><span></span><span class="n">redis</span><span class="p">.</span><span class="n">evalsha</span><span class="p">(</span><span class="n">script_key</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;</span><span class="s">friends:leto&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;</span><span class="s">m&#39;</span><span class="p">])</span>
+</pre></div>
+
+<p><code>script kill</code>, <code>script flush</code> y <code>script exists</code> son el resto de comandos que puedes utilizar para gestionar scripts en Lua. Se utilizan para finalizar un script en ejecución, eliminar todos los scripts de la caché interna y comprobar si un script determinado existe en la caché.</p>
+
+<h2>Librerías</h2>
+
+<p>La implementación de Lua de Redis contiene un conjunto de librerías útiles. Mientras que
+    <code>table.lib</code>, <code>string.lib</code> y <code>math.lib</code> son muy prácticas, para mí <code>cjson.lib</code> es la que más merece señalar. En primer lugar, si te encuentras en la situación de tener que pasar varios argumentos a un script, verás que resulta mucho más claro pasar un objeto JSON:</p>
+
+<div class="highlight"><pre><span></span><span class="n">redis</span><span class="p">.</span><span class="n">evalsha</span> <span class="s2">&quot;</span><span class="s">.....&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">KEY1</span><span class="p">],</span> <span class="p">[</span><span class="n">JSON</span><span class="p">.</span><span class="n">fast_generate</span><span class="p">({</span><span class="n">gender</span><span class="p">:</span> <span class="s1">&#39;</span><span class="s">m&#39;</span><span class="p">,</span> <span class="n">ghola</span><span class="p">:</span> <span class="kc">true</span><span class="p">})]</span>
+</pre></div>
+
+<p>El cual puedes deserializar con el script de Lua de este modo:</p>
+
+<div class="highlight"><pre><span></span><span class="kd">local</span> <span class="n">arguments</span> <span class="o">=</span> <span class="n">cjson</span><span class="p">.</span><span class="n">decode</span><span class="p">(</span><span class="n">ARGV</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+
+<p>Por supuesto que la librería de JSON puede utilizarse para analizar valores almacenados en la propia Redis. Nuestro ejemplo anterior puede ser potencialmente reescrito de este modo:</p>
+
+<div class="highlight"><pre><span></span><span class="kd">local</span> <span class="n">friend_names</span> <span class="o">=</span> <span class="n">redis</span><span class="p">.</span><span class="n">call</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">smembers&#39;</span><span class="p">,</span> <span class="n">KEYS</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="kd">local</span> <span class="n">friends</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="o">#</span><span class="n">friend_names</span> <span class="k">do</span>
+&nbsp;&nbsp;<span class="kd">local</span> <span class="n">friend_raw</span> <span class="o">=</span> <span class="n">redis</span><span class="p">.</span><span class="n">call</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">get&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="s">user:&#39;</span> <span class="o">..</span> <span class="n">friend_names</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+&nbsp;&nbsp;<span class="kd">local</span> <span class="n">friend_parsed</span> <span class="o">=</span> <span class="n">cjson</span><span class="p">.</span><span class="n">decode</span><span class="p">(</span><span class="n">friend_raw</span><span class="p">)</span>
+&nbsp;&nbsp;<span class="k">if</span> <span class="n">friend_parsed</span><span class="p">.</span><span class="n">gender</span> <span class="o">==</span> <span class="n">ARGV</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">then</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nb">table.insert</span><span class="p">(</span><span class="n">friends</span><span class="p">,</span> <span class="n">friend_raw</span><span class="p">)</span>
+&nbsp;&nbsp;<span class="k">end</span>
+<span class="k">end</span>
+<span class="k">return</span> <span class="n">friends</span>
+</pre></div>
+
+<p>En lugar de recuperar el género de un campo específico del hash, podemos recuperarlo de los datos almacenados del amigo. (Esta solución es mucho más lenta, y personalmente prefiero la original, pero esto muestra que es posible).
+</p>
+
+<h2>Atomicidad</h2>
+
+<p>Ya que Redis tiene un único hilo de ejecución, no tienes que preocuparte de que tu script de Lua pueda interrumpido por otro comando. Uno de los beneficios más obvios de esto es que las claves que tengan un TTL definido no caducarán en mitad de la ejecución. Si una clave está presente al arrancar el script, estará presente en cualquier punto de la ejecución, a no ser que lo borres.</p>
+
+<h2>Administración</h2>
+
+<p>En el siguiente capítulo vamos a hablar sobre la administración de Redis y su configuración en más detalle. De momento, simplemente basta con conocer que <code>lua-time-limit</code> define cuánto tiempo puede estar ejecutándose un script en Lua antes de terminar. El valor por defecto son unos generosos 5 segundos. Considera reducirlos.</p>
+
+<h2>En Este Capítulo</h2>
+
+<p>Este capítulo ha introducido las capacidades de scripting de Redis con respecto a Lua. Como con todo, no hay que abusar de esta funcionalidad. Sin embargo, usarlo con prudencia para implementar tus propios comandos personalizados no sólo simplificará tu código sino que te permitirá mejorar el rendimiento. Hacer scripts con Lua es como cualquier otro comando o funcionalidad de Redis: harás un uso limitado de ello al principio y verás que lo acabarás usando más y más cada día.</p>
+
+<h1>Capítulo 6 - Administración</h1>
+
+<p>Nuestro último capítulo está dedicado a algunos aspectos administrativos relacionados con la ejecución de Redis. De ninguna manera es una guía exhaustiva de administración de Redis. A lo más que llegaremos será a responder algunas preguntas básicas que seguramente tengan los nuevos usuarios que lleguen a Redis.</p>
+
+<h2>Configuración</h2>
+
+<p>Cuando ejecutas el servidor de Redis por primera vez aparece un mensaje de advertencia indicando que el fichero <code>redis.conf</code> no se puede encontrar. Este fichero puede utilizarse para configurar varias cosas de Redis. Un fichero <code>redis.conf</code> autodocumentado está disponible en cada versión de Redis. El fichero de ejemplo contiene los valores de configuración establecidos por defecto, así que es útil entender tanto cuáles son estas variables de configuración como cuáles son sus valores por defecto. Puedes encontrarlo en <a target="_blank" href="https://github.com/antirez/redis/raw/2.4.6/redis.conf"><code>https://github.com/antirez/redis/raw/2.4.6/redis.conf</code></a>.
+</p>
+
+<p><strong>Este es el fichero de configuración de Redis 2.4.6. Debes reemplazar &quot;2.4.6&quot; en la URL
+mencionada anteriormente por tu versión. Puedes encontrar tu versión ejecutando el comando <code>info</code>
+y buscando el primer valor.</strong></p>
+
+<p>No vamos a explicarlo puesto que está autodocumentado.</p>
+
+<p>Aparte de configurar Redis a través del fichero <code>redis.conf</code>, el comando <code>config set</code> se puede utilizar para establecer un valor individual. De hecho, ya lo hemos utilizado para establecer la propiedad <code>slowlog-log-slower-than</code> a 0.</p>
+
+<p>También existe el comando <code>config get</code>, el cual muestra el valor de una configuración concreta. Este comando permite el uso de máscaras. De esta manera, si queremos mostrar todo lo relacionado con el guardado de trazas de log, podemos hacer:</p>
+
+<div class="highlight"><pre><span></span><span class="n">config</span> <span class="n">get</span> <span class="o">*</span><span class="n">log</span><span class="o">*</span>
+</pre></div>
+
+<h2>Autenticación</h2>
+
+<p>Se puede configurar Redis para que pida una contraseña. Esto se consigue a través de la variable de configuración <code>requirepass</code> (establecida a través del fichero <code>redis.conf</code> o a través del comando <code>config set</code>). Cuando se indica un valor en <code>requirepass</code> (que será la contraseña que se deba utilizar), los clientes necesitarán ejecutar el comando <code>auth password</code>.
+</p>
+
+<p>Una vez que un cliente se ha autenticado pueden lanzar cualquier comando contra la base de datos. Esto incluye al comando <code>flushall</code>, que borrará cualquier clave de la base de datos. A través de la configuración, puedes renombrar comandos para alcanzar algo de seguridad a través de la ofuscación:</p>
+
+<div class="highlight"><pre><span></span><span class="n">rename</span><span class="o">-</span><span class="n">command</span> <span class="n">CONFIG</span> <span class="mi">5</span><span class="n">ec4db169f9d4dddacbfb0c26ea7e5ef</span>
+<span class="n">rename</span><span class="o">-</span><span class="n">command</span> <span class="n">FLUSHALL</span> <span class="mi">1041285018</span><span class="n">a942a4922cbf76623b741e</span>
+</pre></div>
+
+<p>O puedes deshabilitar un comando estableciendo el nombre como una cadena de texto vacía.</p>
+
+<h2>Limitaciones de Tamaño</h2>
+
+<p>Cuando comienzas con Redis puede que te preguntes &quot;¿cuántas claves puedo tener?&quot;. Puede que también te preguntes cuántos campos puede tener un hash (especialmente cuando quieres usarlo para organizar tus datos), o cuántos elementos pueden tener las listas y los conjuntos. Por cada instancia, las limitaciones para todos los elementos mencionados anteriormente es de miles de millones.</p>
+
+<h2>Replicación</h2>
+
+<p>Redis tiene soporte para replicación, en el sentido de que cuando escribes en una instancia de Redis (el maestro), una o más instancias (los esclavos) se mantienen actualizados con respecto al maestro. Para configurar un esclavo puedes usar o la variable de configuración <code>slaveof</code> o el comando <code>slaveof</code> (las instancias que se ejecuten sin esta configuración son o pueden ser maestros).</p>
+
+<p>La replicación te ayuda a proteger tus datos copiándolos a distintos servidores. La replicación puede utilizarse, además, para mejorar el rendimiento ya que las lecturas pueden ser realizadas por los esclavos. Pueden responder con datos ligeramente desactualizados, pero para la mayoría de las aplicaciones merece la pena.
+</p>
+
+<p>Desafortunadamente, la replicación de Redis no tiene recuperación automática ante caídas. Si el maestro cae, un esclavo necesita ser promocionado manualmente. Necesitarás de herramientas que provean alta disponibilidad y de scripts que automaticen este cambio para conseguir cierto grado de alta disponibilidad con Redis.</p>
+
+<h2>Copias de Seguridad</h2>
+
+<p>Hacer una copia de Redis es simplemente una cuestión de copiar una fotografía de Redis en el medio que quieras (S3, FTP, ...). Redis por defecto guarda sus fotografías en un fichero llamado <code>dump.rdb</code>. En este punto, puedes simplemente hacer un <code>scp</code>, <code>ftp</code> o <code>cp</code> de este fichero.
+</p>
+
+<p>No es infrecuente deshabilitar tanto la realización de fotografías como la generación de incrementales del maestro y dejar al esclavo que se encargue de ello. Esto ayuda a reducir la carga del maestro y te permite ser más agresivo en el esclavo sin dañar la respuesta del sistema en su conjunto.</p>
+
+<h2>Escalando y Redis Cluster</h2>
+
+<p>La replicación es la primera herramienta de la cual un sitio que va a crecer se puede aprovechar. Algunos comandos son computacionalmente más caros que otros (por ejemplo <code>sort</code>) y la descarga de su ejecución en un esclavo puede mantener la respuesta del sistema intacta para permitir que entren nuevas consultas.
+</p>
+
+<p>Detrás de esto, los sistemas realmente escalables distribuyen sus claves a través de varias instancias (las cuales pueden estar funcionando en la misma máquina, recuerda, Redis tiene un único hilo de ejecución). Por el momento, esto es algo de lo que tendrás que preocuparte (aunque varios drivers de Redis facilitan algoritmos de hash consistentes). Pensar en tus datos en términos de distribución horizontal no es algo que podamos cubrir en este libro. Es algo de lo que probablemente no vayas a preocuparte por un tiempo, pero es algo de lo que tendrás que ocuparte más adelante.</p>
+
+<p>La buena noticia es que se está trabajando en Redis Cluster. Esta funcionalidad ofrecerá no sólo escalabilidad horizontal o rebalanceo, sino que además brindará soporte automático ante caídas para dar alta disponibilidad.
+</p>
+
+<p>La alta disponibilidad y la escalabilidad es algo a lo que se puede llegar a día de hoy si dedicas tiempo y esfuerzo en ello. Mirando al futuro, el cluster de Redis debería hacer las cosas mucho más sencillas.</p>
+
+<h2>En Este Capítulo</h2>
+
+<p>Dado el número de proyectos y sitios que utilizan Redis, no debería haber dudas en cuanto a que Redis está listo para funcionar en producción, y que lo ha estado todo este tiempo. Sin embargo, algunas herramientas, especialmente aquellas que giran en torno a la seguridad y la alta disponibilidad son todavía jóvenes. Redis Cluster, que esperemos está listo pronto, debería ayudar a alcanzar algunas metas en la gestión.</p>
+
+<h1>Conclusión</h1>
+
+<p>De varias maneras, Redis representa una simplificación de la forma en la que trabajamos con datos. Se desprende en gran parte de la complejidad y la abstracción de otros sistemas. En algunos casos esto hace que Redis sea una mala elección. En otros puedes pensar que Redis fue construido justamente para almacenar tus datos.
+</p>
+
+<p>En definitiva, se puede decir algo que dije al comienzo: es fácil aprender Redis. Hay muchas nuevas tecnologías y puede ser difícil averiguar en cuáles merece la pena invertir tiempo para aprenderlas. Cuando percibas los beneficios que Redis puede ofrecer con su simplicidad verás que es una de las mejores inversiones, en cuanto a aprendizaje, que tanto tú como tu equipo podeis hacer.</p>
+
+<!--{{footer}}-->

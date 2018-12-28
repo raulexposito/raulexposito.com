@@ -1,0 +1,35 @@
+# turn on the modules for this directory
+ExpiresActive on
+RewriteEngine On
+
+# set default
+ExpiresDefault "access plus 1 days"
+ExpiresByType image/jpg "access plus 1 months"
+ExpiresByType image/gif "access plus 1 months"
+ExpiresByType image/jpeg "access plus 1 months"
+ExpiresByType image/png "access plus 1 months"
+ExpiresByType image/x-icon "access plus 1 months"
+ExpiresByType text/css "access plus 1 months"
+ExpiresByType text/javascript "access plus 1 months"
+ExpiresByType application/javascript "access plus 1 months"
+ExpiresByType application/x-shockwave-flash "access plus 1 months"
+
+# 301
+RewriteRule ^blog/* https://raulexposito.com/ [R=301,L]
+RewriteRule ^proyectos/* https://raulexposito.com/ [R=301,L]
+RewriteRule ^documentos/* https://raulexposito.com/ [R=301,L]
+RewriteRule ^articulos/* https://raulexposito.com/ [R=301,L]
+
+# disable hotlinking
+RewriteCond %{HTTP_REFERER} !^$
+RewriteCond %{HTTP_REFERER} !^https://(www\.)?raulexposito.com/.*$ [NC]
+RewriteRule \.(gif|jpg|jpeg|png|js|css)$ - [F]
+
+# https redirect
+RewriteCond %{HTTPS} off
+RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [R,L]
+
+# deflate
+AddOutputFilterByType DEFLATE text/html text/plain text/css text/xml
+AddOutputFilterByType DEFLATE application/x-javascript application/javascript text/javascript text/x-js text/x-javascript
+AddOutputFilter DEFLATE js css htm html xml

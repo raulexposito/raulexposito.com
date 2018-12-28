@@ -1,0 +1,14 @@
+{
+	"meta": {
+	    "author": "Raúl Expósito",
+	    "description": "'The Little Redis Book' en castellano"
+	},
+	"title": "'The Little Redis Book' en castellano | Raúl Expósito",
+	"header": {
+		"background": "bg-redis.png",
+		"title": "'The Little Redis Book'",
+		"subtitle": "en castellano",
+		"date": "Publicado el 05/07/2013",
+		"words": "10.381 palabras · 42 minutos"
+	}
+}

@@ -1,0 +1,198 @@
+<rss xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:wfw="http://wellformedweb.org/CommentAPI/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" xmlns:slash="http://purl.org/rss/1.0/modules/slash/" version="2.0">
+	<channel>
+		<title>Raúl Expósito</title>
+		<atom:link href="http://raulexposito.com/" rel="self" type="application/rss+xml"/>
+		<link>http://raulexposito.com/</link>
+		<description>Raúl Expósito</description>
+		<lastBuildDate>Sat, 03 Jun 2017 00:00:0 +0000</lastBuildDate>
+		<language>es-ES</language>
+		<generator>http://raulexposito.com/</generator>
+		<item>
+			<title>'SurviveJS - React de aprendiz a maestro' en Castellano</title>
+			<link>
+				http://raulexposito.com/
+			</link>
+			<pubDate>Sat, 03 Jun 2017 00:00:0 +0000</pubDate>
+			<dc:creator>Raúl Expósito</dc:creator>
+			<description>
+				<![CDATA[
+						<p>He traducido el libro <a target="_blank" href="https://leanpub.com/survivejs-react-es">SurviveJS - React de aprendiz a maestro</a> en su versión gratuita al castellano para que cualquier hispanohablante pueda aprender a construir interfaces de usuario con <a target="_blank" href="https://facebook.github.io/react/">React</a>.</p>
+						<p><a href="http://raulexposito.com/documentos/">Saber más</a></p>
+				]]>
+			</description>
+		</item>
+		<item>
+			<title>¿A qué te refieres con "Dirigido a Eventos"</title>
+			<link>
+				http://raulexposito.com/documentos/dirigido-a-eventos/
+			</link>
+			<pubDate>Sat, 11 Feb 2017 00:00:0 +0000</pubDate>
+			<dc:creator>Raúl Expósito</dc:creator>
+			<description>
+				<![CDATA[
+						<p>Traducción al castellano del artículo <i><a href="https://martinfowler.com/articles/201701-event-driven.html" target="_blank">'What do you mean by "Event-Driven"?'</a></i>, escrito originalmente por <a href="https://martinfowler.com" target="_blank">Martin Fowler</a> donde se explican las diferencias entre <i>"Notificación de Eventos"</i>, <i>"Transferencia del Estado en el Evento"</i>, <i>"Generación de Eventos"</i> y <i>CQRS</i>.</p>
+						<p><a href="http://raulexposito.com/documentos/dirigido-a-eventos/">Lee el resto de la entrada</a></p>
+				]]>
+			</description>
+		</item>
+		<item>
+			<title>'The Little Go Book' en Castellano</title>
+			<link>
+				http://raulexposito.com/documentos/go/
+			</link>
+			<pubDate>Sat, 20 Feb 2016 00:00:0 +0000</pubDate>
+			<dc:creator>Raúl Expósito</dc:creator>
+			<description>
+				<![CDATA[
+                    <p>He traducido el libro introductorio a <a target="_blank" href="https://golang.org/">Go</a><i><a href="http://openmymind.net/The-Little-Go-Book/" target="_blank">'The Little Go Book'</a></i>&nbsp;&nbsp;para que cualquier hispanohablante pueda aprender a utilizar este lenguaje de programación.</p>
+
+			        <p><a href="http://raulexposito.com/documentos/go/">Lee el resto de la entrada</a></p>
+				]]>
+			</description>
+		</item>
+		<item>
+			<title>Principios SOLID</title>
+			<link>
+				http://raulexposito.com/documentos/solid/
+			</link>
+			<pubDate>Sun, 16 Ago 2015 00:00:0 +0000</pubDate>
+			<dc:creator>Raúl Expósito</dc:creator>
+			<description>
+				<![CDATA[
+                    <p>Habría sido muy complicado ignorar que los <a href="http://butunclebob.com/ArticleS.UncleBob.PrinciplesOfOod" target="_blank">principios SOLID</a> de Robert <i>"Uncle Bob"</i> Martin son para mí la mejor herramienta con la que realizar diseños orientados a objetos. Hay desarrolladores que parecen tener un talento natural con el que realizar diseños orientados a objetos, disfrutando de una asimilación innata de estos principios sin requerir los formalismos de SOLID. Yo, en mi caso, los encuentro indispensables.</p>
+
+                    <p><i>Traducido de <a href="http://www.davesquared.net/" target="_blank">davesquared.net</a>.</i></p>
+
+                    <ul>
+                        <li class="text"><a href="http://raulexposito.com/documentos/solid/">Lee el documento completo.</a></li>
+                        <li class="link"><a href="http://www.davesquared.net/2009/01/introduction-to-solid-principles-of-oo.html" target="_blank">Lee el artículo original (en inglés).</a></li>
+                    </ul>
+				]]>
+			</description>
+		</item>
+		<item>
+			<title>YAUS - Yet Another URL Shortener</title>
+			<link>
+				http://raulexposito.com/proyectos/yaus/
+			</link>
+			<pubDate>Sun, 9 Ago 2015 00:00:0 +0000</pubDate>
+			<dc:creator>Raúl Expósito</dc:creator>
+			<description>
+				<![CDATA[
+                    <p>He implementado un acortador de URLs sencillo por diversíón. En este artículo te muestro cómo ha sido diseñado y cómo puede ser construido, probado y continuado.</p>
+
+                    <p>Este proyecto puede ser utilizado como ejemplo en varios escenarios. Facilita una interfaz REST sobre Spring MVC. Además, se utilizan <a href="https://es.wikipedia.org/wiki/Desarrollo_guiado_por_comportamiento" target="_blank">BDD</a>, <a href="https://es.wikipedia.org/wiki/Desarrollo_guiado_por_pruebas" target="_blank">TDD</a> y <a href="https://es.wikipedia.org/wiki/Objeto_simulado" target="_blank">mocks</a> para estar seguros de que todo funciona (y seguirá funcionando) como se espera.</p>
+
+                    <ul>
+                        <li class="text"><a href="yaus/">Lee la entrada completa.</a></li>
+                        <li class="sourcecode"><a href="https://github.com/raulexposito/yaus/tree/master" target="_blank">Accede al código fuente.</a></li>
+                    </ul>
+				]]>
+			</description>
+		</item>
+
+		<item>
+			<title>Cómo Crear una Cultura de Equipo</title>
+			<link>
+				http://raulexposito.com/articulos/como-crear-una-cultura-de-equipo/
+			</link>
+			<pubDate>Sun, 14 Dec 2014 00:00:0 +0000</pubDate>
+			<dc:creator>Raúl Expósito</dc:creator>
+			<description>
+				<![CDATA[
+			        <p>Muchas de las personas con las que he tenido la oportunidad de poder trabajar a lo largo de los años han oido cómo, en muchas ocasiones, he repetido la idea de que el músculo que nos permite poder realizar mejor nuestro trabajo está en el equipo.</p>
+
+			        <p>Pero en mi experiencia sospecho que mi concepto de equipo es diferente al que puedan tener otros. Para mí un equipo es aquel conjunto de personas que:</p>
+
+			        <ul>
+			            <li>Es capaz de gestionarse a sí mismo.</li>
+			            <li>Persigue un único interés que es conocido por todos los miembros.</li>
+			            <li>No incluye ningún miembro <i>"imprescindible"</i>.</li>
+			            <li>Consigue que la única tarea de cada miembro sea únicamente ayudar a los demás.</li>
+			            <li>Hace que la comunicación fluya entre todos sin intermediarios.</li>
+			            <li>Permite que se pueda opinar y hacer autocrítica sin miedo.</li>
+			        </ul>
+
+			        <p>Ir quitando características a este modelo es ir desdibujándolo hasta, al final, convertirlo en otra cosa.</p>
+
+			        <p>Para llegar a este modelo es necesario aportar un ingrediente fundamental: <strong>cultura de equipo</strong>. Los ambientes de trabajo no surgen de la nada, nacen de la interacción entre personas, así que debemos esforzarnos conscientemente en crear dinámicas que traten de beneficiar a todo el equipo en su conjunto.</p>
+
+			        <p>A continuación doy 10 pautas de aquello que ayuda a crear una cultura de equipo:</p>
+
+			        <p><a href="http://raulexposito.com/articulos/como-crear-una-cultura-de-equipo/">Lee el resto de la entrada</a></p>
+				]]>
+			</description>
+		</item>
+		<item>
+			<title>¿Qué son el Cloud Computing y Google App Engine?</title>
+			<link>
+				http://raulexposito.com/documentos/cloud-computing-google-appengine/
+			</link>
+			<pubDate>Mon, 1 Sep 2014 08:00:0 +0000</pubDate>
+			<dc:creator>Raúl Expósito</dc:creator>
+			<description>
+				<![CDATA[
+					<p>Sin duda alguna y, lo que es peor, sin avisar, un nuevo término ha llegado para pasar a formar parte de nuestro ya de por sí extenso vocabulario tecnológico. Un concepto nuevo, o quizá no tanto, que se ha colado en multitud de sitios y que se ha propagado por la red, por los portales de tecnología e incluso por la prensa escrita. Me refiero al <strong>Cloud Computing</strong>.</p>
+
+					<p>Pero, ¿qué es <i>"cloud computing"</i>?, ¿a qué nos referimos con eso de <i>"la nube"</i>?, ¿por qué tantas voces predicen que es <i>"el futuro"</i>?, ¿es simplemente una técnica comercial o realmente hay algo <i>"detrás"</i>?. El presente documento trata de responder a todas estas preguntas centrándose en la nube que está más de moda: <a href="https://developers.google.com/appengine/" target="_blank">Google App Engine</a></p>
+
+					<p>Pero antes de explicar qué es Google App Engine y para qué sirve es necesario dar un repaso teórico al concepto de cloud computing, la computación en la nube o <i>"la nube"</i> a secas y, de este modo, saber qué es, de dónde viene y dónde va.</p>
+
+					<p><a href="http://raulexposito.com/documentos/cloud-computing-google-appengine/">Lee el resto de la entrada.</a></p>
+				]]>
+			</description>
+		</item>
+		<item>
+			<title>'The Little Redis Book' en Castellano</title>
+			<link>
+				http://raulexposito.com/documentos/redis/
+			</link>
+			<pubDate>Fri, 5 Jul 2013 18:00:0 +0000</pubDate>
+			<dc:creator>Raúl Expósito</dc:creator>
+			<description>
+				<![CDATA[
+			        <p>He traducido el libro introductorio a <a target="_blank" href="http://redis.io/">Redis</a> <i><a href="http://openmymind.net/2012/1/23/The-Little-Redis-Book/" target="_blank">'The Little Redis Book'</a></i> al castellano para que cualquier hispanohablante pueda aprender a utilizar esta base de datos no relacional sin encontrarse con la barrera del idioma.</p>
+
+			        <p><a href="http://raulexposito.com/documentos/redis/">Lee el resto de la entrada</a></p>
+				]]>
+			</description>
+		</item>
+		<item>
+			<title>Vehículos inteligentes</title>
+			<link>
+				http://raulexposito.com/proyectos/vehiculos-inteligentes/
+			</link>
+			<pubDate>Fri, 18 Apr 2013 12:00:0 +0000</pubDate>
+			<dc:creator>Raúl Expósito</dc:creator>
+			<description>
+				<![CDATA[
+			        <p>Gracias a la colaboración de <a href="http://www.uc3m.es/portal/page/portal/dpto_ing_sistemas_automatica/investigacion/lab_sist_inteligentes/miembros/fernando_garcia" target="_blank">Fernando García</a> y de <a href="http://www.ri.cmu.edu/person.html?person_id=2713" target="_blank">Aurelio Ponz</a> he podido formar parte en el desarrollo de un proyecto perteneciente al <a href="http://www.uc3m.es/portal/page/portal/dpto_ing_sistemas_automatica/investigacion/lab_sist_inteligentes" target="_blank">Laboratorio de Sistemas Inteligentes de la Universidad Carlos III de Madrid</a> con motivo de la elaboración de mi Tesis Fin de Máster en el <strong>Máster Oficial en Robótica y Automatización.</strong></p>
+
+			        <p>Mi participación, en concreto, ha consistido en desarrollar un <strong>conector de alto nivel del protocolo de comunicación LD-MRS</strong> para su uso en la plataforma <a href="http://www.uc3m.es/portal/page/portal/dpto_ing_sistemas_automatica/home/research_activities/isl/intelligent_transportation_systems/vehicles/IvvI20/" target="_blank">IVVI 2.0</a>, que es un vehículo utilizado por los investigadores de la <a href="http://www.uc3m.es/" target="_blank">Universidad Carlos III de Madrid</a> para desplegar y probar proyectos orientados a la investigación en vehículos inteligentes. </p>
+
+			        <p>Sobre esta plataforma se ha instalado un nuevo sensor, en concreto un láser SICK modelo LD-MRS400001, cuyas mediciones en bruto son procesadas por el conector y convertidas en objetos de alto nivel fácilmente utilizables en otros componentes software.</p>
+
+			        <p><a href="http://raulexposito.com/proyectos/vehiculos-inteligentes/">Lee el resto de la entrada</a></p>
+				]]>
+			</description>
+		</item>
+		<item>
+			<title>Nuevo raulexposito.com</title>
+			<link>
+				http://raulexposito.com/
+			</link>
+			<pubDate>Fri, 1 Mar 2013 12:00:0 +0000</pubDate>
+			<dc:creator>Raúl Expósito</dc:creator>
+			<description>
+				<![CDATA[
+				<p>
+					Pues así es, reestreno esta web con nombre propio, concretamente el mío, con el objetivo de disponer de un espacio donde poder publicar pruebas de concepto, documentos y artículos que vaya escribiendo.
+				</p>
+				<p>
+					Nos leemos.
+				</p>
+				]]>
+			</description>
+		</item>
+	</channel>
+</rss>

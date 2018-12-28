@@ -1,0 +1,1784 @@
+<!--{{post-header}}-->
+
+<div class="alert alert-success" role="alert">
+    <i class="far fa-comment"></i>&nbsp;&nbsp;<span>Estás leyendo online la traducción al castellano que he hecho del libro <a href="http://openmymind.net/The-Little-Go-Book/" target="_blank" class="alert-link"><i>'The Little Go Book'</i></a> de <a href="http://openmymind.net/" target="_blank" class="alert-link">Karl Seguin</a>.</span>
+</div>
+
+<div class="alert alert-warning" role="alert">        
+    <em><i class="far fa-file-pdf"></i>&nbsp;&nbsp;<span>Puedes descargar el libro en PDF pulsando en <a href="/assets/pdf/go.pdf" target="_blank" class="alert-link">este enlace</a>.</span></em>
+</div> 
+
+<div class="alert alert-warning" role="alert">        
+    <em><i class="far fa-file-alt"></i>&nbsp;&nbsp;<span>Puedes descargar el libro en formato epub pulsando en <a href="/assets/epub/go.epub" target="_blank" class="alert-link">este enlace</a>.</span></em>
+</div> 
+
+<hr class="m-5"/>
+
+<h1 id="sobre-este-libro">Sobre este Libro</h1>
+<h2 id="licencia">Licencia</h2>
+<p>El Pequeño Libro de Go (The Little Go Book) posee una licencia Attribution-NonCommercial-ShareAlike 4.0 Internacional. No deberías haber pagado por este libro.</p>
+<p>Eres libre de copiar, distribuir, modificar o mostrar el libro. Sin embargo, te pido que siempre me atribuyas la autoría del libro a mí, Karl Seguin, y la traducción a Raúl Expósito, y que no lo utilices con fines comerciales.</p>
+<p>Puedes leer el texto completo de la licencia en <br/><a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" class="uri">http://creativecommons.org/ licenses/by-nc-sa/4.0/</a>.</a></p>
+<h2 id="última-versión">Última Versión</h2>
+<p>La última versión del código fuente de este libro puede encontrarse en <br/><a href="http://github.com/raulexposito/the-little-go-book/" class="uri">http://github.com/raulexposito/ the-little-go-book/</a>.</p>
+<h1 id="introducción">Introducción</h1>
+<p>Siempre he vivido una relación de amor-odio cuando se trata de aprender nuevos lenguajes. Por una parte, los lenguajes son tan fundamentales en lo que hacemos que incluso pequeños matices pueden provocar un impacto considerable. Ese momento <em>ajá</em> que se produce cuando algo encaja puede tener un efecto perdurable en nuestra forma de programar y puede redefinir nuestras expectativas en otros lenguajes. Por contra, el aprender nuevos lenguajes es algo que no termina nunca. Aprender nuevas palabras reservadas, tipos de datos, estilos de programación y descubrir librerías, comunidades y paradigmas supone un montón de trabajo a priori difícil de justificar. Comparados con cualquier otra cosa que tengamos que aprender, los nuevos lenguajes a menudo parecen ser una mala inversión de nuestro tiempo,</p>
+<p>Dicho esto, <em>tenemos</em> que seguir adelante. <em>Tenemos</em> que dar los pasos porque, de nuevo, los lenguajes son el elemento principal de lo que hacemos. Aunque el aprendizaje sea contínuo e infinito, éste ayuda a ampliar nuestra visión e impacta en nuestra productividad, la legibilidad de nuestro código, el rendimiento, la testeabilidad, la forma en la que gestionamos dependencias, la gestión de errores, la documentación, el profiling, nuestra presencia en comunidades, nuestro conocimiento de librerías estándar, y mucho más. ¿Hay alguna manera positiva de decir <em>la sarna con gusto no pica</em>?</p>
+<p>Todo esto nos deja con una pregunta importante: <strong>¿Por qué Go?</strong> Para mí hay dos motivos convincentes: el primero es que es un lenguaje relativamente sencillo con una librería estandar relativamente simple. Go tiene la naturaleza de simplificar la complejidad que hemos visto incluida en los lenguajes de programación en el último par de décadas mediante el uso de varios mecanismos. El otro motivo es que para muchos desarrolladores puede servir como complemento para su arsenal.</p>
+<p>Go fue construido para ser utilizado como un lenguaje orientado a software de sistemas (es decir, sistemas operativos, drivers de dispositivos), lo cual animó a desarrolladores de C y C++. Según el equipo de Go, y según la percepción que yo también tengo, los desarrolladores de aplicaciones, y no los desarrolladores de software de sistemas, se han convertido en los principales usuarios de Go. ¿Por qué? No puedo hablar con autoridad acerca de los desarrolladores de software de sistemas, pero para todos aquellos que construimos aplicaciones web, servicios, aplicaciones de escritorio y software por el estilo, nos ha cubierto la necesidad de disponer de algo que nos permita desarrollar aplicaciones de bajo y de alto nivel.</p>
+<p>Quizá sea la mensajería, las cachés, los análisis de datos computacionalmente muy costosos, los interfaces por linea de comandos, los logs o la monitorización. No sé cómo etiquetarlo, pero a lo largo de mi vida laboral el software de sistemas ha ido creciendo en complejidad. Es <em>posible</em> construir estos sistemas con Ruby o Python o alguna otra cosa (como mucha gente hace), pero ese tipo de software puede beneficiarse de un sistema con un tipado rígido que brinde mejor rendimiento. Del mismo modo, <em>puedes</em> usar Go para construir aplicaciones web (como mucha gente hace), aunque yo todavía prefiero, con mucho margen, la expresividad de Node o Ruby para este tipo de desarrollos.</p>
+<p>Hay otras áreas en las que Go es excelente. Por ejemplo, no existen dependencias a la hora de ejecutar programas compilados con Go. No hay que preocuparse sobre si los usuarios tienen Ruby o la JVM instalada o, si la tienen, qué versión tendrán. Por este motivo Go se está convirtiendo en un lenguaje popular con el que desarrollar aplicaciones de línea de comandos u otro tipo de programas de utilidades que necesiten ser distribuibles (por ejemplo, un recolector de log).</p>
+<p>Hablando claramente, aprender Go es hacer un uso eficiente de tu tiempo. No es necesario invertir muchas horas para aprender o incluso dominar Go, y obtendrás algo práctico de tu esfuerzo.</p>
+<h2 id="una-nota-del-autor">Una Nota del Autor</h2>
+<p>He dudado sobre si escribir este libro o no por un par de motivos. El primero es que la propia documentación de Go, en particular <a href="https://golang.org/doc/effective_go.html">Effective Go</a>, es buena.</p>
+<p>El otro es mi malestar por escribir un libro sobre un lenguaje de programación. Cuando escribí El Pequeño Libro de MongoDB podia dar por supuesto que la mayoría de los lectores entendían los conceptos básicos de bases de datos relaciones así como su modelado. Con El Pequeño Libro de Redis podía asumir que el lector estaba familiarizado con los conceptos de clave-valor y empezar por ahí.</p>
+<p>Cuando pienso en los párrafos y capítulos que vienen adelante sé que no puedo hacer esas presunciones. ¿Cuánto tiempo será necesario utilizar para hablar sobre interfaces sabiendo que para algunos el concepto será nuevo, mientras que otros no necesitan saber más que que <em>Go tiene interfaces</em>? Me tomaré la libertad de pensar que me vas a hacer saber si algunas partes son demasido superficiales mientras que otras entran demasiado en detalle. Considéralo el precio a pagar por tener este libro.</p>
+<h1 id="comenzando">Comenzando</h1>
+<p>Si buscas jugar un poco con Go deberías probar el <a href="http://play.golang.org/">Go Playground</a>, el cual te permite ejecutar código en el navegador sin tener que instalar nada. Esta es, además, la forma más común de compartir código escrito en Go al pedir ayuda en los <a href="https://groups.google.com/forum/#!forum/golang-nuts">foros de Go</a> y en lugares como StackOverflow.</p>
+<p>La instalación de Go es bastante directa. Lo puedes instalar desde el código fuente, pero te aconsejo que utilices los binarios precompilados. Cuando vayas a <a href="https://golang.org/dl/">la página de descargas</a> verás instaladores para varias plataformas. Vamos a pasar de ellos y a aprender cómo instalar Go por nosotros mismos. Como verás no es difícil.</p>
+<p>Excepto para los ejemplos sencillos, Go ha sido diseñado para funcionar siempre que tu código esté dentro de un workspace. El workspace es un directorio formado por los subdirectorios <code>bin</code>, <code>pkg</code> y <code>src</code>. Puede que estés tentado a forzar a Go a usar tu propio estilo - no lo hagas.</p>
+<p>Por lo general coloco mis proyectos dentro de <code>~/code</code>. Por ejemplo, <code>~/code/blog</code> contiene mi blog. Para Go, mi workspace es <code>~/code/go</code> y mi blog vitaminado con Go debe estar en <code>~/code/go/src/blog</code>. Ya que hay mucho que escribir utilizo un enlace simbólico para poder acceder directamente desde <code>~/code/blog</code>:</p>
+
+<div class="highlight">
+	<pre>ln -s ~/code/go/src/blog ~/code/blog</pre>
+</div>
+
+<p>Para resumir, crea un directorio <code>go</code> con un subdirectorio <code>src</code> donde vayas a dejar tus proyectos,</p>
+<h2 id="osx-linux">OSX / Linux</h2>
+<p>Descarga el fichero <code>tar.gz</code> de tu plataforma. Para OSX, el que más te interesa es <code>go#.#.#.darwin-amd64-osx10.8.tar.gz</code>, donde <code>#.#.#</code> es la última versión de Go.</p>
+<p>Descomprime el fichero en <code>/usr/local</code> con el comando <code>tar -C /usr/local -xzf go#.#.#.darwin-amd64-osx10.8.tar.gz</code>.</p>
+<p>Configura dos variables de entorno:</p>
+<ol style="list-style-type: decimal">
+<li><code>GOPATH</code> debe apuntar a tu workspace, para mí es <code>$HOME/code/go</code>.</li>
+<li>Necesitamos añadir el binario de Go en nuestro <code>PATH</code>.</li>
+</ol>
+<p>Para hacer esto desde la terminal lanzamos los comandos:</p>
+
+<div class="highlight">
+	<pre>echo &#39;export GOPATH=$HOME/code/go&#39; &gt;&gt; $HOME/.profile</pre>
+</div>
+<div class="highlight">
+	<pre>echo &#39;export PATH=$PATH:/usr/local/go/bin&#39; &gt;&gt; $HOME/.profile</pre>
+</div>
+
+<p>Necesitarás activar ambas variables. Para ello puedes cerrar y reabrir tu terminal o puedes ejecutar el comando <code>source $HOME/.profile</code>.</p>
+<p>Escribe <code>go version</code> y tendrás una salida del estilo a <code>go version go#.#.# darwin/amd64</code>.</p>
+<h2 id="windows">Windows</h2>
+<p>Descarga la última versión del fichero en formato zip. Si tu máquina es x64 necesitarás bajar <code>go#.#.#.windows-amd64.zip</code>, donde <code>#.#.#</code> es la última versión de Go.</p>
+<p>Descomprímelo en el directorio que prefieras. <code>c:\Go</code> es una buena elección.</p>
+<p>Configura dos variables de entorno:</p>
+<ol style="list-style-type: decimal">
+<li><code>GOPATH</code> debe apuntar a tu workspace. Deberá ser algo del estilo <code>c:\users\goku\work\go</code>.</li>
+<li>Añade <code>c:\Go\bin</code> en tu variable de entorno <code>PATH</code>.</li>
+</ol>
+<p>Las variables de entorno se pueden configurar a través del botón <code>Variables de entorno</code> de la pestaña <code>Avanzado</code> de la opción <code>Sistema</code> del panel de control. Esto puede variar según la versión de Windows.</p>
+<p>Abre un terminal y escribe <code>go version</code>. Si todo ha ido bien tendrás una salida del estilo <code>go version go#.#.# windows/amd64</code>.</p>
+<h1 id="capítulo-1---lo-básico">Capítulo 1 - Lo Básico</h1>
+<p>Go es un lenguaje compilado y estáticamente tipado, con una sintaxis similar a la de C y recolección de basura. ¿Qué significa todo esto?</p>
+<h2 id="compilación">Compilación</h2>
+<p>La compilación es el proceso de traducir el código fuente que escribas en un lenguaje de más bajo nivel -- puede ser ensamblador (como en el caso de Go) u otro tipo de lenguaje intermedio (como en el caso de Java o C#)</p>
+<p>Trabajar con lenguajes compilados puede ser poco gratificante ya que el proceso de compilación puede ser lento. Es difícil iterar rápidamente cuando tienes que esperar minutos u horas a que el código compile. La velocidad de compilación es una de las principales metas en el diseño de Go, lo cual es una buena noticia tanto para los que trabajan con proyectos grandes como para aquellos que estamos acostumbrados a tener el feedback inmediato que ofrecen los lenguajes interpretados.</p>
+<p>Los lenguajes compilados suelen ser más rápidos y los ejecutables pueden funcionar sin depedencias adicionales (al menos esto es cierto para lenguajes como C, C++ y Go, los cuales compilan directamente en ensamblador)</p>
+<h2 id="estáticamente-tipado">Estáticamente Tipado</h2>
+<p>Estar tipado estáticamente implica que las variables deben ser de un tipo específico (int, string, bool, []byte, etc). Esto se consigue indicando el tipo a la hora de definir la variable o, en muchos casos, dejando al compilador que infiera el tipo (veremos ejemplos de esto en breve).</p>
+<p>Se puede decir mucho más sobre el tipado estático, pero creo que se entiende mejor viendo directamente el código fuente. Si estás acostumbrado a trabajar con lenguajes dinámicamente tipados encontrarás algo torpe esta práctica. No estás equivocado, pero hay ventajas, especialmente cuando unes tipado estático con compilación. Ambos se combinan a menudo y, por lo general, cuando tienes uno tienes el otro, ya que le permite al compilador ser capaz de detectar problemas más allá de los errores sintáticos y de realizar mejores optimizaciones cuando el sitema de tipado es rígido.</p>
+<h2 id="sintaxis-similar-a-c">Sintaxis Similar a C</h2>
+<p>Que Go tenga una sintaxis similar a C implica que si estás acostumbrado a utilizar otros lenguajes como C, C++, Java, JavaScript o C#, Go te resultará familiar -- al menos de modo superficial. Por ejemplo, <code>&amp;&amp;</code> se utiliza como un AND booleano, <code>==</code> se emplea para comparar igualdad, <code>{</code> y <code>}</code> comienzan y finalizan un ámbito y los arrays empiezan por 0.</p>
+<p>La sintaxis de C suele implicar que las líneas deban terminar en punto y coma y que debe haber paréntesis que delimitan condicionales. Go acaba con estas prácticas, aunque los paréntesis se siguen usando para controlar la precedencia de operadores. Por ejemplo, un <code>if</code> tiene el siguiente aspecto:</p>
+
+<div class="highlight"><pre><span></span><span class="k">if</span> <span class="nx">name</span> <span class="o">==</span> <span class="s">&quot;Leto&quot;</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nb">print</span><span class="p">(</span><span class="s">&quot;the spice must flow&quot;</span><span class="p">)</span>
+<span class="p">}</span></pre></div>
+
+<p>Aunque en casos más complicados los paréntesis siguen siendo útiles:</p>
+
+<div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="nx">name</span> <span class="o">==</span> <span class="s">&quot;Goku&quot;</span> <span class="o">&amp;&amp;</span> <span class="nx">power</span> <span class="p">&gt;</span> <span class="mi">9000</span><span class="p">)</span> <span class="o">||</span> <span class="p">(</span><span class="nx">name</span> <span class="o">==</span> <span class="s">&quot;gohan&quot;</span> <span class="o">&amp;&amp;</span> <span class="nx">power</span> <span class="p">&lt;</span> <span class="mi">4000</span><span class="p">)</span>  <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nb">print</span><span class="p">(</span><span class="s">&quot;super Saiyan&quot;</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>Cabe indicar que Go es mucho más cercano a C que C# o Java - no sólo en términos de sintaxis, sino tambien en objetivos. Esto queda reflejado en la sequedad y simplicidad del lenguaje, el cual empezará a resultar muy sencillo a medida que lo vayas aprendiendo.</p>
+<h2 id="recolección-de-basura">Recolección de Basura</h2>
+<p>Algunas variables, al ser creadas, tienen un ciclo de vida claramente delimitado. Una variable local a una función, por ejemplo, desaparece cuando la función termina. En otros casos el escenario no es tan obvio -- al menos para el compilador. Por ejemplo, el ciclo de vida de una variable devuelta por una función o referenciada por otras variables y objetos puede ser más complicado de determinar. Sin el recolector de basura es tarea de los desarrolladores el liberar la memoria asociada a estas variables cuando el desarrollador sepa que la variable va a dejar de ser utilizada. ¿Cómo? En C, ejecutando el comando <code>free(str);</code> sobre la variable.</p>
+<p>Los lenguajes con recolectores de basura (e.j., Ruby, Python, Java, JavaScript, C#, Go) son capaces de realizar un seguimiento de las variables y liberarlas cuando no se utilicen más. La recolección de basura añade overhead, pero también elimina bugs devastadores.</p>
+<h2 id="ejecutar-código-go">Ejecutar Código Go</h2>
+<p>Vamos a comenzar nuestro camino creando un programa simple y aprendiendo a compilarlo y ejecutarlo. Para ello, abre tu editor de texto favorito y escribe el código siguiente:</p>
+<div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nb">println</span><span class="p">(</span><span class="s">&quot;it&#39;s over 9000!&quot;</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>Guarda el fichero con el nombre <code>main.go</code>. De momento, puedes guardarlo donde quieras, los ejemplos triviales no necesitan estar dentro del workspace de Go.</p>
+<p>A continuación, abre una shell y cambia al directorio donde guardaste el archivo. En mi caso, esto implica escribir <code>cd ~/code</code>.</p>
+<p>Para terminar, ejecuta el programa escribiendo:</p>
+
+<div class="highlight">
+	<pre>go run main.go</pre>
+</div>
+
+<p>Si todo ha funcionado deberías ver <em>it's over 9000!</em>.</p>
+<p>Pero espera, ¿qué hay de la compilación?. <code>go run</code> es un comando muy práctico que compila <em>y</em> ejecuta tu código. Utiliza un directorio temporal para construir el programa, lo ejecuta y lo borra. Puedes ver la ubicación del fichero temporal ejecutando:</p>
+
+<div class="highlight">
+	<pre>go run --work main.go</pre>
+</div>
+
+<p>Para compilar explícitamente, utiliza <code>go build</code>:</p>
+
+<div class="highlight">
+	<pre>go build main.go</pre>
+</div>
+
+<p>Esto generará un <code>main</code> ejecutable que podrás utilizar donde necesites. No olvides que en Linux / OSX es necesario poner un prefijo al ejecutable con punto-barra, así que deberás escribir <code>./main</code>.</p>
+<p>A la hora de desarrollar puedes utilizar tanto <code>go run</code> como <code>go build</code>. Sin embargo, cuando desplieges tu código, necesitarás generar un binario mediante <code>go build</code> y ejecutarlo.</p>
+<h3 id="main">Main</h3>
+<p>Espero que el código que acabamos de ejecutar sea entendible. Hemos creado una función y hemos mostrado un string con la función predefinida <code>println</code>. ¿El comando <code>go run</code> sabe qué tiene que ejecutar porque sólo tiene una elección? No. En Go, el punto de entrada de un programa es una función llamada <code>main</code> ubicada en el paquete <code>main</code>.</p>
+<p>Hablaremos más de paquetes en el capítulo siguiente. De momento, mientras nos centramos en entender los bases de Go, vamos a escribir nuestro código en el paquete <code>main</code>.</p>
+<p>Si quieres, puedes modificar el código anterior y cambiar el nombre del paquete. Si lo ejecutas mediante <code>go run</code> deberías obtener un mensaje de error. Tras esto, vuelve a dejar el nombre de <code>main</code> pero usa un nombre de función diferente, deberías ver otro mensaje de error. Prueba a hacer los mismos cambios pero ejecutando <code>go build</code> esta vez. Observa que el código compila, aunque no hay ningún punto de entrada para hacerlo funcionar. Esta situación es perfectamente normal cuando estás construyendo una librería.</p>
+<h2 id="imports">Imports</h2>
+<p>Go incluye ciertas funciones predefinidas, como <code>println</code>, las cuales pueden ser utilizadas sin referenciar. No podemos ir muy lejos sin utilizar la librería estándar de Go y, eventualmente, sin usar librerías de terceros. En Go, la palabra clave <code>import</code> se utiliza para declarar qué paquetes van a ser utilizados por el código del fichero en el que estemos trabajando.</p>
+<p>Vamos a cambiar nuestro programa:</p>
+<div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="s">&quot;fmt&quot;</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="s">&quot;os&quot;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Args</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">2</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">os</span><span class="p">.</span><span class="nx">Exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="p">}</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;It&#39;s over &quot;</span><span class="p">,</span> <span class="nx">os</span><span class="p">.</span><span class="nx">Args</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>El cual se puede ejecutar a través de:</p>
+
+<div class="highlight">
+	<pre>go run main.go 9000</pre>
+</div>
+
+<p>En este caso estamos usando dos paquetes estándar de Go: <code>fmt</code> y <code>os</code>. Hemos presentado, además, otra función predefinida: <code>len</code>. <code>len</code> devuelve el tamaño de un string, o el número de valores de un diccionario o, como podemos ver aquí, el número de elementos de un array. Si te estás preguntado que por qué espera 2 parámetros es porque el primer argumento -- en el índice 0 -- es siempre la ruta al ejecutable que está en marcha. (Puedes modificar el programa para que lo muestre y así lo puedas ver por tí mismo)</p>
+<p>Es probable que hayas observado que ponemos el nombre del paquete antes que el nombre de la función: <code>fmt.Println</code>. Esta forma de trabajar es diferente a la que puedes conocer de otros lenguajes. Aprenderemos más sobre paquetes en los próximos capitulos: de momento, saber cómo importarlos y cómo usarlos es un buen punto de partida.</p>
+<p>Go es estricto en lo que respecta a la importación de paquetes, tanto que tu código no compilará si importas un paquete que no utilizas. Prueba a ejecutar lo siguiente:</p>
+
+<div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="s">&quot;fmt&quot;</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="s">&quot;os&quot;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>Deberías obtener dos errores indicando que <code>fmt</code> y <code>os</code> están siendo importados pero no usados. ¿Puede ser esto molesto? Por supuesto que si. A medida que vaya pasando el tiempo te acostumbrarás (aunque a veces puede seguir siendo molesto). Go es estricto en este sentido porque los import que no se utilicen pueden ralentizar la compilación; aunque es cierto que es un problema del cual la mayoría de nosotros no se preocupa.</p>
+<p>Otro detalle a tener en cuenta es que la librería estándar de Go está bien documentada. Puedes echar un vistazo a <a href="http://golang.org/pkg/fmt/#Println" class="uri">http://golang.org/pkg/fmt/#Println</a> para aprender más sobre la función <code>Println</code> que hemos usado. Puedes pinchar sobre el encabezado y ver el código fuente. Es más, en la parte de arriba de la página podrás saber más sobre las capacidades de formato de Go.</p>
+<p>Si no tienes conexión a internet puedes obtener la documentación localmente ejecutando:</p>
+
+<div class="highlight">
+	<pre>godoc -http=:6060</pre>
+</div>
+
+<p>Y haciendo que tu navegador apunte a <code>http://localhost:6060</code></p>
+<h2 id="variables-y-declaraciones">Variables y Declaraciones</h2>
+<p>Estaría bien comenzar y terminar nuestro vistazo a las variables diciendo <em>puedes declarar y asignar una variable haciendo X = 4</em>. Por desgracia, las cosas son más complicadas en Go. Vamos a comenzar revisando ejemplos sencillos. Tras ello, en el próximo capítulo, aprenderemos a crear y utilizar estructuras. Quizá necesites algo de tiempo antes de sentirte cómodo con ellas.</p>
+<p>Puede que pienses <em>¡Vaya! ¿Cómo de complicado puede ser eso?</em>. Vamos a comenzar revisando algunos ejemplos.</p>
+<p>La forma más explícita de realizar declaraciones y asignaciones de variables en Go es aquella en la que hay que escribir más:</p>
+
+
+<div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="s">&quot;fmt&quot;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="kd">var</span> <span class="nx">power</span> <span class="kt">int</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">power</span> <span class="p">=</span> <span class="mi">9000</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&quot;It&#39;s over %d\n&quot;</span><span class="p">,</span> <span class="nx">power</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+
+
+
+<p>En este caso hemos declarado una variable <code>power</code> de tipo <code>int</code>. Por defecto, Go asigna un valor por defecto a las variables. A los enteros se les asigna <code>0</code>, a los booleanos <code>false</code>, a los strings <code>&quot;&quot;</code>, etc. A continuación, hemos asignado el valor <code>9000</code> a nuestra varible <code>power</code>. Podemos unir las dos líneas:</p>
+
+
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">power</span> <span class="kt">int</span> <span class="p">=</span> <span class="mi">9000</span>
+</pre></div>
+
+
+<p>Todavía hemos tenido que escribir mucho. Go tiene un operador muy práctico con el que declarar variables, <code>:=</code>, el cual puede inferir el tipo:</p>
+
+
+<div class="highlight"><pre>
+<span class="nx">power</span> <span class="o">:=</span> <span class="mi">9000</span>
+</pre></div>
+
+<p>Es práctico y tambien se puede utilizar con funciones:</p>
+
+
+<div class="highlight"><pre>
+<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">power</span> <span class="o">:=</span> <span class="nx">getPower</span><span class="p">()</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nx">getPower</span><span class="p">()</span> <span class="kt">int</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">return</span> <span class="mi">9001</span>
+<span class="p">}</span>
+</pre></div>
+
+
+
+<p>Es importante que recuerdes que <code>:=</code> se utiliza para declarar la variable a la vez que se le asigna valor. ¿Por qué? Porque una variable no puede ser definida dos veces (al menos no en el mismo ámbito). Si tratas de ejecutar el siguiente código obtendrás un error:</p>
+
+
+<div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">power</span> <span class="o">:=</span> <span class="mi">9000</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&quot;It&#39;s over %d\n&quot;</span><span class="p">,</span> <span class="nx">power</span><span class="p">)</span>
+
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="c1">// ERROR DE COMPILACIÓN:</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="c1">// no hay variables nuevas a la izquierda de :=</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">power</span> <span class="o">:=</span> <span class="mi">9001</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&quot;It&#39;s also over %d\n&quot;</span><span class="p">,</span> <span class="nx">power</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>El compilador se quejará con un <em>no hay variables nuevas a la izquierda de :=</em>. Esto significa que la primera vez que declaramos una variable debemos usar <code>:=</code>, pero para el resto de las asignaciones debemos usar el operador <code>=</code>. Esto tiene mucho sentido, pero te va a obligar a saber cuándo tienes que usar alguno de los dos.</p>
+<p>Si lees el mensaje de error de cerca verás que <em>variables</em> es plural. Esto es así porque Go te permite asignar múltiples variables (usando tanto <code>=</code> como <code>:=</code>):</p>
+
+
+<div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">name</span><span class="p">,</span> <span class="nx">power</span> <span class="o">:=</span> <span class="s">&quot;Goku&quot;</span><span class="p">,</span> <span class="mi">9000</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&quot;%s&#39;s power is over %d\n&quot;</span><span class="p">,</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">power</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p><code>:=</code> se puede utilizar ya que al menos una de las variables es nueva. Observa el siguiente ejemplo:</p>
+
+<div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">power</span> <span class="o">:=</span> <span class="mi">1000</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&quot;default power is %d\n&quot;</span><span class="p">,</span> <span class="nx">power</span><span class="p">)</span>
+
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">name</span><span class="p">,</span> <span class="nx">power</span> <span class="o">:=</span> <span class="s">&quot;Goku&quot;</span><span class="p">,</span> <span class="mi">9000</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&quot;%s&#39;s power is over %d\n&quot;</span><span class="p">,</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">power</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>Aunque es la segunda vez que se utiliza <code>:=</code> con <code>power</code>, el compilador no se quejará ya que verá que <code>name</code> es una variable nueva y, por tanto, permite <code>:=</code>. Sin embargo, no puedes cambiar el tipo de <code>power</code>. Fue declarada (implícitamente) como entera y, por ello, sólo se le pueden asignar enteros.</p>
+<p>Lo último que deber saber por ahora es que, como ocurre con los imports, Go no te va a permitir tener variables sin utilizar. Por ejemplo:</p>
+
+
+<div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">name</span><span class="p">,</span> <span class="nx">power</span> <span class="o">:=</span> <span class="s">&quot;Goku&quot;</span><span class="p">,</span> <span class="mi">1000</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&quot;default power is %d\n&quot;</span><span class="p">,</span> <span class="nx">power</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>no compilará ya que <code>name</code> ha sido declarada pero no se utiliza. Puede, al igual que ocurre con los imports no utilizados, causar frustración, pero en líneas generales creo que ayuda a mantener la limpieza del código y la legibilidad.</p>
+<p>Hay más cosas que aprender sobre declaaciones y asignaciones. De momento, recuerda que puedes usar <code>var NOMBRE TIPO</code> cuando declaras una variable y le asignas su valor por defecto, <code>NOMBRE := VALOR</code> cuando declaras y asignas valor a una variable, y <code>NOMBRE = VALOR</code> cuando asignas valor a una variable previamente declarada.</p>
+<h2 id="declaración-de-funciones">Declaración de Funciones</h2>
+<p>Es un buen momento para indicar que las funciones pueden devolver más de un valor. Vamos a echar un ojo a las siguientes tres funciones: una primera sin valor de retorno, una segunda con un valor de retorno, y una tercera con dos valores de retorno.</p>
+
+
+<div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">log</span><span class="p">(</span><span class="nx">message</span> <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nx">add</span><span class="p">(</span><span class="nx">a</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">b</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nx">power</span><span class="p">(</span><span class="nx">name</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>Utilizamos la última de este modo:</p>
+
+<div class="highlight"><pre><span></span><span class="nx">value</span><span class="p">,</span> <span class="nx">exists</span> <span class="o">:=</span> <span class="nx">power</span><span class="p">(</span><span class="s">&quot;goku&quot;</span><span class="p">)</span>
+<span class="k">if</span> <span class="nx">exists</span> <span class="o">==</span> <span class="kc">false</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="c1">// manejar esta situación de error</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>A veces sólo estás interesado en uno de los valores de retorno. En esos casos, puedes asignar los otros valores a <code>_</code>:</p>
+
+<div class="highlight"><pre><span></span><span class="nx">_</span><span class="p">,</span> <span class="nx">exists</span> <span class="o">:=</span> <span class="nx">power</span><span class="p">(</span><span class="s">&quot;goku&quot;</span><span class="p">)</span>
+<span class="k">if</span> <span class="nx">exists</span> <span class="o">==</span> <span class="kc">false</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="c1">// manejar esta situación de error</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>Esto es más que una mera convención. <code>_</code>, el identificador blanco, es especial en el sentido en que el valor de retorno no será asignado. Esto te permite utilizar <code>_</code> una y otra vez independientemente del tipo devuelto.</p>
+<p>Para terminar, hay algo más que te gustará saber relacionado con la declaración de funciones. Se puede usar una sintaxis abreviada si los parámetros son del mismo tipo:</p>
+
+
+<div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">add</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+
+<span class="p">}</span>
+</pre></div>
+
+
+
+<p>A menudo utilizarás la capacidad de devolver más de un valor, y con frecuencia utilizarás <code>_</code> para descartar algún valor. Nombrar los valores de retorno y la ligeramente abreviada declaración de parámetros no son tan comunes. De todos modos, antes o después te encontrarás con ellos así que es importante conocerlos.</p>
+<h2 id="antes-de-continuar">Antes de Continuar</h2>
+<p>Hemos revisado una pequeña cantidad de piezas individuales que probablemente parezca que no encajan de momento. Poco a poco iremos construyendo ejemplos más grandes en los que las piezas comiencen a encajar.</p>
+<p>Si provienes de un lenguaje dinámico quizá consideres que la complejidad de los tipos y las declaraciones son un paso atrás. No estoy en desacuerdo contigo. En determinados entornos los lenguajes dinámicos son, sin lugar a dudas, más productivos.</p>
+<p>Probablemente te sientas cómodo con Go si procedes de un lenguaje estáticamente tipado. La inferencia de tipos y los múltiples valores de retorno son estupendos (aunque ciertamente no son exclusivos de Go). Iremos valorando su sintaxis clara y concisa a medida que vayamos aprendiendo más.</p>
+<h1 id="capítulo-2---estructuras">Capítulo 2 - Estructuras</h1>
+<p>Go no es un lenguaje orientado a objetos (OO) como C++, Java, Ruby o C#. No tiene objetos, ni herencia ni cosas por el estilo, así que tampoco tiene conceptos asociados con la OO como el polimorfismo o la sobrecarga.</p>
+<p>Lo que tiene Go son estructuras que pueden ser asociadas con métodos. Go, además, posee un mecanismo sencillo y efectivo de composición. Como resultado el código es más sencilo, pero hay veces en las cuales se echan de menos algunas de las posibilidades que la OO ofrece. (Merece la pena destacar que la batalla <em>composición versus herencia</em> lleva mucho tiempo existiendo y que Go es el primer lenguaje que utilizo que defiende una posición concreta ante este dilema).</p>
+<p>Aunque Go no hace OO del modo al que estamos acostumbrados, descubrirás un montón de similaridades entre la definición de una estructura y la definición de una clase. La definición de la estructura <code>Saiyan</code> es un ejemplo de ello:</p>
+
+
+<div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">Saiyan</span> <span class="kd">struct</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">Name</span> <span class="kt">string</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">Power</span> <span class="kt">int</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>Pronto veremos cómo añadir un método a esta estructura, lo cual se parece mucho a tener métodos en una clase. Antes de ponernos con ello vamos a meternos con las declaraciones.</p>
+<h2 id="declaraciones-e-inicializaciones">Declaraciones e Inicializaciones</h2>
+<p>La primera vez que vimos variables y declaraciones sólo usamos tipos predefinidos como enteros o strings. Ahora que hemos hablado de estructuras vamos a ampliar el espectro para incluir punteros.</p>
+<p>La forma más sencilla de crear un valor para nuestra estructura es:</p>
+
+<div class="highlight"><pre><span></span><span class="nx">goku</span> <span class="o">:=</span> <span class="nx">Saiyan</span><span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">Name</span><span class="p">:</span> <span class="s">&quot;Goku&quot;</span><span class="p">,</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">Power</span><span class="p">:</span> <span class="mi">9000</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+
+<p><em>Nota:</em> La última <code>,</code> del ejemplo anterior es obligatoria. Sin ella, el compilador dará un error. Acabarás apreciando que la consistencia sintáctica sea tan rígida, especialmente si has utilizado lenguajes que la tengan.</p>
+<p>No tenemos por qué dar valor a todos los campos. Ambas declaraciones son válidas:</p>
+
+
+
+<div class="highlight"><pre><span></span><span class="nx">goku</span> <span class="o">:=</span> <span class="nx">Saiyan</span><span class="p">{}</span>
+
+<span class="c1">// o</span>
+
+<span class="nx">goku</span> <span class="o">:=</span> <span class="nx">Saiyan</span><span class="p">{</span><span class="nx">Name</span><span class="p">:</span> <span class="s">&quot;Goku&quot;</span><span class="p">}</span>
+<span class="nx">goku</span><span class="p">.</span><span class="nx">Power</span> <span class="p">=</span> <span class="mi">9000</span>
+</pre></div>
+
+
+
+
+<p>Al igual que ocurre con las variables, los atributos también tienen un valor por defecto.</p>
+<p>Es más, puedes omitir el nombre de los campos y basarte únicamente en el orden en el cual éstos están declarados (aunque en nombre de la claridad sólo deberias hacer esto en estructuras con pocos campos):</p>
+
+<div class="highlight"><pre><span></span><span class="nx">goku</span> <span class="o">:=</span> <span class="nx">Saiyan</span><span class="p">{</span><span class="s">&quot;Goku&quot;</span><span class="p">,</span> <span class="mi">9000</span><span class="p">}</span>
+</pre></div>
+
+<p>Lo que hacen todos los ejemplos anteriores es declarar la variable <code>goku</code> y asignarle un valor.</p>
+<p>Sin embargo, muchas veces no queremos una variable que esté asociada directamente con un valor, sino una variable que sea un puntero a ese valor. Un puntero es una dirección de memoria, es la ubicación donde podemos encontrar el valor. Es una indirección, la diferencia entre tener una casa y tener las señas de una casa.</p>
+<p>¿Por qué podríamos querer tener un puntero al valor en vez del propio valor?. Tiene que ver con la forma en la que Go pasa parámetros a las funciones, ya que lo hace mediante copias. Sabiendo esto, ¿qué crees que aparecerá por consola?</p>
+
+
+
+<div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">goku</span> <span class="o">:=</span> <span class="nx">Saiyan</span><span class="p">{</span><span class="s">&quot;Goku&quot;</span><span class="p">,</span> <span class="mi">9000</span><span class="p">}</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">Super</span><span class="p">(</span><span class="nx">goku</span><span class="p">)</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">goku</span><span class="p">.</span><span class="nx">Power</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nx">Super</span><span class="p">(</span><span class="nx">s</span> <span class="nx">Saiyan</span><span class="p">)</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">s</span><span class="p">.</span><span class="nx">Power</span> <span class="o">+=</span> <span class="mi">10000</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>La respuesta es 9000, no 19000. ¿Por qué? Porque <code>Super</code> hizo cambios en una copia de nuestro <code>goku</code> original y, por eso, los cambios realizados en <code>Super</code> no se vieron reflejados en quien hizo la invocación. Para hacer que todo funcione como probablemente esperabas necesitamos pasar un puntero a nuestra variable:</p>
+
+
+<div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">goku</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">Saiyan</span><span class="p">{</span><span class="s">&quot;Goku&quot;</span><span class="p">,</span> <span class="mi">9000</span><span class="p">}</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">Super</span><span class="p">(</span><span class="nx">goku</span><span class="p">)</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">goku</span><span class="p">.</span><span class="nx">Power</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nx">Super</span><span class="p">(</span><span class="nx">s</span> <span class="o">*</span><span class="nx">Saiyan</span><span class="p">)</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">s</span><span class="p">.</span><span class="nx">Power</span> <span class="o">+=</span> <span class="mi">10000</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>Hemos hecho dos cambios. El primero es la utilización del operador <code>&amp;</code> para recuperar la dirección de nuestra variable (se llama operador <em>dirección de</em>). A continuación hemos modificado el tipo de parámetro que espera recibir <code>Super</code>. Antes esperaba un valor de tipo <code>Saiyan</code> pero ahora espera una dirección de tipo <code>*Saiyan</code>, donde <code>*X</code> significa <em>puntero a valor de tipo X</em>. Hay una relación obvia entre los tipos <code>Saiyan</code> y <code>*Saiyan</code>, pero son tipos distintos.</p>
+<p>Observa que todavía estamos pasando una copia del valor de <code>goku</code> a <code>Super</code>, sólo que el valor de goku es ahora una dirección de memoria. Esta copia tiene la misma dirección que la original, que es en lo que se basa la indirección. Imagina que copias las señas hacia un restaurante. Lo que tienes es una copia, pero esta copia también apunta al mismo restaurante que el original.</p>
+<p>Podemos probar que es una copia tratando de cambiar el lugar donde apunta (no es algo que vaya a hacer lo que esperas que hiciese):</p>
+
+
+<div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">goku</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">Saiyan</span><span class="p">{</span><span class="s">&quot;Goku&quot;</span><span class="p">,</span> <span class="mi">9000</span><span class="p">}</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">Super</span><span class="p">(</span><span class="nx">goku</span><span class="p">)</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">goku</span><span class="p">.</span><span class="nx">Power</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nx">Super</span><span class="p">(</span><span class="nx">s</span> <span class="o">*</span><span class="nx">Saiyan</span><span class="p">)</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">s</span> <span class="p">=</span> <span class="o">&amp;</span><span class="nx">Saiyan</span><span class="p">{</span><span class="s">&quot;Gohan&quot;</span><span class="p">,</span> <span class="mi">1000</span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>El código anterior, de nuevo, muestra 9000. Este comportamiento es propio de muchos lenguajes, incluidos Ruby, Python, Java y C#. Go y, en cierta medida, C#, simplemente hacen que el hecho sea visible.</p>
+<p>Debería ser obvio que copiar un puntero es más barato en términos computacionales que copiar una estructura compleja. En una máquina de 64 bits un puntero ocupa 64 bits. Hacer copias puede ser caro si tenemos estructuras con muchos campos. El aporte real de los punteros es que te permiten compartir valores. ¿Queremos que <code>Super</code> modifique una copia de <code>goku</code> o que modifique al propio <code>goku</code>?</p>
+<p>Con esto no quiero decir que siempre vayas a querer usar un puntero. Al final de este capítulo, cuando hayamos visto más sobre qué podemos hacer con estructuras, reexaminaremos la pregunta puntero-versus-variable.</p>
+<h2 id="funciones-sobre-estructuras">Funciones sobre Estructuras</h2>
+<p>Podemos asociar un método con una estructura:</p>
+
+
+<div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">Saiyan</span> <span class="kd">struct</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">Name</span> <span class="kt">string</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">Power</span> <span class="kt">int</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="p">(</span><span class="nx">s</span> <span class="o">*</span><span class="nx">Saiyan</span><span class="p">)</span> <span class="nx">Super</span><span class="p">()</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">s</span><span class="p">.</span><span class="nx">Power</span> <span class="o">+=</span> <span class="mi">10000</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>En el código anterior podemos decir que el tipo <code>*Saiyan</code> es el <strong>receptor</strong> del método <code>Super</code>. Podemos llamar a <code>Super</code> de este modo:</p>
+
+
+<div class="highlight"><pre><span></span><span class="nx">goku</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">Saiyan</span><span class="p">{</span><span class="s">&quot;Goku&quot;</span><span class="p">,</span> <span class="mi">9001</span><span class="p">}</span>
+<span class="nx">goku</span><span class="p">.</span><span class="nx">Super</span><span class="p">()</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">goku</span><span class="p">.</span><span class="nx">Power</span><span class="p">)</span> <span class="c1">// mostrará 19001</span>
+</pre></div>
+
+
+<h2 id="constructores">Constructores</h2>
+<p>Las estructuras no tienen constructores. Sin embargo, puedes crear una función que devuelva una instancia del tipo deseado en su lugar (como un patrón factory):</p>
+
+
+
+<div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">NewSaiyan</span><span class="p">(</span><span class="nx">name</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">power</span> <span class="kt">int</span><span class="p">)</span> <span class="o">*</span><span class="nx">Saiyan</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">return</span> <span class="o">&amp;</span><span class="nx">Saiyan</span><span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">Name</span><span class="p">:</span> <span class="nx">name</span><span class="p">,</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">Power</span><span class="p">:</span> <span class="nx">power</span><span class="p">,</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+
+<p>Nuestra factoría no tiene por qué devolver un puntero; este trozo de código es absolutamente válido:</p>
+
+
+<div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">NewSaiyan</span><span class="p">(</span><span class="nx">name</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">power</span> <span class="kt">int</span><span class="p">)</span> <span class="nx">Saiyan</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">return</span> <span class="nx">Saiyan</span><span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">Name</span><span class="p">:</span> <span class="nx">name</span><span class="p">,</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">Power</span><span class="p">:</span> <span class="nx">power</span><span class="p">,</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+
+<h2 id="new">New</h2>
+<p>A pesar de la falta de constructores, Go tiene la función predefinida <code>new</code> que se utiliza para reservar la memoria que un tipo concreto necesita. El resultado de <code>new(X)</code> es el mismo que <code>&amp;X{}</code>:</p>
+
+
+<div class="highlight"><pre><span></span><span class="nx">goku</span> <span class="o">:=</span> <span class="nb">new</span><span class="p">(</span><span class="nx">Saiyan</span><span class="p">)</span>
+<span class="c1">// es lo mismo que</span>
+<span class="nx">goku</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">Saiyan</span><span class="p">{}</span>
+</pre></div>
+
+
+<p>Cuál uses depende de tí, pero verás que la mayoría de la gente prefiere el segundo cuando hay campos que inicializar, ya que suele ser más fácil de leer:</p>
+
+
+<div class="highlight"><pre><span></span><span class="nx">goku</span> <span class="o">:=</span> <span class="nb">new</span><span class="p">(</span><span class="nx">Saiyan</span><span class="p">)</span>
+<span class="nx">goku</span><span class="p">.</span><span class="nx">name</span> <span class="p">=</span> <span class="s">&quot;goku&quot;</span>
+<span class="nx">goku</span><span class="p">.</span><span class="nx">power</span> <span class="p">=</span> <span class="mi">9001</span>
+
+<span class="c1">// vs</span>
+
+<span class="nx">goku</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">Saiyan</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">name</span><span class="p">:</span> <span class="s">&quot;goku&quot;</span><span class="p">,</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">power</span><span class="p">:</span> <span class="mi">9000</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>Independientemente de la aproximación que sigas, utilizando el patrón factory que vimos anteriormente podrás aislar tu código de tener que saber y preocuparte sobre cuáles son los detalles de reserva de memoria.</p>
+<h2 id="campos-de-una-estructura">Campos de una Estructura</h2>
+<p><code>Saiyan</code>, en el ejemplo que hemos visto hasta ahora, tiene dos campos: <code>Name</code> y <code>Power</code>, de tipos <code>string</code> e <code>int</code>, respectivamente. Los campos pueden ser de cualquier tipo -- incluyendo otras estructuras y tipos que no hemos explorado todavía tales como arrays, mapas, interfaces y funciones.</p>
+<p>Por ejemplo, podemos hacer crecer nuestra definición de <code>Saiyan</code>:</p>
+
+
+<div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">Saiyan</span> <span class="kd">struct</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">Name</span> <span class="kt">string</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">Power</span> <span class="kt">int</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">Father</span> <span class="o">*</span><span class="nx">Saiyan</span>
+<span class="p">}</span>
+</pre></div>
+
+
+
+<p>la cual puede ser inicializada así:</p>
+
+
+<div class="highlight"><pre><span></span><span class="nx">gohan</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">Saiyan</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">Name</span><span class="p">:</span> <span class="s">&quot;Gohan&quot;</span><span class="p">,</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">Power</span><span class="p">:</span> <span class="mi">1000</span><span class="p">,</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">Father</span><span class="p">:</span> <span class="o">&amp;</span><span class="nx">Saiyan</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">Name</span><span class="p">:</span> <span class="s">&quot;Goku&quot;</span><span class="p">,</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">Power</span><span class="p">:</span> <span class="mi">9001</span><span class="p">,</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">Father</span><span class="p">:</span> <span class="kc">nil</span><span class="p">,</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="p">},</span>
+<span class="p">}</span>
+</pre></div>
+
+
+
+<h2 id="composición">Composición</h2>
+<p>Go incluye el concepto de composición, que consiste en incluir una estructura dentro de otra. En algunos lenguajes esto se conoce como trait o mixin. Los lenguajes que no tienen mecanismos de composición explícitos pueden hacerlo siguiendo el camino largo. En Java:</p>
+
+
+<div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Person</span> <span class="o">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="kd">private</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="kd">public</span> <span class="n">String</span> <span class="nf">getName</span><span class="o">()</span> <span class="o">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="na">name</span><span class="o">;</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Saiyan</span> <span class="o">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="c1">// Saiyan is said to have a person</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="kd">private</span> <span class="n">Person</span> <span class="n">person</span><span class="o">;</span>
+
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="c1">// we forward the call to person</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="kd">public</span> <span class="n">String</span> <span class="nf">getName</span><span class="o">()</span> <span class="o">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="na">person</span><span class="o">.</span><span class="na">getName</span><span class="o">();</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="o">}</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="o">...</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>Esto puede convertirse en algo bastante tedioso. Cada uno de los métodos de <code>Person</code> necesita ser duplicado en <code>Saiyan</code>. Go evita esta tediosidad:</p>
+
+
+<div class="highlight"><pre><span></span><span class="n">type</span> <span class="n">Person</span> <span class="n">struct</span> <span class="o">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="n">Name</span> <span class="n">string</span>
+<span class="o">}</span>
+
+<span class="n">func</span> <span class="o">(</span><span class="n">p</span> <span class="o">*</span><span class="n">Person</span><span class="o">)</span> <span class="n">Introduce</span><span class="o">()</span> <span class="o">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="n">fmt</span><span class="o">.</span><span class="na">Printf</span><span class="o">(</span><span class="s">&quot;Hi, I&#39;m %s\n&quot;</span><span class="o">,</span> <span class="n">p</span><span class="o">.</span><span class="na">Name</span><span class="o">)</span>
+<span class="o">}</span>
+
+<span class="n">type</span> <span class="n">Saiyan</span> <span class="n">struct</span> <span class="o">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="o">*</span><span class="n">Person</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="n">Power</span> <span class="kt">int</span>
+<span class="o">}</span>
+
+<span class="c1">// cómo usarlo:</span>
+<span class="n">goku</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="n">Saiyan</span><span class="o">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="n">Person</span><span class="o">:</span> <span class="o">&amp;</span><span class="n">Person</span><span class="o">{</span><span class="s">&quot;Goku&quot;</span><span class="o">},</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="n">Power</span><span class="o">:</span> <span class="mi">9001</span><span class="o">,</span>
+<span class="o">}</span>
+<span class="n">goku</span><span class="o">.</span><span class="na">Introduce</span><span class="o">()</span>
+</pre></div>
+
+
+
+<p>La estructura <code>Saiyan</code> posee un campo de tipo <code>*Person</code>. Dado que no le hemos puesto explícitamente un nombre podemos implícitamente acceder a los campos y funciones del tipo compuesto. Sin embargo, el compilador de Go <em>le puso</em> un nombre al campo. Ambas expresiones son perfectamente válidas:</p>
+
+
+<div class="highlight"><pre><span></span><span class="n">goku</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="n">Saiyan</span><span class="o">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="n">Person</span><span class="o">:</span> <span class="o">&amp;</span><span class="n">Person</span><span class="o">{</span><span class="s">&quot;Goku&quot;</span><span class="o">},</span>
+<span class="o">}</span>
+<span class="n">fmt</span><span class="o">.</span><span class="na">Println</span><span class="o">(</span><span class="n">goku</span><span class="o">.</span><span class="na">Name</span><span class="o">)</span>
+<span class="n">fmt</span><span class="o">.</span><span class="na">Println</span><span class="o">(</span><span class="n">goku</span><span class="o">.</span><span class="na">Person</span><span class="o">.</span><span class="na">Name</span><span class="o">)</span>
+</pre></div>
+
+
+<p>Las dos expresiones anteriores mostrarán &quot;Goku&quot;.</p>
+<p>¿Es la composición mejor que la herencia? Mucha gente piensa que es una forma más robusta de compartir código. Cuando utilizas herencia, tus clases están firmemente acopladas a su superclase y finalmente el esfuerzo se centra más en la jerarquía que en el comportamiento.</p>
+<h3 id="sobrecarga">Sobrecarga</h3>
+<p>Aunque la sobrecarga no sea un concepto específico de las estructuras merece la pena mencionarlo. Go, sencillamente, no soporta sobrecarga. Por este motivo verás (y escribirás) muchas funciones con la firma <code>Load</code>, <code>LoadById</code>, <code>LoadByName</code>, etc.</p>
+<p>Sin embargo, puesto que la composición implícita es un truco del compilador, podemos &quot;sobrecargar&quot; las funciones de un tipo compuesto. Por ejemplo, nuestra estructura <code>Saiyan</code> puede tener su propia función <code>Introduce</code>:</p>
+
+
+<div class="highlight"><pre><span></span><span class="kd">func</span> <span class="p">(</span><span class="nx">s</span> <span class="o">*</span><span class="nx">Saiyan</span><span class="p">)</span> <span class="nx">Introduce</span><span class="p">()</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&quot;Hi, I&#39;m %s. Ya!\n&quot;</span><span class="p">,</span> <span class="nx">s</span><span class="p">.</span><span class="nx">Name</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+
+
+
+<p>La versión original siempre estará accesible a través de <code>s.Person.Introduce()</code>.</p>
+<h2 id="punteros-versus-valores">Punteros versus Valores</h2>
+<p>A medida que escribas código en Go te preguntarás <em>¿debería ser esto un valor, o un puntero al valor?</em> Hay dos buenas noticias. Primera: la respuesta es la misma independientemente de la naturaleza de lo que quieras utilizar:</p>
+<ul>
+<li>Una asignación sobre una variable local</li>
+<li>Un campo de una estructura</li>
+<li>El valor de retorno de una función</li>
+<li>Los parámetros de una función</li>
+<li>El receptor de un método</li>
+</ul>
+<p>La segunda: utiliza un puntero si no estás seguro.</p>
+<p>Como hemos visto, pasar valores es una buena forma de conseguir que los datos sean inmutables (los cambios que una función haga sobre ellos no serán reflejados en el código que lo haya invocado). Lo más frecuente es que este comportamiento sea el que deseas, otras veces no.</p>
+<p>Hay que considerar el coste computacional de crear una copia de una estructura grande incluso si no tienes intención de cambiar los datos que contiene. Por el contrario, puede que tengas estructuras pequeñas, tales como:</p>
+
+
+<div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">Point</span> <span class="kd">struct</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">X</span> <span class="kt">int</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">Y</span> <span class="kt">int</span>
+<span class="p">}</span>
+</pre></div>
+
+
+
+<p>En estos casos, el coste de copiar la estrcutura probablemente sea desplazado por la capacidad de poder acceder a <code>X</code> e <code>Y</code> directamente sin realizar ningún tipo de indirección.</p>
+<p>Una vez más todos estos casos son muy sutiles. A no ser que estés iterando con miles o cientos de miles de elementos no percibirás ninguna diferencia.</p>
+<h2 id="antes-de-continuar-1">Antes de Continuar</h2>
+<p>Visto desde un punto de vista práctico este capítulo ha presentado las estructuras, cómo crear una instancia de una estructura desde una función y ha incluido los punteros a tu conocimiento sobre el sistema de tipado de Go. En los siguientes capítulos trabajaremos tanto con lo que ya sabemos de estructuras como con el resto de conceptos que hemos explorado.</p>
+<h1 id="capítulo-3---mapas-arrays-y-slices">Capítulo 3 - Mapas, Arrays y Slices</h1>
+<p>De momento hemos visto tipos simples y estructuras. Es el momento de conocer los arrays, los slices y los mapas.</p>
+<h2 id="arrays">Arrays</h2>
+<p>Si vienes de Python, Ruby, Perl, JavaScript o PHP (entre otros), probablemente estés acostumbrado a programar con <em>arrays dinámicos</em>, los cuales son arrays que se redimensionan cuando se añaden datos en ellos. En Go, como en muchos otros lenguajes, los arrays tienen un tamaño fijo. Declarar un array requiere especificar qué tamaño tiene y, una vez este tamaño ha sido especificado, no puede crecer.</p>
+
+
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">scores</span> <span class="p">[</span><span class="mi">10</span><span class="p">]</span><span class="kt">int</span>
+<span class="nx">scores</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">=</span> <span class="mi">339</span>
+</pre></div>
+
+
+
+<p>El array anterior puede almacenar hasta 10 puntuaciones usando los índices que van desde <code>scores[0]</code> hasta <code>scores[9]</code>. Intentar acceder a un índice del array fuera de este rango provocará un error en compilación o en ejecución.</p>
+<p>Es posible inicializar el array con valores:</p>
+
+
+<div class="highlight"><pre><span></span><span class="nx">scores</span> <span class="o">:=</span> <span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="kt">int</span><span class="p">{</span><span class="mi">9001</span><span class="p">,</span> <span class="mi">9333</span><span class="p">,</span> <span class="mi">212</span><span class="p">,</span> <span class="mi">33</span><span class="p">}</span>
+</pre></div>
+
+<p>Podemos utilizar <code>len</code> para obtener la longitud del array. <code>range</code> puede ser utilizado para iterar sobre él:</p>
+
+
+<div class="highlight"><pre><span></span><span class="k">for</span> <span class="nx">index</span><span class="p">,</span> <span class="nx">value</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">scores</span> <span class="p">{</span>
+
+<span class="p">}</span>
+</pre></div>
+
+
+<p>Los arrays son eficientes a la par que rígidos, pero a menudo no podemos saber por adelantado qué cantidad de elementos vamos a tener que manejar, es por ello que utilizamos slices.</p>
+<h2 id="slices">Slices</h2>
+<p>En Go raramente, si es que ocurre alguna vez, se utilizan arrays directamente: en su lugar utilizamos slices. Un slice en una estructura ligera que encapsula y representa una porción de un array. Hay varias formas de crear un slice, la primera es una ligera variación de cómo se crea un array:</p>
+
+
+<div class="highlight"><pre><span></span><span class="nx">scores</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">int</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">293</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">9</span><span class="p">}</span>
+</pre></div>
+
+
+<p>Al contrario que con la declaración de arrays, nuestro slice no ha sido declarado indicando una longitud en los corchetes. Vamos a ver otro modo de crear un slice, en este caso usando <code>make</code>, para entender por qué los dos son diferentes :</p>
+
+
+<div class="highlight"><pre><span></span><span class="nx">scores</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">int</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Usamos <code>make</code> en lugar de <code>new</code> porque la creación de un slice implica más cosas que simplemente reservar memoria (que es lo que hace <code>new</code>). En concreto, tenemos que reservar la memoria para un array subyacente y, además, tenemos que inicializar el slice. En el ejemplo anterior inicializábamos un slice con una longitud de 10 y una capacidad de 10. La longitud es el tamaño del slice y la capacidad es el tamaño del array subyacente. Utilizando <code>make</code> podemos especificar ambos por separado:</p>
+
+
+<div class="highlight"><pre><span></span><span class="nx">scores</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">int</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Esto crea un slice con longitud 0 y una capacidad de 10. (Si estás atento, quizá te habrás dado cuenta de que tanto <code>make</code> como <code>len</code> <em>están</em> sobrecargados. Go es un lenguaje que, para frustración de algunos, hace uso de características que los desarrolladores no tenemos capacidad de utilizar)</p>
+<p>Vamos a ver algunos ejemplos con los que entender mejor la diferencia entre longitud y capacidad:</p>
+
+
+<div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">scores</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">int</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">scores</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="p">=</span> <span class="mi">9033</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">scores</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+
+
+
+<p>Nuestro primer ejemplo falla. ¿Por qué?, porque nuestro slice tiene una longitud de 0. Si, el array tiene una longitud de 10 elementos, pero necesitamos expandir nuestro slice explícitamente para poder acceder a esos elementos. Una forma de expandir un slice es a través de <code>append</code>:</p>
+
+
+<div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">scores</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">int</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">scores</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">scores</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">scores</span><span class="p">)</span> <span class="c1">// muestra [5]</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>Pero esto cambia el propósito de nuestro código original. Hacer un append sobre un slice de tamaño 0 pondrá un valor en el primer elemento. Por la razón que sea, el código anterior quiere dar valor a la posición 5. Para conseguir esto podemos modificar nuestro slice:</p>
+
+
+<div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">scores</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">int</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">scores</span> <span class="p">=</span> <span class="nx">scores</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">6</span><span class="p">]</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">scores</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="p">=</span> <span class="mi">9033</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">scores</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+
+
+
+<p>¿Cuánto podemos redimensionar un slice? Hasta su capacidad, la cual en este caso es 10. Puede que estés pensando que <em>eso no resuelve el problema de la longitud fija de los arrays</em>. Esto convierte a <code>append</code> en algo especial. Si el array subyacente está lleno se creará uno más grande y se copiarán los valores sobre él (que es exactamente la forma de funcionar de los arrays dinámicos en lenguajes dinámicos como PHP, Python, Ruby, JavaScript, ...). Este es el motivo por el cual, en el ejemplo anterior en el que usamos <code>append</code>, tenemos que reasignar el valor devuelto por <code>append</code> a nuestra variable <code>scores</code>: <code>append</code> puede haber creado un nuevo valor si el original se habia quedado sin espacio.</p>
+<p>Si te dijera que Go hace crecer los arrays con un algoritmo que multiplica su tamaño por 2, ¿puedes imaginar cuál será la salida del siguiente programa?</p>
+
+
+<div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">scores</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">int</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">c</span> <span class="o">:=</span> <span class="nb">cap</span><span class="p">(</span><span class="nx">scores</span><span class="p">)</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">c</span><span class="p">)</span>
+
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="mi">25</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">scores</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">scores</span><span class="p">,</span> <span class="nx">i</span><span class="p">)</span>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="c1">// Si la capacidad ha cambiado,</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="c1">// Go tiene que hacer crecer el array para volcar los datos</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">if</span> <span class="nb">cap</span><span class="p">(</span><span class="nx">scores</span><span class="p">)</span> <span class="o">!=</span> <span class="nx">c</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">c</span> <span class="p">=</span> <span class="nb">cap</span><span class="p">(</span><span class="nx">scores</span><span class="p">)</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">c</span><span class="p">)</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="p">}</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>La capacidad inicial de <code>scores</code> es 5. Para poder almacenar 25 valores tiene que expandirse 3 veces para tener la capacidad de 10, 20 y finalmente 40.</p>
+<p>Como ejemplo final, ten en cuenta que:</p>
+
+
+<div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">scores</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">int</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">scores</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">scores</span><span class="p">,</span> <span class="mi">9332</span><span class="p">)</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">scores</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>En este caso la salida será <code>[0, 0, 0, 0, 0, 9332]</code>. ¿Quizá pensaste que podría ser <code>[9332, 0, 0, 0, 0]</code>? Puede parecer lógico para un humano. Para un compilador, ese código indica que debe incluir un valor a un slice que tiene rellenos 5 valores.</p>
+<p>Finalmente, hay cuatro formas comunes de inicializar un slice:</p>
+
+
+<div class="highlight"><pre><span></span><span class="nx">names</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&quot;leto&quot;</span><span class="p">,</span> <span class="s">&quot;jessica&quot;</span><span class="p">,</span> <span class="s">&quot;paul&quot;</span><span class="p">}</span>
+<span class="nx">checks</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">bool</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="kd">var</span> <span class="nx">names</span> <span class="p">[]</span><span class="kt">string</span>
+<span class="nx">scores</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">int</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+</pre></div>
+
+
+
+
+<p>¿Cuándo usar cuál? La primera no debería tener mucha explicación: la deberías usar cuando sepas de antemano qué valores son los que debe haber en el array.</p>
+<p>El segundo es útil para escribir en índices específicos de un slice. Por ejemplo:</p>
+
+
+<div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">extractPowers</span><span class="p">(</span><span class="nx">saiyans</span> <span class="p">[]</span><span class="o">*</span><span class="nx">Saiyans</span><span class="p">)</span> <span class="p">[]</span><span class="kt">int</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">powers</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">int</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="nx">saiyans</span><span class="p">))</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">for</span> <span class="nx">index</span><span class="p">,</span> <span class="nx">saiyan</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">saiyans</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">powers</span><span class="p">[</span><span class="nx">index</span><span class="p">]</span> <span class="p">=</span> <span class="nx">saiyan</span><span class="p">.</span><span class="nx">Power</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="p">}</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">return</span> <span class="nx">powers</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>El tercero sirve para crear un slice vacío y se utiliza junto con <code>append</code> cuando el número de elementos es desconocido.</p>
+<p>La última versión nos permite indicar una capacidad inicial; es útil si tenemos una idea general de cuántos elementos vamos a necesitar.</p>
+<p>Puedes utilizar <code>append</code> incluso cuando sabes el tamaño. Es, de largo, una mera cuestión de preferencia:</p>
+
+
+<div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">extractPowers</span><span class="p">(</span><span class="nx">saiyans</span> <span class="p">[]</span><span class="o">*</span><span class="nx">Saiyans</span><span class="p">)</span> <span class="p">[]</span><span class="kt">int</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">powers</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">int</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="nx">saiyans</span><span class="p">))</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">saiyan</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">saiyans</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">powers</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">powers</span><span class="p">,</span> <span class="nx">saiyan</span><span class="p">.</span><span class="nx">Power</span><span class="p">)</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="p">}</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">return</span> <span class="nx">powers</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>Usar slices como wrappers de arrays es un concepto poderoso. Muchos lenguajes manejan el concepto de tener parte de un array. Los arrays tanto de JavaScript como de Ruby tienen un método <code>slice</code>. Puedes obtener un slice en Ruby usando <code>[INICIO..FIN]</code> o en Python a través de <code>[INICIO:FIN]</code>. Sin embargo, en estos lenguajes un slice no es más que un array nuevo con los valores del original copiados sobre él. Si usásemos Ruby, ¿cuál sería la salida del siguiente programa?</p>
+
+
+
+<div class="highlight"><pre><span></span><span class="nx">scores</span> <span class="p">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">]</span>
+<span class="nx">slice</span> <span class="p">=</span> <span class="nx">scores</span><span class="p">[</span><span class="mf">2..4</span><span class="p">]</span>
+<span class="nx">slice</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">=</span> <span class="mi">999</span>
+<span class="nx">puts</span> <span class="nx">scores</span>
+</pre></div>
+
+
+<p>La respuesta es <code>[1, 2, 3, 4, 5]</code> debido a que <code>slice</code> es un array completamente nuevo con copias de los valores. Ahora, echa un vistazo al equivalente en Go:</p>
+
+
+
+<div class="highlight"><pre><span></span><span class="nx">scores</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">int</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">}</span>
+<span class="nx">slice</span> <span class="o">:=</span> <span class="nx">scores</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span>
+<span class="nx">slice</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">=</span> <span class="mi">999</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">scores</span><span class="p">)</span>
+</pre></div>
+
+
+
+
+
+<p>La salida es <code>[1, 2, 999, 4, 5]</code>.</p>
+<p>Esto cambia tu forma de pensar a la hora de programar. Por ejemplo, hay funciones que reciben la posición como un parámetro. En JavaScript, si quieres buscar el primer espacio en un string (si, ¡los slices funcionan también con strings!) a partir de los primeros cinco caracteres, deberíamos escribir:</p>
+
+
+<div class="highlight"><pre><span></span><span class="nx">haystack</span> <span class="p">=</span> <span class="s">&quot;the spice must flow&quot;</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">haystack</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s">&quot; &quot;</span><span class="p">,</span> <span class="mi">5</span><span class="p">));</span>
+</pre></div>
+
+
+
+<p>En Go, usamos slices:</p>
+
+<div class="highlight"><pre><span></span><span class="nx">strings</span><span class="p">.</span><span class="nx">Index</span><span class="p">(</span><span class="nx">haystack</span><span class="p">[</span><span class="mi">5</span><span class="p">:],</span> <span class="s">&quot; &quot;</span><span class="p">)</span>
+</pre></div>
+
+<p>Puedes ver en el ejemplo anterior que <code>[X:]</code> es un atajo que significa <em>desde X hasta el fin</em> mientras que <code>[:X]</code> es un atajo para <em>desde el comienzo hasta X</em>. Go, al contrario que otros lenguajes, no soporta valores negativos. Si queremos todos los valores de un slice excepto el último usamos:</p>
+
+
+<div class="highlight"><pre><span></span><span class="nx">scores</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">int</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">}</span>
+<span class="nx">scores</span> <span class="p">=</span> <span class="nx">scores</span><span class="p">[:</span><span class="nb">len</span><span class="p">(</span><span class="nx">scores</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+
+
+
+<p>A continuación tienes una forma eficiente con la que borrar un valor de un slice sin ordenar:</p>
+<div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">scores</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">int</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">}</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">scores</span> <span class="p">=</span> <span class="nx">removeAtIndex</span><span class="p">(</span><span class="nx">scores</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">scores</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nx">removeAtIndex</span><span class="p">(</span><span class="nx">source</span> <span class="p">[]</span><span class="kt">int</span><span class="p">,</span> <span class="nx">index</span> <span class="kt">int</span><span class="p">)</span> <span class="p">[]</span><span class="kt">int</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">lastIndex</span> <span class="o">:=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">source</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="c1">//intercambiamos el último valor con aquel que queremos eliminar</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">source</span><span class="p">[</span><span class="nx">index</span><span class="p">],</span> <span class="nx">source</span><span class="p">[</span><span class="nx">lastIndex</span><span class="p">]</span> <span class="p">=</span> <span class="nx">source</span><span class="p">[</span><span class="nx">lastIndex</span><span class="p">],</span> <span class="nx">source</span><span class="p">[</span><span class="nx">index</span><span class="p">]</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">return</span> <span class="nx">source</span><span class="p">[:</span><span class="nx">lastIndex</span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>Para terminar, ahora que sabes slices, podemos echar un vistazo a otra función comúnmente usada: <code>copy</code>. <code>copy</code> es una de esas funciones que hacen destacar cómo los slices cambian la forma en la que programamos. Por lo general, un método que copie valores de un array a otro tiene 5 parámetros: <code>origen</code>, <code>comienzo en origen</code>, <code>contador</code>, <code>destino</code> y <code>comienzo en destino</code>. Gracias a los slices únicamente necesitamos dos:</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="p">(</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="s">&quot;fmt&quot;</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="s">&quot;math/rand&quot;</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="s">&quot;sort&quot;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">scores</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">int</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="mi">100</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">scores</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="nb">int</span><span class="p">(</span><span class="nx">rand</span><span class="p">.</span><span class="nx">Int31n</span><span class="p">(</span><span class="mi">1000</span><span class="p">))</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="p">}</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">sort</span><span class="p">.</span><span class="nx">Ints</span><span class="p">(</span><span class="nx">scores</span><span class="p">)</span>
+
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">worst</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">int</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nb">copy</span><span class="p">(</span><span class="nx">worst</span><span class="p">,</span> <span class="nx">scores</span><span class="p">[:</span><span class="mi">5</span><span class="p">])</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">worst</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>Tómate algún tiempo y juega con este código. Pueba a hacer cambios. Comprueba qué ocurre cuando modificas la copia a algo como <code>copy(worst[2:4], scores[:5])</code>, o ¿qué ocurre si tratas de copiar más o menos de <code>5</code> valores en <code>worst</code>?</p>
+<h2 id="mapas">Mapas</h2>
+<p>Los mapas en Go son lo que en otros lenguajes se llaman tablas hash o diccionarios. Funcionan tal y como esperas: defines una clave y un valor y puedes recuperar, establecer y borrar valores en base a ella.</p>
+<p>Los mapas se crean con la función <code>make</code> al igual que los slices. Vamos a ver un ejemplo:</p>
+
+
+<div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">lookup</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">int</span><span class="p">)</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">lookup</span><span class="p">[</span><span class="s">&quot;goku&quot;</span><span class="p">]</span> <span class="p">=</span> <span class="mi">9001</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">power</span><span class="p">,</span> <span class="nx">exists</span> <span class="o">:=</span> <span class="nx">lookup</span><span class="p">[</span><span class="s">&quot;vegeta&quot;</span><span class="p">]</span>
+
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="c1">// muestra 0, false</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="c1">// 0 es el valor por defecto para un entero</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">power</span><span class="p">,</span> <span class="nx">exists</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>Usamos <code>len</code> para recuperar el número de claves. Para borrar un valor en base a su clave usamos <code>delete</code>:</p>
+
+
+<div class="highlight"><pre><span></span><span class="c1">// devuelve 1</span>
+<span class="nx">total</span> <span class="o">:=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">lookup</span><span class="p">)</span>
+
+<span class="c1">// no devuelve nada, puede ser invicado en una clave que no exista</span>
+<span class="nb">delete</span><span class="p">(</span><span class="nx">lookup</span><span class="p">,</span> <span class="s">&quot;goku&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Los mapas crecen dinámicamente. Sin embargo, podemos pasarle un segundo argumento a <code>make</code> con el que indicar un tamaño inicial:</p>
+
+<div class="highlight"><pre><span></span><span class="nx">lookup</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">int</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+</pre></div>
+
+<p>Definir un tamaño inicial puede ayudar a mejorar el rendimiento, así que si tienes una idea sobre cuántas claves vas a tener, es bueno indicarlo al crear el mapa.</p>
+<p>Puedes definir del modo siguiente un mapa como campo en una estructura:</p>
+
+
+
+<div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">Saiyan</span> <span class="kd">struct</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">Name</span> <span class="kt">string</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">Friends</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="o">*</span><span class="nx">Saiyan</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>Una forma de inicializar el mapa anterior es la siguiente:</p>
+
+
+<div class="highlight"><pre><span></span><span class="nx">goku</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">Saiyan</span><span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">Name</span><span class="p">:</span> <span class="s">&quot;Goku&quot;</span><span class="p">,</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">Friends</span><span class="p">:</span> <span class="nb">make</span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="o">*</span><span class="nx">Saiyan</span><span class="p">),</span>
+<span class="p">}</span>
+<span class="nx">goku</span><span class="p">.</span><span class="nx">Friends</span><span class="p">[</span><span class="s">&quot;krillin&quot;</span><span class="p">]</span> <span class="p">=</span> <span class="o">...</span> <span class="c1">//TODO: cargar o crear a Krillin</span>
+</pre></div>
+
+
+
+<p>Hay otra forma más de declarar e inicializar valores en Go:</p>
+
+
+<div class="highlight"><pre><span></span><span class="nx">lookup</span> <span class="o">:=</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">int</span><span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="s">&quot;goku&quot;</span><span class="p">:</span> <span class="mi">9001</span><span class="p">,</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="s">&quot;gohan&quot;</span><span class="p">:</span> <span class="mi">2044</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+
+
+
+<p>Podemos iterar sobre un mapa usando un bucle <code>for</code> en combinación con la palabra clave <code>range</code>:</p>
+
+
+<div class="highlight"><pre><span></span><span class="k">for</span> <span class="nx">key</span><span class="p">,</span> <span class="nx">value</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">lookup</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="o">...</span>
+<span class="p">}</span>
+</pre></div>
+
+
+
+<p>La iteración en mapas no está ordenada, de tal modo que cada iteración devolverá las parejas clave-valor en un orden aleatorio.</p>
+<h2 id="punteros-versus-valores-1">Punteros versus Valores</h2>
+<p>Acabamos el capítulo 2 revisando cuándo deberíamos usar valores o punteros como parámetro. Ha llegado el momento de que tengamos la misma conversación con respecto a los arrays y los mapas. ¿Cuál de estos dos deberías utilizar?</p>
+
+
+<div class="highlight"><pre><span></span><span class="nx">a</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="nx">Saiyan</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="c1">// o</span>
+<span class="nx">b</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="o">*</span><span class="nx">Saiyan</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Muchos desarrolladores creen que pasar <code>b</code> a, o devolver <code>b</code> desde una función va a ser más eficiente. Sin embargo, lo que está siendo pasado/devuelto es una copia del slice, que ya es de por sí una referencia. Así que no hay diferencia con respecto a pasar/devolver un slice.</p>
+<p>Verás la diferencia cuando modifiques los valores del slice o del mapa. En ese momento aplica la lógica que vimos en el capítulo 2. Así que la decisión sobre si definir un array de punteros o un array de valores depende de cómo utilices los valores individales, no de cómo utilices el array o el mapa.</p>
+<h2 id="antes-de-continuar-2">Antes de Continuar</h2>
+<p>Los arrays y los mapas en Go son muy parecidos a los de otros lenguajes. Si estás acostumbrado a los arrays dinámicos puede que algo no te termine de encajar, pero la función <code>append</code> te debería ayudar. Más allá de la sintaxis superficial de los arrays están los slices, los cuales son muy prácticos y tienen un gran impacto en la claridad del código.</p>
+<p>Hay casos límite que no hemos cubierto, pero no vamos a entrar en ellos. Si lo haces por tu cuenta, espero que el poso que te haya quedado con este capítulo te ayude a entenderlos mejor.</p>
+<h1 id="capítulo-4---organización-del-código-e-interfaces">Capítulo 4 - Organización del Código e Interfaces</h1>
+<p>Ha llegado el momento de ver cómo organizar el código.</p>
+<h2 id="paquetes">Paquetes</h2>
+<p>Para poder utilizar complicadas librerias y tener organizado el código fuente de nuestra aplicación es necesario que aprendamos qué son los paquetes. Los nombres de los paquetes en Go siguen la estructura de directorios de tu workspace. Si estamos desarrollando una aplicación de compras, seguramente empecemos con un nombre de paquete llamado &quot;shopping&quot; y pongamos nuestro código fuente en <code>$GOPATH/src/shopping/</code>.</p>
+<p>De todos modos no querremos poner todo dentro de ese directorio. Por ejemplo, quizá queramos aislar la lógica de la base de datos dentro de un directorio propio. Para conseguir esto, crearemos un subdirectorio en <code>$GOPATH/src/shopping/db</code>. El nombre del paquete dentro de este subdirectorio será simplemente <code>db</code>, y para acceder a él desde otro paquete, incluido el propio paquete <code>shopping</code>, debemos importar <code>shopping/db</code>.</p>
+<p>En otras palabras: cuando nombras un paquete mediante la palabra clave <code>package</code>, estás dando únicamente un valor, no una jerarquía completa (por ejemplo, &quot;shopping&quot; o &quot;db&quot;). Es necesario especificar la ruta completa a la hora de importar un paquete.</p>
+<p>Vamos a intentarlo. Dentro del directorio <code>src</code> de tu workspace (el cual configuramos en el apartado Comenzando de la Introducción) crea un nuevo directorio llamado <code>shopping</code> y un subdirectorio dentro llamado <code>db</code>.</p>
+<p>Crea un fichero llamado <code>db.go</code> dentro de <code>shopping/db</code> con el siguiente contenido:</p>
+<div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">db</span>
+
+<span class="kd">type</span> <span class="nx">Item</span> <span class="kd">struct</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">Price</span> <span class="kt">float64</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nx">LoadItem</span><span class="p">(</span><span class="nx">id</span> <span class="kt">int</span><span class="p">)</span> <span class="o">*</span><span class="nx">Item</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">return</span> <span class="o">&amp;</span><span class="nx">Item</span><span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">Price</span><span class="p">:</span> <span class="mf">9.001</span><span class="p">,</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>Observa que el nombre del paquete es el mismo que el del directorio. Aparte, obviamente, no estamos accediendo a la base de datos, esto no es más que un ejemplo sobre cómo organizar el código.</p>
+<p>Ahora, crea un fichero llamado <code>pricecheck.go</code> dentro del directorio <code>shopping</code>. Su contenido es:</p>
+<div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">shopping</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="s">&quot;shopping/db&quot;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nx">PriceCheck</span><span class="p">(</span><span class="nx">itemId</span> <span class="kt">int</span><span class="p">)</span> <span class="p">(</span><span class="kt">float64</span><span class="p">,</span> <span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">item</span> <span class="o">:=</span> <span class="nx">db</span><span class="p">.</span><span class="nx">LoadItem</span><span class="p">(</span><span class="nx">itemId</span><span class="p">)</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">if</span> <span class="nx">item</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">return</span> <span class="mi">0</span><span class="p">,</span> <span class="kc">false</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="p">}</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">return</span> <span class="nx">item</span><span class="p">.</span><span class="nx">Price</span><span class="p">,</span> <span class="kc">true</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>Es tentador pensar que importar <code>shopping/db</code> es algo especial ya que nos encontramos dentro del paquete/directorio <code>shopping</code>. En realidad, estamos importando <code>$GOPATH/src/shopping/db</code>.</p>
+<p>Si estás construyendo un paquete no necesitas saber más que lo que ya has visto. Para generar un ejecutable sigues necesitando un <code>main</code>. Mi forma favorita de hacerlo es creando un subdirectorio llamado <code>main</code> dentro de <code>shopping</code> con un fichero llamado <code>main.go</code> y el siguiente contenido:</p>
+<div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="s">&quot;shopping&quot;</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="s">&quot;fmt&quot;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">shopping</span><span class="p">.</span><span class="nx">PriceCheck</span><span class="p">(</span><span class="mi">4343</span><span class="p">))</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>Puedes ejecutar tu código accediendo a tu proyecto <code>shopping</code> y escribiendo:</p>
+
+<div class="highlight">
+	<pre>go run main/main.go</pre>
+</div>
+
+<h3 id="importaciones-cíclicas">Importaciones Cíclicas</h3>
+<p>Te irás encontrando con ellas a medida que vayas desarrollando software más complejo. Ocurren cuando el paquete A importa el paquete B a la vez que el paquete B importa el paquete A (ya sea directa o indirectamente a través de otro paquete). Esto es algo que el compilador no permite.</p>
+<p>Vamos a cambiar nuestro ejemplo para provocar el error.</p>
+<p>Mueve la definición de <code>Item</code> de <code>shopping/db/db.go</code> a <code>shopping/pricecheck.go</code>. Tu fichero <code>pricecheck.go</code> debe quedar así:</p>
+<div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">shopping</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="s">&quot;shopping/db&quot;</span>
+<span class="p">)</span>
+
+<span class="kd">type</span> <span class="nx">Item</span> <span class="kd">struct</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">Price</span> <span class="kt">float64</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nx">PriceCheck</span><span class="p">(</span><span class="nx">itemId</span> <span class="kt">int</span><span class="p">)</span> <span class="p">(</span><span class="kt">float64</span><span class="p">,</span> <span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">item</span> <span class="o">:=</span> <span class="nx">db</span><span class="p">.</span><span class="nx">LoadItem</span><span class="p">(</span><span class="nx">itemId</span><span class="p">)</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">if</span> <span class="nx">item</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">return</span> <span class="mi">0</span><span class="p">,</span> <span class="kc">false</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="p">}</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">return</span> <span class="nx">item</span><span class="p">.</span><span class="nx">Price</span><span class="p">,</span> <span class="kc">true</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>Si tratas de ejecutar el código te encontrarás con un par de errores de <code>db/db.go</code> indicando que <code>Item</code> no ha sido definido. Esto tiene sentido, ya que <code>Item</code> ha dejado de existir en el paquete <code>db</code>; ha sido movido al paquete <code>shopping</code>. Necesitamos modificar <code>shopping/db/db.go</code> a:</p>
+<div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">db</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="s">&quot;shopping&quot;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nx">LoadItem</span><span class="p">(</span><span class="nx">id</span> <span class="kt">int</span><span class="p">)</span> <span class="o">*</span><span class="nx">shopping</span><span class="p">.</span><span class="nx">Item</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">return</span> <span class="o">&amp;</span><span class="nx">shopping</span><span class="p">.</span><span class="nx">Item</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">Price</span><span class="p">:</span> <span class="mf">9.001</span><span class="p">,</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>Ahora, al tratar de ejecutar el código, obtenemos un intimidante error <em>importación cíclica no permitida</em>. Lo solucionaremos introduciendo otro paquete que contenga las estructuras compartidas. Tu estructura de directorios debería tener el siguiente aspecto:</p>
+<div class="highlight"><pre>
+$GOPATH/src
+&nbsp;&nbsp;- shopping
+&nbsp;&nbsp;&nbsp;&nbsp;pricecheck.go
+&nbsp;&nbsp;- db
+&nbsp;&nbsp;&nbsp;&nbsp;db.go
+&nbsp;&nbsp;- models
+&nbsp;&nbsp;&nbsp;&nbsp;item.go
+&nbsp;&nbsp;- main
+&nbsp;&nbsp;&nbsp;&nbsp;main.go</pre></div>
+<p><code>pricecheck.go</code> seguirá importando <code>shopping/db</code>, pero <code>db.go</code> importará <code>shopping/models</code> en lugar de <code>shopping</code> para así romper el cíclo. ya que hemos movido la estructura compartida <code>Item</code> a <code>shopping/models/item.go</code>, necesitamos cambiar <code>shopping/db/db.go</code> para referenciar la estructura <code>Item</code> desde el paquete <code>models</code>:</p>
+<div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">db</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="s">&quot;shopping/models&quot;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nx">LoadItem</span><span class="p">(</span><span class="nx">id</span> <span class="kt">int</span><span class="p">)</span> <span class="o">*</span><span class="nx">models</span><span class="p">.</span><span class="nx">Item</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">return</span> <span class="o">&amp;</span><span class="nx">models</span><span class="p">.</span><span class="nx">Item</span><span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">Price</span><span class="p">:</span> <span class="mf">9.001</span><span class="p">,</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>A menudo necesitarás compartir algo más que sólamente <code>models</code>, así que quizá tengas otro directorio similar llamado <code>utilities</code>. La regla a tener en cuenta con respecto a los paquetes compartidos es que no deberían importar nada procedente del paquete <code>shopping</code> o de ninguno de sus subpaquetes. Dentro de un par de secciones veremos las interfaces, las cuales nos ayudarán a desenredar estos tipos de dependencias.</p>
+<h3 id="visibilidad">Visibilidad</h3>
+<p>Go utiliza una regla muy sencilla para especificar qué tipos y qué funciones son visibles fuera del paquete. Si el nombre del tipo o de la función comienza con una letra mayúscula es visible. Si comienza con una letra minúscula no lo es.</p>
+<p>Esto también aplica a los campos de las estructuras. Si el nombre de un campo de una estructura comienza con una letra minúscula sólo el código que se encuentre dentro del mismo paquete será capaz de acceder a ella.</p>
+<p>Por ejemplo, si nuestro fichero <code>items.go</code> tiene una función con este aspecto:</p>
+
+
+<div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">NewItem</span><span class="p">()</span> <span class="o">*</span><span class="nx">Item</span> <span class="p">{</span>
+<span class="c1">// ...</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>podrá ser invocada mediante <code>models.NewItem()</code>. Pero si la función hubiese sido llamada <code>newItem</code>, no seríamos capaces de acceder a ella desde un paquete diferente.</p>
+<p>Prueba a cambiar el nombre de varias funciones, tipos y campos del ejemplo de las compras. Por ejemplo, si renombras el campo <code>Price</code> de <code>Item</code> a <code>price</code> deberías obtener un error.</p>
+<h3 id="gestión-de-paquetes">Gestión de Paquetes</h3>
+<p>El comando <code>go</code> que hemos estado utilizando con <code>run</code> y <code>build</code> también puede ser utilizado con <code>get</code>, que sirve para conseguir dependencias de terceros. <code>go get</code> funciona con varios protocolos aunque para este ejemplo, en el cual obtendremos una librería de Github, necesitarás tener <code>git</code> instalado en tu ordenador.</p>
+<p>Asumiendo que ya tienes git instalado, escribe lo siguiente desde un terminal:</p>
+
+<div class="highlight">
+	<pre>go get github.com/mattn/go-sqlite3</pre>
+</div>
+
+<p><code>go get</code> descarga los archivos y los almacena en tu workspace. Puedes comprobarlo echando un vistazo al directorio <code>$GOPATH/src</code>, verás que junto al proyecto que hemos creado antes encontrarás un directorio llamado <code>github.com</code>. Dentro de él verás un directorio <code>mattn</code> que contiene un directorio <code>go-sqlite3</code>.</p>
+<p>Acabamos de comentar cómo importar paquetes existentes en nuestro workspace. Para utilizar el paquete <code>go-sqlite3</code> recién obtenido realizaremos el siguiente import:</p>
+
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="p">(</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="s">&quot;github.com/mattn/go-sqlite3&quot;</span>
+<span class="p">)</span>
+</pre></div>
+
+<p>Sé que parece una URL pero, en realidad, únicamente importa el paquete <code>go-sqlite3</code>, el cual se espera en la ruta <code>$GOPATH/src/github.com/mattn/go-sqlite3</code>.</p>
+<h3 id="gestión-de-dependencias">Gestión de Dependencias</h3>
+<p><code>go get</code> guarda un par de ases bajo la manga. Si usamos <code>go get</code> en un proyecto se escanearán todos los ficheros buscando <code>imports</code> con librerías de terceros y las descargará. En cierta medida, nuestro propio código fuente se convierte en un <code>Gemfile</code>, un <code>package.json</code>, un <code>pom.xml</code> o un <code>build.gradle</code>.</p>
+<p>Si utilizas <code>go get -u</code> actualizarás todos los paquetes (también puedes actualizar un paquete específico usando <code>go get -u NOMBRE_COMPLETO_DEL_PAQUETE</code>).</p>
+<p>Es probable que, con el tiempo, encuentres <code>go get</code> algo insuficiente por una razón: no hay forma de especificar una revisión ya que siempre utiliza master/head/trunk/default. Esto puede ser un problema incluso mayor si tienes dos o más proyectos que necesitan versiones diferentes de la misma librería.</p>
+<p>Para solucionar este problema puedes usar una herramienta de gestión de dependencias de terceros. Todavía son jóvenes pero las dos más promotedoras son <a href="https://github.com/nitrous-io/goop">goop</a> y <a href="https://github.com/tools/godep">godep</a>. Hay una lista más completa en la <a href="https://code.google.com/p/go-wiki/wiki/PackageManagementTools">go-wiki</a>.</p>
+<h2 id="interfaces">Interfaces</h2>
+<p>Los interfaces son tipos que especifican un contrato pero no contienen implementación. He aquí un ejemplo:</p>
+
+<div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">Logger</span> <span class="kd">interface</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">Log</span><span class="p">(</span><span class="nx">message</span> <span class="kt">string</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>Puede que te estés preguntando para qué puede servir esto. Los interfaces sirven para desacoplar tu código de implementaciones específicas. Por ejemplo, podríamos tener distintos tipos de loggers:</p>
+
+<div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">SqlLogger</span> <span class="kd">struct</span> <span class="p">{</span> <span class="o">...</span> <span class="p">}</span>
+<span class="kd">type</span> <span class="nx">ConsoleLogger</span> <span class="kd">struct</span> <span class="p">{</span> <span class="o">...</span> <span class="p">}</span>
+<span class="kd">type</span> <span class="nx">FileLogger</span> <span class="kd">struct</span> <span class="p">{</span> <span class="o">...</span> <span class="p">}</span>
+</pre></div>
+
+<p>Programar contra interfaces en lugar de contra implementaciones concretas nos permite poder cambiar (y probar) cuál usar sin tener que modificar nuestro código.</p>
+<p>¿Cómo se utilizan? Exactamente igual que cualquier otro tipo. Puede ser el campo de una estructura:</p>
+
+
+<div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">Server</span> <span class="kd">struct</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">logger</span> <span class="nx">Logger</span>
+<span class="p">}</span>
+</pre></div>
+
+
+
+<p>o el parámetro de una función (o un valor de retorno):</p>
+
+
+<div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">process</span><span class="p">(</span><span class="nx">logger</span> <span class="nx">Logger</span><span class="p">)</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">logger</span><span class="p">.</span><span class="nx">Log</span><span class="p">(</span><span class="s">&quot;hello!&quot;</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+
+
+
+<p>En lenguajes como C# o Java es necesario indicar explícitamente cuándo una clase implementa una interfaz:</p>
+
+
+
+<div class="highlight"><pre><span></span><span class="k">public</span> <span class="k">class</span> <span class="nc">ConsoleLogger</span> <span class="p">:</span> <span class="n">Logger</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">public</span> <span class="k">void</span> <span class="nf">Logger</span><span class="p">(</span><span class="n">message</span> <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+
+<p>En Go esto ocurre de forma implícita. Si tu estructura tiene una función llamada <code>Log</code> con un parámetro de tipo <code>string</code> y ningún valor de retorno, entonces puede ser utilizada como un <code>Logger</code>, lo que evita el tener que escribir tanto a la hora de usar interfaces:</p>
+
+
+<div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">ConsoleLogger</span> <span class="kd">struct</span> <span class="p">{}</span>
+
+<span class="kd">func</span> <span class="p">(</span><span class="nx">l</span> <span class="nx">ConsoleLogger</span><span class="p">)</span> <span class="nx">Log</span><span class="p">(</span><span class="nx">message</span> <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">message</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+
+
+
+<p>Esto facilita tener interfaces pequeños y muy enfocados en una tarea concreta. La librería estándar está llena de interfaces. Por ejemplo, el paquete <code>io</code> tiene varios de ellos, como <code>io.Reader</code>, <code>io.Writer</code> e <code>io.Closer</code>. Si escribes una función que espera un parámetro sobre el que invocar a <code>Close()</code> al terminar, entoces definitivamente deberías recibir <code>io.Closer</code> en lugar del tipo concreto que estés usando.</p>
+<p>Los interfaces también pueden participar en composiciones, de hecho, los interfaces pueden estar compuestos por otros interfaces. Por ejemplo, <code>io.ReadCloser</code> es un interfaz formado por los interfaces <code>io.Reader</code> e <code>io.Closer</code>.</p>
+<p>Para acabar, los interfaces son ampliamente utilizados para evitar imports cíclicos. No poseen implementacion, lo que reduce las dependencias que puedan necesitar.</p>
+<h2 id="antes-de-continuar-3">Antes de Continuar</h2>
+<p>Pasarás a encontrarte cómodo con la forma en la que estructurar tu código tras haber escrito un par de programas que no sean triviales. Lo más importante es recordar la estrecha relación que mantienen los nombres de los paquetes y la jerarquía de directorios (no sólo en el proyecto sino en todo el workspace).</p>
+<p>La forma en la que Go gestiona la visibilidad de los tipos es directa a la par que efectiva, y además es consistente. Hay pocas cosas que no hayamos visto todavía, como las constantes y las variables globales, pero puedes descansar tranquilo, su visibilidad sigue las mismas reglas de nombrado.</p>
+<p>Para terminar, puede que te lleve algún tiempo encontrar la utilidad de los interfaces si son nuevos para tí. Sin embargo, la primera vez que te encuentres con una función que espera algo como <code>io.Reader</code> agradecerás al autor que no haya pedido más de lo que realmente necesitaba.</p>
+<h1 id="capítulo-5---exquisiteces">Capítulo 5 - Exquisiteces</h1>
+<p>En este capítulo hablaremos de algunas características de Go que no encajan en ningún otro lugar.</p>
+<h2 id="gestión-de-errores">Gestión de Errores</h2>
+<p>La mejor forma de gestionar errores en Go es utilizando valores de retorno, no empleando excepciones. Utiliza como ejemplo la función <code>strconv.Atoi</code>, la cual recibe un string y trata de convertirlo a entero;</p>
+<div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="s">&quot;fmt&quot;</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="s">&quot;os&quot;</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="s">&quot;strconv&quot;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Args</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">2</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">os</span><span class="p">.</span><span class="nx">Exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="p">}</span>
+
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">n</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">strconv</span><span class="p">.</span><span class="nx">Atoi</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Args</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;no es un número válido&quot;</span><span class="p">)</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>Puedes crear tus propios tipos de error, el único requisito es que cumplan con el contrato de la interfaz predefinida <code>error</code>, el cual es:</p>
+<div class="highlight"><pre><span></span><span class="kd">type</span> <span class="kt">error</span> <span class="kd">interface</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">Error</span><span class="p">()</span> <span class="kt">string</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>Con mayor asiduidad crearemos nuestros propios errores importando el paquete <code>errors</code> y usando la función <code>New</code>:</p>
+
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="p">(</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="s">&quot;errors&quot;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nx">process</span><span class="p">(</span><span class="nx">count</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">if</span> <span class="nx">count</span> <span class="p">&lt;</span> <span class="mi">1</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">return</span> <span class="nx">errors</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="s">&quot;Invalid count&quot;</span><span class="p">)</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="p">}</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="o">...</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">return</span> <span class="kc">nil</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>Existe un patrón en la librería estándar de Go a la hora de utilizar variables de error. Por ejemplo, el paquete <code>io</code> declara la variable <code>EOF</code> tal y como sigue:</p>
+
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">EOF</span> <span class="p">=</span> <span class="nx">errors</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="s">&quot;EOF&quot;</span><span class="p">)</span>
+</pre></div>
+
+<p>Estamos ante una variable del paquete (está definida fuera de cualquier función) la cual es públicamente accesible (la primera letra está en mayúsculas). Hay varias funciones que pueden devolver este error, por ejemplo aquellas que leen ficheros o la entrada de STDIN. En este sentido tú también deberías utilizar este error. Como consumidores podemos utilizar este singleton:</p>
+
+<div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="s">&quot;fmt&quot;</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="s">&quot;io&quot;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="kd">var</span> <span class="nx">input</span> <span class="kt">int</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">_</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">fmt</span><span class="p">.</span><span class="nx">Scan</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">input</span><span class="p">)</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">if</span> <span class="nx">err</span> <span class="o">==</span> <span class="nx">io</span><span class="p">.</span><span class="nx">EOF</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;no more input!&quot;</span><span class="p">)</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>Como nota final, en Go existen las funciones <code>panic</code> y <code>recover</code>. <code>panic</code> es similar a lanzar una excepción y <code>recover</code> es parecido a un <code>catch</code>. Ambas son raramente utilizadas.</p>
+<h2 id="defers">Defers</h2>
+<p>Hay determinados recursos que necesitan ser liberados explícitamente, incluso aunque Go tenga un recolector de basura. Por ejemplo, necesitamos cerrar ficheros con <code>Close()</code> después de haber terminado con ellos. Este tipo de código siempre es peligroso. Por un lado, mientras estamos escribiendo una función, es fácil olvidarse de usar <code>Close()</code> con algo que declaramos 10 líneas más arriba. Por otro lado, una función puede tener más de un punto de retorno. La solución de Go es la palabra clave <code>defer</code>:</p>
+
+<div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="s">&quot;fmt&quot;</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="s">&quot;os&quot;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">file</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">os</span><span class="p">.</span><span class="nx">Open</span><span class="p">(</span><span class="s">&quot;un_fichero_que_leer&quot;</span><span class="p">)</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">return</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="p">}</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">defer</span> <span class="nx">file</span><span class="p">.</span><span class="nx">Close</span><span class="p">()</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="c1">// leer el fichero</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>Si tratas de ejecutar el código anterior seguramente obtengas un error (el fichero no existirá). La clave es mostrar cómo funciona <code>defer</code>. Lo que pongas después de <code>defer</code> será aplazado y se ejecutará al terminar el método, incluso si lo hace forzosamente. Esto te permite indicar que quieres liberar recursos cerca del lugar donde los inicializaste y despreocuparte de los múltiples puntos de retorno.</p>
+<h2 id="go-fmt">go fmt</h2>
+<p>La mayoría de los programas escritos en Go siguen las mismas reglas de formato y de nombrado, entre ellas que se deben usar tabuladores para indentar y que las llaves deben comenzar en la misma línea en la que empieza el bloque.</p>
+<p>Lo sé, tienes tu propio estilo y quieres seguir usándolo. Esto mismo es lo que yo he hecho durante mucho tiempo, pero estoy contento de poder decir que lo he dejado de hacer. Un gran motivo es el comando <code>go fmt</code>. Es simple de usar y tiene autoridad, lo cual evita discusiones sobre preferencias sin importancia.</p>
+<p>Cuando te encuentras en un proyecto puedes aplicar las reglas de formateo sobre él y sus subproyectos ejecutando:</p>
+
+
+<div class="highlight">
+	<pre>go fmt ./...</pre>
+</div>
+
+
+<p>Dale una oportunidad. Hará algo más que indentar tu código: alineará las declaraciones de los campos y ordenará alfabéticamente los imports.</p>
+<h2 id="if-inicializado">If Inicializado</h2>
+<p>Go soporta un comando if ligeramente modificado, en el cual una valor puede ser inicializado antes que la condición que va a ser evaluada:</p>
+
+
+<div class="highlight"><pre><span></span><span class="k">if</span> <span class="nx">x</span> <span class="o">:=</span> <span class="mi">10</span><span class="p">;</span> <span class="nx">count</span> <span class="p">&gt;</span> <span class="nx">x</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="o">...</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>Lo anterior es un ejemplo únicamente ilustrativo. Para ser más realistas, podrías hacer algo como:</p>
+
+<div class="highlight"><pre><span></span><span class="k">if</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">process</span><span class="p">();</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">return</span> <span class="nx">err</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>Lo más interesante es que el ámbito de las variables se reduce al if, y que por tanto se puede acceder a ellas dentro de un <code>else if</code> o de un <code>else</code>, pero no fuera.</p>
+<h2 id="interfaces-vacías-y-conversiones">Interfaces Vacías y Conversiones</h2>
+<p>En la mayoría de los lenguajes orientados a objetos hay una clase base predefinida, a menudo llamada <code>object</code>, que actúa como superclase de todas las clases. Esto es lo que ocurre con una interfaz vacía sin métodos: <code>interface{}</code>. Puesto que las interfaces se implementan implícitamente, todos los tipos encajan con el contrato de una interfaz vacía.</p>
+<p>Si quisiéramos podríamos crear una función llamada <code>add</code> con la siguiente firma:</p>
+
+
+<div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">add</span><span class="p">(</span><span class="nx">a</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">b</span> <span class="kd">interface</span><span class="p">{})</span> <span class="kd">interface</span><span class="p">{}</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="o">...</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>Para convertir una variable a un tipo específico debes usar <code>.(TIPO)</code>:</p>
+
+
+<div class="highlight"><pre><span></span><span class="k">return</span> <span class="nx">a</span><span class="p">.(</span><span class="kt">int</span><span class="p">)</span> <span class="o">+</span> <span class="nx">b</span><span class="p">.(</span><span class="kt">int</span><span class="p">)</span>
+</pre></div>
+
+
+<p>También puedes crear switchs de tipos:</p>
+
+
+<div class="highlight"><pre><span></span><span class="k">switch</span> <span class="nx">a</span><span class="p">.(</span><span class="kd">type</span><span class="p">)</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">case</span> <span class="kt">int</span><span class="p">:</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&quot;a es un entero y vale %d\n&quot;</span><span class="p">,</span> <span class="nx">a</span><span class="p">)</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">case</span> <span class="kt">bool</span><span class="p">,</span> <span class="kt">string</span><span class="p">:</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="c1">// ...</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">default</span><span class="p">:</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="c1">// ...</span>
+<span class="p">}</span>
+</pre></div>
+
+
+
+<p>Verás y utilizarás interfaces vacías más de lo que podrías creer a primera vista. Admitámoslo, no sirve para escribir código limpio. Convertir tipos de uno a otro constantemente es feo y hasta peligroso pero a veces, en lenguajes estáticos, es la única opción.</p>
+<h2 id="strings-y-arrays-de-bytes">Strings y Arrays de Bytes</h2>
+<p>Los strings y los arrays de bytes están muy relacionados. Podemos convertir de uno a otro fácilmente:</p>
+
+
+<div class="highlight"><pre><span></span><span class="nx">stra</span> <span class="o">:=</span> <span class="s">&quot;the spice must flow&quot;</span>
+<span class="nx">byts</span> <span class="o">:=</span> <span class="p">[]</span><span class="nb">byte</span><span class="p">(</span><span class="nx">stra</span><span class="p">)</span>
+<span class="nx">strb</span> <span class="o">:=</span> <span class="nb">string</span><span class="p">(</span><span class="nx">byts</span><span class="p">)</span>
+</pre></div>
+
+
+<p>De hecho, este tipo de conversión es común también entre otros tipos. Algunas funciones esperan explícitamente un <code>int32</code> o un <code>int64</code> o sus homólogos sin signo. Puede que te descubras a tí mismo haciendo cosas como esta:</p>
+
+<div class="highlight"><pre><span></span><span class="nb">int64</span><span class="p">(</span><span class="nx">count</span><span class="p">)</span>
+</pre></div>
+
+<p>Es algo que probablemente acabes haciendo con frecuencia cuando utilices bytes y strings. Observa que cuando utilizas <code>[]byte(X)</code> o <code>string(X)</code> estás haciendo una copia de los datos. Esto es imprescindible ya que los strings son inmutables.</p>
+<p>Los strings están hechos de <code>runas</code>, que son letras unicode. Si recuperas la longitud de un string es probable que no obtengas el valor que esperas. El código siguiente muestra 3:</p>
+
+<div class="highlight"><pre><span></span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="s">&quot;椒&quot;</span><span class="p">))</span> <span class="c1">// quizá no lo veas, aquí debería aparecer un carácter chino</span>
+</pre></div>
+
+
+<p>Si iteras sobre un string utilizando <code>range</code> obtendrás las runas, no los bytes, aunque cuando conviertes un string en un <code>[]byte</code> obtienes los datos correctos.</p>
+<h2 id="funciones-con-tipo">Funciones con Tipo</h2>
+<p>Las funciones son ciudadanos de primer nivel y tienen tipo:</p>
+
+
+<div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">Add</span> <span class="kd">func</span><span class="p">(</span><span class="nx">a</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">b</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span>
+</pre></div>
+
+
+<p>los cuales pueden ser utilizados en cualquier sitio -- como tipo de un campo, como parámetro o como valor de retorno.</p>
+
+
+<div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="s">&quot;fmt&quot;</span>
+<span class="p">)</span>
+
+<span class="kd">type</span> <span class="nx">Add</span> <span class="kd">func</span><span class="p">(</span><span class="nx">a</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">b</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span>
+
+<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">process</span><span class="p">(</span><span class="kd">func</span><span class="p">(</span><span class="nx">a</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">b</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">return</span> <span class="nx">a</span> <span class="o">+</span> <span class="nx">b</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="p">}))</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nx">process</span><span class="p">(</span><span class="nx">adder</span> <span class="nx">Add</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">return</span> <span class="nx">adder</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+
+
+
+<p>El empleo de funciones como ésta puede ayudar a desacoplar código de implementaciones específicas igual que como lo hacíamos con los interfaces.</p>
+<h2 id="antes-de-continuar-4">Antes de Continuar</h2>
+<p>Hemos revisado algunos aspectos de la programación con Go. Lo más destacable es que hemos visto cómo funciona la gestión de errores y cómo liberar recursos como conexiones y ficheros abiertos. A mucha gente no le gusta cómo Go gestiona los errores ya que puede parecer que estemos dando un paso atrás. A veces estoy de acuerdo, aunque también encuentro que produce código que es más fácil de seguir. El uso de <code>defer</code> es infrecuente pero es una aproximación práctica a la gestión de recursos. De hecho, no está limitado sólo a la gestión de recursos, puedes usar <code>defer</code> con otro propósito, como por ejemplo dejar en el log la salida de una función cuando esta termine.</p>
+<p>Ciertamente no hemos revisado todas las exquisiteces que Go ofrece, pero deberías sentirte lo suficientemente cómodo como para derribar aquellos muros que te puedan ir apareciendo.</p>
+<h1 id="capítulo-6---concurrencia">Capítulo 6 - Concurrencia</h1>
+<p>A menudo se describe a Go como un lenguaje con el que es fácil utilizar concurrencia. Esto es así porque utiliza una sintaxis sencilla sobre dos poderosos mecanismos: las go-rutinas y los canales</p>
+<h2 id="go-rutinas">Go-rutinas</h2>
+<p>Una go-rutina es similar a un hilo sólo que es gestionada por Go, no por el sistema operativo. El código de una go-rutina puede ejecutase concurrentemente con otro código. Vamos a echar un vistazo a este ejemplo:</p>
+
+
+<div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="s">&quot;fmt&quot;</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="s">&quot;time&quot;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;inicio&quot;</span><span class="p">)</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">go</span> <span class="nx">process</span><span class="p">()</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">time</span><span class="p">.</span><span class="nx">Sleep</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Millisecond</span> <span class="o">*</span> <span class="mi">10</span><span class="p">)</span> <span class="c1">// esto es malo, ¡no lo hagas!</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;terminado&quot;</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nx">process</span><span class="p">()</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;procesando&quot;</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>Hay algunas cosas interesantes aquí, aunque la más importante es cómo iniciamos una go-rutina. Simplemente utilizamos la palabra clave <code>go</code> seguida de la función que queremos ejecutar. Si sólo queremos ejecutar un poco de código, como en el caso anterior, podemos usar una función anónima.</p>
+
+<div class="highlight"><pre><span></span><span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;procesando&quot;</span><span class="p">)</span>
+<span class="p">}()</span>
+</pre></div>
+
+<p>Las go-rutinas son fáciles de crear y tienen muy poca sobrecarga. De hecho, se pueden ejecutar muchas go-rutinas en un mismo hilo. Como resultado tenemos que una go-rutina tiene una sobrecarga de unos pocos KB. De este modo podemos tener millones de go-rutinas funcionando sobre hardware moderno.</p>
+<p>Es más, la complejidad de asignar go-rutinas a hilos y cómo planificarlas está escondida. Podemos decir &quot;ejecuta este código concurrentemente&quot; y dejar que sea Go quien se preocupe que hacer que eso ocurra.</p>
+<p>Si volvemos al ejemplo anterior veremos que invocamos a <code>Sleep</code> unos pocos milisegundos. Esto lo hacemos para evitar que la función main acabe antes de que la go-rutina tenga la posibilidad de ejecutarse (el proceso principal no espera a que las go-rutinas acaben antes de terminar). Para solucionar esto necesitamos coordinar nuestro código.</p>
+<h2 id="sincronización">Sincronización</h2>
+<p>La creación de go-rutinas es trivial y son tan baratas que podemos arrancar muchas. Sin embargo, es necesario coordinar el código concurrente. Para ayudar a solucionar este problema Go provee <code>canales</code>. Pero creo que es importante entender algunos conceptos básicos antes de echar un vistazo a los <code>canales</code>.</p>
+<p>Escribir código concurrente implica tener que prestar atención a dónde y cómo se leen y escriben valores. En cierta manera es como programar sin recolector de basura -- requiere que pienses en los datos desde una perspectiva distinta, estando siempre alerta de daños posibles. Observa el siguiente ejemplo:</p>
+
+
+<div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="s">&quot;fmt&quot;</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="s">&quot;time&quot;</span>
+<span class="p">)</span>
+
+<span class="kd">var</span> <span class="nx">counter</span> <span class="p">=</span> <span class="mi">0</span>
+
+<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="mi">2</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">go</span> <span class="nx">incr</span><span class="p">()</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="p">}</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">time</span><span class="p">.</span><span class="nx">Sleep</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Millisecond</span> <span class="o">*</span> <span class="mi">10</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nx">incr</span><span class="p">()</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">counter</span><span class="o">++</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">counter</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>¿Cuál crees que será la salida?</p>
+<p>Si crees que la salida será <code>1,2</code>, te equivocas y tienes razón a la vez. Es cierto que si ejecutas el código anterior probablemente obtendrás esa salida. Sin embargo, la realidad es que el comportamiento no está definido. ¿Por qué?, porque varias (en este caso dos) go-rutinas están potencialmente escribiendo sobre la misma variable <code>counter</code> a la misma vez. O, lo que es peor, una go-rutina puede estar leyendo <code>counter</code> mientras la otra actualiza su valor.</p>
+<p>¿Es esto relamente peligroso?. Si, desde luego. <code>counter++</code> puede parecer únicamente una línea de código, pero en realidad está compuesta de varias instrucciones en ensamblador -- la naturaleza exacta depende de la plataforma sobre la que estés trabajando. Es cierto que, en este ejemplo, lo más normal es que todo vaya bien. Sin embargo, otro posible resultado podría ser que ambas go-rutinas leyesen <code>counter</code> cuando su valor es cero y se generase una salida de <code>1, 1</code>. Hay otras posibilidades peores, como que el ordenador se cuelgue o que accedamos a otra posición de memoria con datos y los incrementemos.</p>
+<p>La única acción concurrente que puedes hacer con seguridad sobre una variable es leerla. Puedes tener todos los lectores que quieras, pero las escrituras necesitan estar sincronizadas. Hay varias formas de lograr esto, incluyendo el uso de operaciones realmente atómicas que necesitan instrucciones específicas de la CPU. Sin embargo, la aproximación más frecuente es usar un mutex:</p>
+
+
+<div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="s">&quot;fmt&quot;</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="s">&quot;time&quot;</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="s">&quot;sync&quot;</span>
+<span class="p">)</span>
+
+<span class="kd">var</span> <span class="p">(</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">counter</span> <span class="p">=</span> <span class="mi">0</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">lock</span> <span class="nx">sync</span><span class="p">.</span><span class="nx">Mutex</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="mi">2</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">go</span> <span class="nx">incr</span><span class="p">()</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="p">}</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">time</span><span class="p">.</span><span class="nx">Sleep</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Millisecond</span> <span class="o">*</span> <span class="mi">10</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nx">incr</span><span class="p">()</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">lock</span><span class="p">.</span><span class="nx">Lock</span><span class="p">()</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">defer</span> <span class="nx">lock</span><span class="p">.</span><span class="nx">Unlock</span><span class="p">()</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">counter</span><span class="o">++</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">counter</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>Un mutex organiza el acceso a un código protegido. El motivo por el cual sencillamente definimos nuestro bloqueo como <code>lock sync.Mutex</code> se debe a que el valor por defecto de <code>sync.Mutex</code> es el de &quot;desbloqueado&quot;</p>
+<p>¿Parece bastante sencillo? El ejemplo anterior es engañoso. Hay un montón de bugs serios que pueden aparecer a la hora de hacer programación concurrente. El primero de ellos es que no siempre resulta obvio saber qué parte del código necesita ser protegida. Puede ser tentador proteger una gran cantidad de código, pero menoscaba la razón principal por la que hacemos programación concurrente. Necesitamos protecciones lo más pequeñas posible: de otro modo convertiremos una autopista de 10 carriles en una que, de repente, se convierte en una de un sólo carril.</p>
+<p>El otro problema tiene que ver con los deadlocks. Con un único bloqueo no hay problema, pero puede ser peligroso si tenemos dos o más en el mismo código, ya que se puede dar el caso de que la go-rutina A posea el bloqueo A pero necesite acceder al bloqueo B, mientras que la go-rutina B posee el bloqueo B pero necesita acceder al bloqueo A.</p>
+<p>De hecho <em>es</em> posible tener un deadlock con un único bloqueo si nos olvidamos de liberarlo. No es tan peligroso como tener varios bloqueos pero puede ocurrir. Prueba a ejecutar el siguiente programa:</p>
+
+
+<div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="s">&quot;time&quot;</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="s">&quot;sync&quot;</span>
+<span class="p">)</span>
+
+<span class="kd">var</span> <span class="p">(</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">lock</span> <span class="nx">sync</span><span class="p">.</span><span class="nx">Mutex</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span> <span class="nx">lock</span><span class="p">.</span><span class="nx">Lock</span><span class="p">()</span> <span class="p">}()</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">time</span><span class="p">.</span><span class="nx">Sleep</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Millisecond</span> <span class="o">*</span> <span class="mi">10</span><span class="p">)</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">lock</span><span class="p">.</span><span class="nx">Lock</span><span class="p">()</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>Hay mucho más sobre programación concurrente que lo que hemos visto hasta ahora. Existe, ya que podemos hacer varias lecturas a la vez, otro mutex conocido como mutex de lectura-escritura, el cual presenta dos funciones de bloqueo: por un lado se pueden bloquear lectores y, por otro, escritores. En Go, <code>sync.RWMutex</code> es un bloqueador de este estilo que, junto a los métodos <code>Lock</code> y <code>Unlock</code> de <code>sync.Mutex</code>, también incluye los métodos <code>RLock</code> y <code>RUnlock</code>, donde <code>R</code> significa <code>Lectura</code>. Aunque los mutex de lectura-escritura se utilizan comúnmente suponen una carga extra para los desarrolladores: debemos prestar atención no sólo a quiénes están accediendo a los datos sino también a cómo lo hacen.</p>
+<p>Gran parte de la programación concurrente tiene que ver con la coordinación de varias go-rutinas. Por ejemplo, dejar al proceso durmiendo 10 milisegundos no es una solución particularmente elegante, ¿qué ocurre si la go-rutina necesita más de 10 milisegundos?, ¿qué pasa si tarda menos y simplemente estamos desperdiciando ciclos de reloj?, Es más, ¿qué ocurre si, en vez de esperar a que las go-rutinas acaben, simplemente hacemos que digan a las demás <em>hey, ¡tengo datos nuevos para que te encargues de procesarlos!</em>?</p>
+<p>Todo esto puede llevarse a cabo con <code>canales</code>. Es cierto que, para los casos más sencillos, considero que <strong>deberías</strong> usar primitivas como <code>sync.Mutex</code> y <code>sync.RWMutex</code>, pero como verás en la próxima sección, los <code>canales</code> te permiten hacer una programación concurrente más limpia y con menor propensión a errores.</p>
+<h2 id="canales">Canales</h2>
+<p>El reto de la programación concurrente aparece a la hora de tener que compartir datos. Si tus go-rutinas no comparten datos entonces no necesitas preocuparte de sincronzarlas aunque esto, por supuesto, no es una solución que puedas utilizar en todas las aplicaciones. De hecho, muchos sistemas se construyen precisamente con la meta opuesta en mente: la de compartir datos. Una caché en memoria o una base de datos son buenos ejemplos.</p>
+<p>Los canales ayudan a que la programación concurrente sea más sencilla haciendo desaparecer los datos compartidos. Un canal es un medio de comunicación entre go-rutinas que se utiliza para enviar datos. En otras palabras, una go-rutina que quiera enviar datos a otra debe hacerlo mediante un canal. El resultado es que, en un momento puntual, sólo una go-rutina tiene acceso a los datos.</p>
+<p>Los canales, como todo lo demás, tienen tipos. En concreto, tienen el mismo tipo que los datos que se van a mandar a través de ellos. Por ejemplo, para crear un canal envíe enteros debemos usar:</p>
+
+
+<div class="highlight"><pre><span></span><span class="nx">c</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">int</span><span class="p">)</span>
+</pre></div>
+
+
+<p>El tipo del canal es <code>chan int</code>. Por lo tanto, para mandar el canal a una función como parámetro la firma debe ser:</p>
+<div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">worker</span><span class="p">(</span><span class="nx">c</span> <span class="kd">chan</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span> <span class="o">...</span> <span class="p">}</span>
+</pre></div>
+
+<p>Los canales permiten dos operaciones: enviar y recibir. Enviamos datos a un canal a través de:</p>
+<div class="highlight"><pre><span></span><span class="nx">CANAL</span> <span class="o">&lt;-</span> <span class="nx">DATOS</span>
+</pre></div>
+
+<p>Y recibimos con:</p>
+
+<div class="highlight"><pre><span></span><span class="nx">VARIABLE</span> <span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">CANAL</span>
+</pre></div>
+
+<p>La flecha indica la dirección en la que se mueven los datos. Los datos entran en el canal al enviar y salen del canal al recibir.</p>
+<p>Lo último que debes saber antes de que veamos nuestro primer ejemplo es que enviar y recibir a y desde un canal es bloqueante. Esto es, cuando recibimos información de un canal, la go-rutina no continuará hasta que los datos estén disponibles. Del mismo modo, cuando enviamos datos mediante un canal, la ejecución no continuará hasta que los datos hayan sido recibidos.</p>
+<p>Considera un sistema en el que manejemos los datos de entrada en go-rutinas separadas, lo que es un requisito frecuente. Si hacemos que el procesamiento intensivo se realice en la go-rutina que acepta los datos de entrada podemos correr el riesgo de dar una respuesta lenta a los clientes. Primero, vamos a escribir un worker, que bien podría ser una mera función, pero voy a hacer que sea parte de una estructura ya que antes no hemos usado go-rutinas de este modo:</p>
+
+
+<div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">Worker</span> <span class="kd">struct</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">id</span> <span class="kt">int</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="p">(</span><span class="nx">w</span> <span class="nx">Worker</span><span class="p">)</span> <span class="nx">process</span><span class="p">(</span><span class="nx">c</span> <span class="kd">chan</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">for</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">data</span> <span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">c</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&quot;worker %d got %d\n&quot;</span><span class="p">,</span> <span class="nx">w</span><span class="p">.</span><span class="nx">id</span><span class="p">,</span> <span class="nx">data</span><span class="p">)</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>Nuestro worker es sencillo. Espera hasta que los datos estén disponibles y después los procesa con la función &quot;process&quot;. Para ello utiliza un bucle, en el cual está siempre esperando por más datos que procesar.</p>
+<p>Para usarlo, lo primero que necesitamos es iniciar algunos workers:</p>
+
+<div class="highlight"><pre><span></span><span class="nx">c</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">int</span><span class="p">)</span>
+<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="mi">4</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">worker</span> <span class="o">:=</span> <span class="nx">Worker</span><span class="p">{</span><span class="nx">id</span><span class="p">:</span> <span class="nx">i</span><span class="p">}</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">go</span> <span class="nx">worker</span><span class="p">.</span><span class="nx">process</span><span class="p">(</span><span class="nx">c</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>Y después les damos algo de trabajo:</p>
+
+
+<div class="highlight"><pre><span></span><span class="k">for</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">c</span> <span class="o">&lt;-</span> <span class="nx">rand</span><span class="p">.</span><span class="nx">Int</span><span class="p">()</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">time</span><span class="p">.</span><span class="nx">Sleep</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Millisecond</span> <span class="o">*</span> <span class="mi">50</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>Aquí tienes el código completo para hacerlo funcionar:</p>
+<div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="s">&quot;fmt&quot;</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="s">&quot;time&quot;</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="s">&quot;math/rand&quot;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">c</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">int</span><span class="p">)</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="mi">5</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">worker</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">Worker</span><span class="p">{</span><span class="nx">id</span><span class="p">:</span> <span class="nx">i</span><span class="p">}</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">go</span> <span class="nx">worker</span><span class="p">.</span><span class="nx">process</span><span class="p">(</span><span class="nx">c</span><span class="p">)</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="p">}</span>
+
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">for</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">c</span> <span class="o">&lt;-</span> <span class="nx">rand</span><span class="p">.</span><span class="nx">Int</span><span class="p">()</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">time</span><span class="p">.</span><span class="nx">Sleep</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Millisecond</span> <span class="o">*</span> <span class="mi">50</span><span class="p">)</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">type</span> <span class="nx">Worker</span> <span class="kd">struct</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">id</span> <span class="kt">int</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="p">(</span><span class="nx">w</span> <span class="o">*</span><span class="nx">Worker</span><span class="p">)</span> <span class="nx">process</span><span class="p">(</span><span class="nx">c</span> <span class="kd">chan</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">for</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">data</span> <span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">c</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&quot;worker %d got %d\n&quot;</span><span class="p">,</span> <span class="nx">w</span><span class="p">.</span><span class="nx">id</span><span class="p">,</span> <span class="nx">data</span><span class="p">)</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>No sabemos qué worker va a recuperar los datos. Lo que sí sabemos, ya que es lo que Go garantiza, es que los datos enviados a un canal sólo se recibirán en un receptor.</p>
+<p>Observa que lo único que se encuentra compartido es el propio canal, el cual puede enviar y recibir datos concurrentemente. Los canales incluyen toda la sincronización que necesitamos y nos aseguran que, en cualquier instante de tiempo, una y sólo una go-rutina tiene acceso a unos datos concretos.</p>
+<h3 id="canales-con-buffer">Canales con Buffer</h3>
+<p>Partiendo del código anterior, ¿qué ocurre si recibimos más datos de los que podemos manejar? Puedes simular este comportamiento haciendo que el worker se duerma tras recibir datos:</p>
+
+<div class="highlight"><pre><span></span><span class="k">for</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">data</span> <span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">c</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&quot;worker %d got %d\n&quot;</span><span class="p">,</span> <span class="nx">w</span><span class="p">.</span><span class="nx">id</span><span class="p">,</span> <span class="nx">data</span><span class="p">)</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">time</span><span class="p">.</span><span class="nx">Sleep</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Millisecond</span> <span class="o">*</span> <span class="mi">500</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>El código del main, el lugar donde se generan los números aleatorios, se queda bloqueado ya que envia datos al canal pero no hay receptores disponibles.</p>
+<p>En los casos en los cuales necesites garantizar que los datos están siendo procesados seguramente necesites bloquear al cliente. En otros casos probablemente te convenga relajar estas garantías. Hay unas pocas estrategias populares para hacer esto. La primera es almacenar los datos en un buffer: si no hay workers disponibles, almacenamos temporalmente los datos en una especie de cola. Los canales tienen la capacidad de poder almacenar datos en un buffer, y de hecho podemos darle una longitud cuando creamos nuestro canal con <code>make</code>.</p>
+
+<div class="highlight"><pre><span></span><span class="nx">c</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">int</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+</pre></div>
+
+<p>Puedes hacer este cambio, pero observa que el procesamiento seguirá causando estragos. Los canales con buffers no añadirán más capacidad: únicamente facilitan una cola en la que almacenar trabajos pendientes que ayuden a lidiar con picos de trabajo. En nuestro ejemplo estamos empujando contínuamente más datos de los que nuestros workers pueden gestionar.</p>
+<p>Sin embargo, puede tener sentido comprobar que nuestro canal con buffer está, de hecho, almacenando datos en el buffer utilizando <code>len</code>:</p>
+
+<div class="highlight"><pre><span></span><span class="k">for</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">c</span> <span class="o">&lt;-</span> <span class="nx">rand</span><span class="p">.</span><span class="nx">Int</span><span class="p">()</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nx">c</span><span class="p">))</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">time</span><span class="p">.</span><span class="nx">Sleep</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Millisecond</span> <span class="o">*</span> <span class="mi">50</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>Puedes obsevar cómo crece y crece hasta que se satura, momento en el que enviar datos al canal hará que se bloquee de nuevo.</p>
+<h3 id="select">Select</h3>
+<p>Incluso con buffers, llega el momento en el cual necesitamos comenzar a descartar mensajes. No podemos usar una cantidad infinita de memoria con la esperanza de que un worker la libere. Por este motivo podemos usar <code>select</code>.</p>
+<p>Sintácticamente, un <code>select</code> se parece un poco a un switch. Con él podremos indicar qué hacer cuando el canal no esté dispinible para enviar mas datos a través de él. Vamos a eliminar el buffer del canal para ver con más claridad cómo funciona <code>select</code>:</p>
+
+<div class="highlight"><pre><span></span><span class="nx">c</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">int</span><span class="p">)</span>
+</pre></div>
+
+
+<p>A continuación modificamos nuestro bucle <code>for</code>:</p>
+
+
+<div class="highlight"><pre><span></span><span class="k">for</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">select</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">case</span> <span class="nx">c</span> <span class="o">&lt;-</span> <span class="nx">rand</span><span class="p">.</span><span class="nx">Int</span><span class="p">():</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="c1">//aquí pondríamos el código</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">default</span><span class="p">:</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="c1">//podemos dejarlo vacío para descartar los datos</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;dropped&quot;</span><span class="p">)</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="p">}</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">time</span><span class="p">.</span><span class="nx">Sleep</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Millisecond</span> <span class="o">*</span> <span class="mi">50</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>Estamos empujando 20 mensajes por segundo, pero nuestros workers sólo pueden procesar 10 por segundo, así que la mitad de los mensajes se descartan.</p>
+<p>Este es sólo el comienzo de lo que podemos lograr con <code>select</code>. Uno de sus propósitos principales es gestionar varios canales, haciendo que <code>select</code> bloquee algunos mientas habilita otros. En caso de no haber canales disponibles se ejecutará el caso <code>default</code>. Un canal es escogido aleatoriamente cuando varios están disponibles.</p>
+<p>Es difícil terminar con un ejemplo que demuestre que este comportamiento no es una característica avanzada. No obstante, la próxima sección nos ayudará a ilustrar este caso.</p>
+<h3 id="timeout">Timeout</h3>
+<p>Hemos visto cómo los mensajes que se encuentran en buffers pueden ser descartados, aunque otra opción popular es especificar un timeout. Podemos bloquear por un tiempo, pero no para siempre. Esto es algo fácil de lograr con Go. Debo admitir que la sintaxis puede ser difícil de leer pero es una funcionalidad tan limpia y útil que no puedo dejarla pasar.</p>
+<p>Podemos usar la función <code>time.After</code> para indicar un máximo de tiempo de bloqueo. Vamos a ver qué hay detrás de la magia. Para ello, nuestro emisor se transforma en:</p>
+
+
+<div class="highlight"><pre><span></span><span class="k">for</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">select</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">case</span> <span class="nx">c</span> <span class="o">&lt;-</span> <span class="nx">rand</span><span class="p">.</span><span class="nx">Int</span><span class="p">():</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">case</span> <span class="o">&lt;-</span><span class="nx">time</span><span class="p">.</span><span class="nx">After</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Millisecond</span> <span class="o">*</span> <span class="mi">100</span><span class="p">):</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;timed out&quot;</span><span class="p">)</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="p">}</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">time</span><span class="p">.</span><span class="nx">Sleep</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Millisecond</span> <span class="o">*</span> <span class="mi">50</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+
+
+
+<p><code>time.After</code> devuelve un canal, así que podemos hacer un <code>select</code> de él, e indicar qué hacer cuando el tipo indicado ha pasado. Esto es todo, no tiene más magia que esa. Si tienes curiosidad, aquí tienes una implementación de cómo podría ser la función <code>after</code>:</p>
+
+
+<div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">after</span><span class="p">(</span><span class="nx">d</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Duration</span><span class="p">)</span> <span class="kd">chan</span> <span class="kt">bool</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">c</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">bool</span><span class="p">)</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">time</span><span class="p">.</span><span class="nx">Sleep</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">c</span> <span class="o">&lt;-</span> <span class="kc">true</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="p">}()</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">return</span> <span class="nx">c</span>
+<span class="p">}</span>
+</pre></div>
+
+
+
+<p>Volviendo a nuestro <code>select</code>, hay un par de cosas con las que podemos jugar. La primera es, ¿qué ocurre si entramos en el caso <code>default</code>?, ¿Lo puedes imaginar?. Inténtalo. Si no estás seguro sobre qué va a pasar, recuerda que el caso <code>default</code> se lanza en cuanto nos quedamos sin canales disponibles.</p>
+<p>Además, <code>time.After</code> es un canal de tipo <code>chan time.Time</code>. En el ejemplo anterior simplemente descartamos el valor que fue enviado al canal. Si lo quieres puedes recibirlo:</p>
+
+
+<div class="highlight"><pre><span></span><span class="k">case</span> <span class="nx">t</span> <span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">time</span><span class="p">.</span><span class="nx">After</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Millisecond</span> <span class="o">*</span> <span class="mi">100</span><span class="p">):</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;timed out at&quot;</span><span class="p">,</span> <span class="nx">t</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Presta mucha atención a nuestro <code>select</code>. Observa que enviamos a <code>c</code> pero recibimos desde <code>time.After</code>. <code>select</code> funciona independientemente de lo que estemos recibiendo, enviando, o de cualquier combinación de canales:</p>
+<ul>
+<li>Se elige el primer canal disponible.</li>
+<li>Si hay varios disponibles se escoge uno aleatoriamente.</li>
+<li>Si no hay canales disponibles se ejecuta el caso <code>default</code>.</li>
+<li>Si no hay caso <code>default</code>, el select se bloquea.</li>
+</ul>
+<p>Para terminar, es común ver un <code>select</code> dentro de un <code>for</code>. Por ejemplo:</p>
+
+
+<div class="highlight"><pre><span></span><span class="k">for</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">select</span> <span class="p">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">case</span> <span class="nx">data</span> <span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">c</span><span class="p">:</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&quot;worker %d got %d\n&quot;</span><span class="p">,</span> <span class="nx">w</span><span class="p">.</span><span class="nx">id</span><span class="p">,</span> <span class="nx">data</span><span class="p">)</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">case</span> <span class="o">&lt;-</span><span class="nx">time</span><span class="p">.</span><span class="nx">After</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Millisecond</span> <span class="o">*</span> <span class="mi">10</span><span class="p">):</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;Break time&quot;</span><span class="p">)</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="nx">time</span><span class="p">.</span><span class="nx">Sleep</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">)</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h2 id="antes-de-continuar-5">Antes de Continuar</h2>
+<p>Si eres nuevo en el mundo de la programación concurrente todo esto puede parecerte apabullante. Categóricamente necesita mucha más atención y cuidado, aunque Go hace que sea más sencillo.</p>
+<p>Las go-rutinas abstraen de un modo eficiente todo lo necesario para ejecutar código concurrente. Los canales ayudan a eliminar algunos bugs importantes que surgen cuando se comparten datos. Esto no elimina los bugs, pero cambia la forma en la cual se aborda la programación concurrente. Puedes comenzar a pensar en concurrencia en términos de envíos de mensajes en lugar de pensar en secciones críticas.</p>
+<p>Dicho esto, personalmente utilizo mucho las primitivas de sincronización que existen en los paquetes <code>sync</code> y <code>sync/atomic</code>. Considero que es importante sentirse cómodo con ambas aproximaciones. Te animo a que en un principio te centres en los canales, pero que tengas en mente que si tienes un ejemplo sencillo con un cerrojo que va a durar poco tiempo, un mutex o un mutex de lectura-escritura pueden ser buenas soluciones.</p>
+<h1 id="conclusión">Conclusión</h1>
+<p>He podido oir opiniones que dicen que Go es un lenguaje <em>aburrido</em>. Aburrido porque es fácil de aprender, fácil de utilizar y, lo más importante, fácil de leer. Quizá yo mismo he causado algún perjuicio, hemos <em>pasado</em> tres capítulos hablando sobre los tipos de datos y cómo declarar variables después de todo.</p>
+<p>Si tienes background con algún lenguaje estáticamente tipado mucho de lo que hemos hablado habrá sido, en el mejor de los casos, un recordatorio. Que Go haga que los punteros o que los slices sean poco más que wappers no es agobiante para desarrolladores Java o C# experimentados.</p>
+<p>Si has trabajado principalmente con lenguajes dinámicos puede que lo veas ligeramente diferente. <em>Es</em> un pequeño reto que aprender, no es sólo conocer la variedad de sintaxis que hay sobre declaración e inicialización de variables. Aunque sea un fan de Go, creo que el aprendijaze siempre va paralelo a la simplicidad. De todos modos hay que aprender algunas reglas básicas (como que sólo puedes declarar la variable una vez y que <code>:=</code> declara la variable) y tener unos conocimientos básicos (como que <code>new(X)</code> o <code>&amp;X{}</code> sólo reservan memoria mientras que los slices, los mapas y los canales requieren inicialización y, por ello, el uso de <code>make</code>).</p>
+<p>Tras esto, Go nos da una forma sencilla a la par que efectiva de organizar nuestro código. Los interfaces, la gestión de errores basada en valores de retorno, hacer <code>defer</code> en la gestión de recursos y tener una forma sencilla de conseguir composición son algunos ejemplos.</p>
+<p>Por último, aunque no por ello menos importante, tenemos el soporte nativo de concurrencia. Hay poco más que decir de las go-rutinas aparte de que son eficientes y simples (simples de utilizar). Son una buena abstracción. Los canales son más complicados. Creo que es importante conocer las bases antes de comenzar a usar wrappers de alto nivel. <em>Creo</em> que aprender programación concurrente con canales es útil. Aún así, los canales han sido implementados de una forma que, para mí, no suponen una abstracción sencilla: tienen sus propios principios para construtir software sobre ellos. Digo esto porque cambian la forma en la que piensas y escribes software concurrente, aunque dado lo difícil que es la programación concurrente, es sin duda un buena herramienta.</p>
+
+<!--{{footer}}-->
