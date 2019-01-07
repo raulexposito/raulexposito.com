@@ -9,5 +9,8 @@
 		"title": "SurviveJS - React de aprendiz a maestro",
 		"subtitle": "",
 		"date": "Publicado el 03/07/2017"
+	},
+	"disqus": {
+		"page-identifier": "react-from-apprentice-to-master-en-castellano"
 	}
 }

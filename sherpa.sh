@@ -72,10 +72,10 @@ html_latest () {
 process_html () {
     echo generando $1
 
+    awk -i inplace '/<!--{{main-footer}}-->/{while(getline line<"'$TEMPLATES/main-footer.template'"){print line}} //' $1
     awk -i inplace '/<!--{{main-header}}-->/{while(getline line<"'$TEMPLATES/main-header.template'"){print line}} //' $1
+    awk -i inplace '/<!--{{post-footer}}-->/{while(getline line<"'$TEMPLATES/post-footer.template'"){print line}} //' $1
     awk -i inplace '/<!--{{post-header}}-->/{while(getline line<"'$TEMPLATES/post-header.template'"){print line}} //' $1
-    awk -i inplace '/<!--{{footer}}-->/{while(getline line<"'$TEMPLATES/footer.template'"){print line}} //' $1
-
     mustache ${1%.*}.json $1 > $TARGET/draft
     mv $TARGET/draft $1
 

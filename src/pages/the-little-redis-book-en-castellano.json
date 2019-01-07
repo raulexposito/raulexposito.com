@@ -10,5 +10,8 @@
 		"subtitle": "en castellano",
 		"date": "Publicado el 05/07/2013",
 		"words": "10.381 palabras · 42 minutos"
+	},
+	"disqus": {
+		"page-identifier": "the-little-redis-book-en-castellano"
 	}
 }
