@@ -35,7 +35,7 @@ prepare () {
     cp -R $PDF $ASSETS
     cp -R $EPUB $ASSETS
     cp -R $VENDOR $ASSETS
-    cp -R $ROOT/* $TARGET
+    copy_root_files
 }
 
 sass_compile () {
@@ -71,14 +71,10 @@ html_latest () {
 
 process_html () {
     echo generando $1
-
-    awk -i inplace '/<!--{{main-footer}}-->/{while(getline line<"'$TEMPLATES/main-footer.template'"){print line}} //' $1
-    awk -i inplace '/<!--{{main-header}}-->/{while(getline line<"'$TEMPLATES/main-header.template'"){print line}} //' $1
-    awk -i inplace '/<!--{{post-footer}}-->/{while(getline line<"'$TEMPLATES/post-footer.template'"){print line}} //' $1
-    awk -i inplace '/<!--{{post-header}}-->/{while(getline line<"'$TEMPLATES/post-header.template'"){print line}} //' $1
+    awk -i inplace '/<!--{{footer}}-->/{while(getline line<"'$TEMPLATES/footer.template'"){print line}} //' $1
+    awk -i inplace '/<!--{{header}}-->/{while(getline line<"'$TEMPLATES/header.template'"){print line}} //' $1
     mustache ${1%.*}.json $1 > $TARGET/draft
     mv $TARGET/draft $1
-
     rm ${1%.*}.json
 }
 
@@ -101,6 +97,16 @@ css_compress() {
     echo 'comprimiendo css'
     uglifycss $CSS/clean-blog.css > $ASSETS/css/clean-blog.min.css
     uglifycss $CSS/monokai.css > $ASSETS/css/monokai.min.css
+}
+
+copy_root_files() {
+    cp -R $ROOT/* $TARGET
+    cp $ROOT/.htaccess $TARGET
+}
+
+mrproper() {
+    rm $ASSETS/css/clean-blog.css
+    find $ASSETS -type f -name "*.map" -exec rm {} \;
 }
 
 case "$1" in
@@ -130,7 +136,8 @@ case "$1" in
         html_compress
         js_compress
         css_compress
-        cp -R $ROOT/* $TARGET
+        copy_root_files
+        mrproper
         ;;
     *)
         echo "Usa 'clean', 'sass_watch', 'html_watch', 'package' o 'release'"

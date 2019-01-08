@@ -1,4 +1,5 @@
 {
+	"is_post": true,
 	"meta": {
 	    "author": "Raúl Expósito",
 	    "description": "¿Cómo Resolver un Sudoku utilizando un Algoritmo Genético?"

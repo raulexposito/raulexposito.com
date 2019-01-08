@@ -1,4 +1,5 @@
 {
+	"is_post": true,
 	"meta": {
 	    "author": "Raúl Expósito",
 	    "description": "'The Little Redis Book' en castellano"
