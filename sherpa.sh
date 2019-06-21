@@ -97,6 +97,7 @@ css_compress() {
     echo 'comprimiendo css'
     uglifycss $CSS/clean-blog.css > $ASSETS/css/clean-blog.min.css
     uglifycss $CSS/monokai.css > $ASSETS/css/monokai.min.css
+    uglifycss $CSS/raulexposito.css > $ASSETS/css/raulexposito.min.css
 }
 
 copy_root_files() {
