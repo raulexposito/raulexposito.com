@@ -7,6 +7,22 @@
 		<lastBuildDate>Sat, 03 Jun 2017 00:00:0 +0000</lastBuildDate>
 		<language>es-ES</language>
 		<generator>http://raulexposito.com/</generator>
+		
+		<item>
+			<title>Programa en Castellano</title>
+			<link>
+				http://raulexposito.com/programa-en-castellano.html
+			</link>
+			<pubDate>Sun, 22 Dec 2019 00:00:0 +0000</pubDate>
+			<dc:creator>Raúl Expósito</dc:creator>
+			<description>
+				<![CDATA[
+						<p>Programa en castellano, en serio te lo digo. En castellano, en portugués, en italiano, en chino... o en inglés. <mark>En tu lengua.</mark> Deja de usar otra que no sea la tuya siempre que puedas y comienza a pensar y a programar de una forma natural para tí.</p>
+						<p><a href="http://raulexposito.com/programa-en-castellano.html">Saber más</a></p>
+				]]>
+			</description>
+		</item>
+
 		<item>
 			<title>'SurviveJS - React de aprendiz a maestro' en Castellano</title>
 			<link>

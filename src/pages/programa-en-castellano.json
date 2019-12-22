@@ -1,0 +1,18 @@
+{
+	"is_post": true,
+	"meta": {
+	    "author": "Raúl Expósito",
+	    "description": "Programa en Castellano"
+	},
+	"title": "Programa en Castellano | Raúl Expósito",
+	"header": {
+		"background": "bg-programa-castellano.jpg",
+		"title": "Programa en Castellano",
+		"subtitle": "",
+		"date": "Publicado el 22/12/2019",
+		"words": "365 palabras · 2 minutos"
+	},
+	"disqus": {
+		"page-identifier": "programa-en-castellano"
+	}
+}

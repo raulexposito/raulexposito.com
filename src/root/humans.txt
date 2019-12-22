@@ -7,7 +7,7 @@
 	https://github.com/BlackrockDigital/startbootstrap-clean-blog
 
 /* SITE */
-	Last update: 2019/06/22
+	Last update: 2019/12/22
 	Language: Castillian (Spanish)
 	Doctype: HTML5
 	IDE: Sublime Text 3 / neovim
