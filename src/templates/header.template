@@ -30,21 +30,21 @@
         <a class="navbar-brand" href="/">Raúl Expósito</a>
         {{/is_post}}
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <!--
           Menu
           <i class="fas fa-bars"></i>
+          -->
         </button>
+<!--
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
-            <!--
             <li class="nav-item">
               <a class="nav-link" href="contacto.html">Contacto</a>
             </li>
-            -->
-            <li class="nav-item">
-              <a class="typeform-share button nav-link" href="https://raulexposito.typeform.com/to/edxjmF" data-mode="popup" target="_blank">Contacto</a> <script> (function() { var qs,js,q,s,d=document, gi=d.getElementById, ce=d.createElement, gt=d.getElementsByTagName, id="typef_orm_share", b="https://embed.typeform.com/"; if(!gi.call(d,id)){ js=ce.call(d,"script"); js.id=id; js.src=b+"embed.js"; q=gt.call(d,"script")[0]; q.parentNode.insertBefore(js,q) } })() </script>
-            </li>
+-->
           </ul>
         </div>
+
       </div>
     </nav>
 
