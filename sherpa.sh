@@ -91,6 +91,7 @@ js_compress() {
     echo 'comprimiendo js'
     uglifyjs $JS/clean-blog.js -c -m -o $ASSETS/js/clean-blog.min.js
     uglifyjs $JS/jqBootstrapValidation.js -c -m -o $ASSETS/js/jqBootstrapValidation.min.js
+    uglifyjs $JS/typewriterjs.js -c -m -o $ASSETS/js/typewriterjs.js
 }
 
 css_compress() {

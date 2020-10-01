@@ -29,13 +29,9 @@
         {{#is_post}}
         <a class="navbar-brand" href="/">Raúl Expósito</a>
         {{/is_post}}
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-        <!--
-          Menu
-          <i class="fas fa-bars"></i>
-          -->
-        </button>
 <!--
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
@@ -57,7 +53,7 @@
             {{#is_landing}}
             <div class="site-heading">
               <h1>{{header.title}}</h1>
-              <em><span class="subheading">{{header.subtitle}}</span></em>
+              <em><span class="subheading" id="subtitle">{{header.subtitle}}</span></em>
             </div>            
             {{/is_landing}}
             {{#is_post}}

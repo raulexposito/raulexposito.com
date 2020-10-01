@@ -49,6 +49,23 @@
     <!-- Custom scripts for this template -->
     <script src="assets/js/clean-blog.min.js"></script>
 
+    <script src='assets/js/typewriterjs.js'></script>
+    <script type="text/javascript">
+      const instance = new Typewriter('#subtitle', {
+        strings: [
+            'Hablar es fácil, enséñame el código - Linus Torvalds',
+            'Las restricciones son ventajas camufladas - Jason Fried & DHH',
+            'Centrarse es decidir qué cosas no vas a hacer - John Carmack',
+            'Cualquier idiota puede escribir código que un ordenador puede entender. Los buenos programadores escriben código que los humanos pueden entender - Martin Fowler',
+            'Hay 2 tipos de lenguajes: los que todo el mundo critica y los que nadie usa - Bjarne Stroustrup',
+            'Los planes son inútiles, pero la planificación es indispensable - Dwight Eisenhower',
+            'Entregar el 90% de la funcionalidad ahora es mejor que no entregar el 100% de la funcionalidad nunca - Brian Kernighan'
+	],
+        autoStart: true,
+        loop: true,
+      });
+  </script>
+
   </body>
 
 </html>
