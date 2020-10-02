@@ -84,7 +84,10 @@ html_clean () {
 
 html_compress () {
     echo 'comprimiendo html'
-    html-minifier --input-dir $TARGET --output-dir $TARGET --remove-comments --collapse-whitespace --conservative-collapse
+    mkdir $TARGET/html
+    mv $TARGET/*.html $TARGET/html
+    html-minifier --input-dir $TARGET/html --output-dir $TARGET --remove-comments --collapse-whitespace --conservative-collapse --continue-on-parse-error
+    rm -rf $TARGET/html
 }
 
 js_compress() {
