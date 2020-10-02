@@ -1,24 +1,39 @@
 <rss xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:wfw="http://wellformedweb.org/CommentAPI/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" xmlns:slash="http://purl.org/rss/1.0/modules/slash/" version="2.0">
 	<channel>
 		<title>Raúl Expósito</title>
-		<atom:link href="http://raulexposito.com/" rel="self" type="application/rss+xml"/>
-		<link>http://raulexposito.com/</link>
+		<atom:link href="https://raulexposito.com/" rel="self" type="application/rss+xml"/>
+		<link>https://raulexposito.com/</link>
 		<description>Raúl Expósito</description>
-		<lastBuildDate>Sat, 03 Jun 2017 00:00:0 +0000</lastBuildDate>
+		<lastBuildDate>Fri, 02 Oct 2020 00:00:0 +0000</lastBuildDate>
 		<language>es-ES</language>
-		<generator>http://raulexposito.com/</generator>
+		<generator>https://raulexposito.com/</generator>
 		
+		<item>
+			<title>Calistenia de Objetos</title>
+			<link>
+				https://raulexposito.com/calistenia-de-objetos.html
+			</link>
+			<pubDate>Fri, 02 Oct 2020 00:00:0 +0000</pubDate>
+			<dc:creator>Raúl Expósito</dc:creator>
+			<description>
+				<![CDATA[
+					<p>Todos nos hemos encontrado alguna vez con código pobremente escrito que es difícil de entender, de probar y de mantener. La programación orientada a objetos prometió salvarnos del antiguo código procedimental, permitiéndonos escribir software de forma incremental, reutilizando a medida que avanzamos. Sin embargo, parece que a veces seguimos usando en Java lo mismos diseños complejos y acoplados que teníamos en C.</p>
+					<p><a href="https://raulexposito.com/calistenia-de-objetos.html">Saber más</a></p>
+				]]>
+			</description>
+		</item>
+
 		<item>
 			<title>Programa en Castellano</title>
 			<link>
-				http://raulexposito.com/programa-en-castellano.html
+				https://raulexposito.com/programa-en-castellano.html
 			</link>
 			<pubDate>Sun, 22 Dec 2019 00:00:0 +0000</pubDate>
 			<dc:creator>Raúl Expósito</dc:creator>
 			<description>
 				<![CDATA[
 						<p>Programa en castellano, en serio te lo digo. En castellano, en portugués, en italiano, en chino... o en inglés. <mark>En tu lengua.</mark> Deja de usar otra que no sea la tuya siempre que puedas y comienza a pensar y a programar de una forma natural para tí.</p>
-						<p><a href="http://raulexposito.com/programa-en-castellano.html">Saber más</a></p>
+						<p><a href="https://raulexposito.com/programa-en-castellano.html">Saber más</a></p>
 				]]>
 			</description>
 		</item>
@@ -26,35 +41,35 @@
 		<item>
 			<title>'SurviveJS - React de aprendiz a maestro' en Castellano</title>
 			<link>
-				http://raulexposito.com/
+				https://raulexposito.com/
 			</link>
 			<pubDate>Sat, 03 Jun 2017 00:00:0 +0000</pubDate>
 			<dc:creator>Raúl Expósito</dc:creator>
 			<description>
 				<![CDATA[
 						<p>He traducido el libro <a target="_blank" href="https://leanpub.com/survivejs-react-es">SurviveJS - React de aprendiz a maestro</a> en su versión gratuita al castellano para que cualquier hispanohablante pueda aprender a construir interfaces de usuario con <a target="_blank" href="https://facebook.github.io/react/">React</a>.</p>
-						<p><a href="http://raulexposito.com/documentos/">Saber más</a></p>
+						<p><a href="https://raulexposito.com/documentos/">Saber más</a></p>
 				]]>
 			</description>
 		</item>
 		<item>
 			<title>¿A qué te refieres con "Dirigido a Eventos"</title>
 			<link>
-				http://raulexposito.com/documentos/dirigido-a-eventos/
+				https://raulexposito.com/documentos/dirigido-a-eventos/
 			</link>
 			<pubDate>Sat, 11 Feb 2017 00:00:0 +0000</pubDate>
 			<dc:creator>Raúl Expósito</dc:creator>
 			<description>
 				<![CDATA[
 						<p>Traducción al castellano del artículo <i><a href="https://martinfowler.com/articles/201701-event-driven.html" target="_blank">'What do you mean by "Event-Driven"?'</a></i>, escrito originalmente por <a href="https://martinfowler.com" target="_blank">Martin Fowler</a> donde se explican las diferencias entre <i>"Notificación de Eventos"</i>, <i>"Transferencia del Estado en el Evento"</i>, <i>"Generación de Eventos"</i> y <i>CQRS</i>.</p>
-						<p><a href="http://raulexposito.com/documentos/dirigido-a-eventos/">Lee el resto de la entrada</a></p>
+						<p><a href="https://raulexposito.com/documentos/dirigido-a-eventos/">Lee el resto de la entrada</a></p>
 				]]>
 			</description>
 		</item>
 		<item>
 			<title>'The Little Go Book' en Castellano</title>
 			<link>
-				http://raulexposito.com/documentos/go/
+				https://raulexposito.com/documentos/go/
 			</link>
 			<pubDate>Sat, 20 Feb 2016 00:00:0 +0000</pubDate>
 			<dc:creator>Raúl Expósito</dc:creator>
@@ -62,14 +77,14 @@
 				<![CDATA[
                     <p>He traducido el libro introductorio a <a target="_blank" href="https://golang.org/">Go</a><i><a href="http://openmymind.net/The-Little-Go-Book/" target="_blank">'The Little Go Book'</a></i>&nbsp;&nbsp;para que cualquier hispanohablante pueda aprender a utilizar este lenguaje de programación.</p>
 
-			        <p><a href="http://raulexposito.com/documentos/go/">Lee el resto de la entrada</a></p>
+			        <p><a href="https://raulexposito.com/documentos/go/">Lee el resto de la entrada</a></p>
 				]]>
 			</description>
 		</item>
 		<item>
 			<title>Principios SOLID</title>
 			<link>
-				http://raulexposito.com/documentos/solid/
+				https://raulexposito.com/documentos/solid/
 			</link>
 			<pubDate>Sun, 16 Ago 2015 00:00:0 +0000</pubDate>
 			<dc:creator>Raúl Expósito</dc:creator>
@@ -80,7 +95,7 @@
                     <p><i>Traducido de <a href="http://www.davesquared.net/" target="_blank">davesquared.net</a>.</i></p>
 
                     <ul>
-                        <li class="text"><a href="http://raulexposito.com/documentos/solid/">Lee el documento completo.</a></li>
+                        <li class="text"><a href="https://raulexposito.com/documentos/solid/">Lee el documento completo.</a></li>
                         <li class="link"><a href="http://www.davesquared.net/2009/01/introduction-to-solid-principles-of-oo.html" target="_blank">Lee el artículo original (en inglés).</a></li>
                     </ul>
 				]]>
@@ -89,7 +104,7 @@
 		<item>
 			<title>YAUS - Yet Another URL Shortener</title>
 			<link>
-				http://raulexposito.com/proyectos/yaus/
+				https://raulexposito.com/proyectos/yaus/
 			</link>
 			<pubDate>Sun, 9 Ago 2015 00:00:0 +0000</pubDate>
 			<dc:creator>Raúl Expósito</dc:creator>
@@ -110,7 +125,7 @@
 		<item>
 			<title>Cómo Crear una Cultura de Equipo</title>
 			<link>
-				http://raulexposito.com/articulos/como-crear-una-cultura-de-equipo/
+				https://raulexposito.com/articulos/como-crear-una-cultura-de-equipo/
 			</link>
 			<pubDate>Sun, 14 Dec 2014 00:00:0 +0000</pubDate>
 			<dc:creator>Raúl Expósito</dc:creator>
@@ -135,14 +150,14 @@
 
 			        <p>A continuación doy 10 pautas de aquello que ayuda a crear una cultura de equipo:</p>
 
-			        <p><a href="http://raulexposito.com/articulos/como-crear-una-cultura-de-equipo/">Lee el resto de la entrada</a></p>
+			        <p><a href="https://raulexposito.com/articulos/como-crear-una-cultura-de-equipo/">Lee el resto de la entrada</a></p>
 				]]>
 			</description>
 		</item>
 		<item>
 			<title>¿Qué son el Cloud Computing y Google App Engine?</title>
 			<link>
-				http://raulexposito.com/documentos/cloud-computing-google-appengine/
+				https://raulexposito.com/documentos/cloud-computing-google-appengine/
 			</link>
 			<pubDate>Mon, 1 Sep 2014 08:00:0 +0000</pubDate>
 			<dc:creator>Raúl Expósito</dc:creator>
@@ -154,14 +169,14 @@
 
 					<p>Pero antes de explicar qué es Google App Engine y para qué sirve es necesario dar un repaso teórico al concepto de cloud computing, la computación en la nube o <i>"la nube"</i> a secas y, de este modo, saber qué es, de dónde viene y dónde va.</p>
 
-					<p><a href="http://raulexposito.com/documentos/cloud-computing-google-appengine/">Lee el resto de la entrada.</a></p>
+					<p><a href="https://raulexposito.com/documentos/cloud-computing-google-appengine/">Lee el resto de la entrada.</a></p>
 				]]>
 			</description>
 		</item>
 		<item>
 			<title>'The Little Redis Book' en Castellano</title>
 			<link>
-				http://raulexposito.com/documentos/redis/
+				https://raulexposito.com/documentos/redis/
 			</link>
 			<pubDate>Fri, 5 Jul 2013 18:00:0 +0000</pubDate>
 			<dc:creator>Raúl Expósito</dc:creator>
@@ -169,14 +184,14 @@
 				<![CDATA[
 			        <p>He traducido el libro introductorio a <a target="_blank" href="http://redis.io/">Redis</a> <i><a href="http://openmymind.net/2012/1/23/The-Little-Redis-Book/" target="_blank">'The Little Redis Book'</a></i> al castellano para que cualquier hispanohablante pueda aprender a utilizar esta base de datos no relacional sin encontrarse con la barrera del idioma.</p>
 
-			        <p><a href="http://raulexposito.com/documentos/redis/">Lee el resto de la entrada</a></p>
+			        <p><a href="https://raulexposito.com/documentos/redis/">Lee el resto de la entrada</a></p>
 				]]>
 			</description>
 		</item>
 		<item>
 			<title>Vehículos inteligentes</title>
 			<link>
-				http://raulexposito.com/proyectos/vehiculos-inteligentes/
+				https://raulexposito.com/proyectos/vehiculos-inteligentes/
 			</link>
 			<pubDate>Fri, 18 Apr 2013 12:00:0 +0000</pubDate>
 			<dc:creator>Raúl Expósito</dc:creator>
@@ -188,14 +203,14 @@
 
 			        <p>Sobre esta plataforma se ha instalado un nuevo sensor, en concreto un láser SICK modelo LD-MRS400001, cuyas mediciones en bruto son procesadas por el conector y convertidas en objetos de alto nivel fácilmente utilizables en otros componentes software.</p>
 
-			        <p><a href="http://raulexposito.com/proyectos/vehiculos-inteligentes/">Lee el resto de la entrada</a></p>
+			        <p><a href="https://raulexposito.com/proyectos/vehiculos-inteligentes/">Lee el resto de la entrada</a></p>
 				]]>
 			</description>
 		</item>
 		<item>
 			<title>Nuevo raulexposito.com</title>
 			<link>
-				http://raulexposito.com/
+				https://raulexposito.com/
 			</link>
 			<pubDate>Fri, 1 Mar 2013 12:00:0 +0000</pubDate>
 			<dc:creator>Raúl Expósito</dc:creator>
